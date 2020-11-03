@@ -1,0 +1,62 @@
+class Solution {
+    public String intToRoman(int num) {
+        
+        String finalRoman = "" ; 
+  // ******** Thousands       
+        for (int i =0 ; i < num/1000 ;i++)  finalRoman += 'M';
+        num=num%1000 ; 
+        if(num >= 900){
+            finalRoman += "CM" ;
+            num = num - 900 ;
+        }
+// ******************************************
+// ******** 500s       
+        for (int i =0 ; i < num/500 ;i++)  finalRoman += 'D';
+        num=num%500 ; 
+        if(num >= 400) {
+            finalRoman += "CD" ;
+            num = num - 400 ;
+        }
+// ******************************************
+  // ******** 100s       
+        for (int i =0 ; i < num/100 ;i++)  finalRoman += 'C';
+        num=num%100 ; 
+        if(num >= 90)  {
+        finalRoman += "XC" ;
+        num = num - 90 ;
+        }
+// ******************************************
+  // ******** 50s       
+        for (int i =0 ; i < num/50 ;i++)  finalRoman += 'L';
+        num=num%50 ; 
+        if(num >= 40){
+            finalRoman += "XL" ;
+            num = num - 40 ;
+        }
+// ******************************************
+  // ******** 10s       
+        for (int i =0 ; i < num/10 ;i++)  finalRoman += 'X';
+        num=num%10 ; 
+        if(num == 9) {
+            finalRoman += "IX" ;
+            num = num - 9 ;
+        }
+// ******************************************
+// ******** 5s       
+        for (int i =0 ; i < num/5 ;i++)  finalRoman += 'V';
+        num=num%5 ; 
+        if(num == 4){
+            finalRoman += "IV" ;
+            num = num - 4 ;
+        }
+// ******************************************
+  // ******** 1s       
+    
+        for (int i =0 ; i < num ;i++)  finalRoman += 'I';
+// ******************************************
+        
+        
+        return finalRoman;
+        
+    }
+}

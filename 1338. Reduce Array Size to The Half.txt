@@ -1,0 +1,45 @@
+// NOTE :  instead of hashmap-> list -> sort  
+//I could've used a priority queue 
+
+class Solution {
+    public int minSetSize(int[] arr) {
+        
+        HashMap<Integer,Integer> occurances = new HashMap<Integer,Integer>();
+        if (arr.length == 2 || arr.length == 1) return 1; 
+        
+        
+        for (int num : arr ) {
+            //if  present in map increment , else add it  
+            if (occurances.containsKey(num)){
+                occurances.put(num,occurances.get(num)+1 );
+                if (occurances.get(num) >= arr.length/2 ) return 1 ; 
+            }
+            else occurances.put(num,1 );
+
+        }
+        //check map 
+        //System.out.println(occurances);
+
+        List<Integer> mapList = new ArrayList<Integer>(occurances.values());
+        Collections.sort(mapList);
+        System.out.println(mapList);
+
+        
+        int greatestSum = mapList.get(mapList.size() - 1) 
+                           + mapList.get(mapList.size() -2 ) ;
+        int neededNumbers = 2 ; 
+
+ 
+        while (greatestSum < arr.length /2 ) {
+            greatestSum+= mapList.get(mapList.size() - neededNumbers-1 )  ;
+            neededNumbers ++ ; 
+            System.out.println("Greatest sum so far " +greatestSum );
+
+            
+        }
+        return neededNumbers; 
+
+            
+            
+        }
+    }

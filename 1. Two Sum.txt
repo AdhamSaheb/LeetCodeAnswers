@@ -1,0 +1,31 @@
+import java.util.HashMap; // import the HashMap class
+import java.lang.*;
+
+
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        
+    HashMap<Integer, Integer> exists = new HashMap<Integer, Integer>();
+        for (int i =0 ; i<nums.length ; i++) {
+            //check if target - number exists while adding numbers into the map
+            int remeinder = target-nums[i]; 
+            if  ( exists.containsKey(remeinder) ) 
+                return new int[] {i, exists.get(remeinder)} ; 
+            // check for remeinder while adding 
+            exists.put(nums[i],i);
+        }
+        // for (int i =0 ; i<nums.length ; i++) {
+        //     if ( exists.containsKey(target-nums[i]) &&                                                exists.get(target-nums[i]) != i ) return 
+        //         new int[] {i,exists.get(target-nums[i])} ;
+        // }
+        
+        return new int[] {-1,-1};
+        
+        
+
+    
+                
+
+    }
+}

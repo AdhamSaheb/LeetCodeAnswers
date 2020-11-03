@@ -1,0 +1,84 @@
+// ----------- not my solution 
+class Solution {
+    public List<List<Integer>> groupThePeople(int[] groupSizes) {
+        HashMap<Integer,ArrayList<Integer>> map = new HashMap<Integer,ArrayList<Integer>>();
+        List<List<Integer>> group = new ArrayList<List<Integer>>();
+        int size;
+        for (int i = 0; i < groupSizes.length; i++) {
+            size = groupSizes[i];
+            if (!map.containsKey(size)) {
+                map.put(size, new ArrayList<Integer>());
+            }
+            map.get(size).add(i);
+            if (map.get(size).size() == size) {
+                // add it to the final list but remove it from map ( smart) 
+                group.add(map.remove(size));
+            }
+        }
+        return group;
+    }
+}
+
+
+
+
+
+
+// ------- my solution
+
+// import java.lang.*;
+
+// class Solution {
+//     public List<List<Integer>> groupThePeople(int[] groupSizes) {
+//         //final list to return 
+//         List<List<Integer>> groupsList =  new ArrayList<List<Integer>>() ;
+//         HashMap<Integer, Integer> spots = new HashMap<Integer, Integer>();
+        
+//         // //calculate the number of needed groups 
+//         // double numOfGroups =0 ; 
+//         // for (int size : groupSizes) numOfGroups+= size ; 
+//         // numOfGroups = Math.ceil(numOfGroups/groupSizes.length); 
+        
+//         for (int i=0 ; i< groupSizes.length; i++) {
+            
+//             if(i == 0 ) {
+//                     List<Integer> newList = new ArrayList<Integer>() ; 
+//                     newList.add(i);
+//                     groupsList.add(newList);
+//                     spots.put(0,groupSizes[0]);
+//                     continue;
+//             }
+//             //check all groups 
+//             for(int j=0;j<=i;j++) {
+//             //2 cases , either there is a list or not 
+//                 if ( ! spots.containsKey(j) ) { // if there is no list create one 
+//                     List<Integer> newList = new ArrayList<Integer>() ; 
+//                     newList.add(i);
+//                     groupsList.add(newList);
+//                     spots.put(j, groupSizes[i]);
+//                     //System.out.println(groupSizes[i]-1 + " at " + i);
+//                     break;
+//                 }
+//                 else if (spots.containsKey(j) ) { // there is a list 
+//                     //2 possibilities , there is space, there is not space 
+//                     if ( spots.get(j) == groupSizes[i]) { // if group is compatable 
+//                         if(groupsList.get(j).size() < spots.get(j) ) {
+//                             // there is space 
+//                             groupsList.get(j).add(i);
+//                             break; 
+//                         }
+//                         else continue ; // compatable with no space 
+//                     }
+//                     else continue ; // if not compatable 
+//                 }
+                
+//             }
+            
+//         }
+//             return groupsList; 
+    
+// }
+// }
+    
+    
+    
