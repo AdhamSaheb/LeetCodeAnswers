@@ -1,0 +1,29 @@
+class Solution {
+public:
+    double angleClock(int hour, int minutes) {
+        int minutesAngle = minutes*6 ; // angle made by minutes arrow 
+        double displacement = (double)minutes/12.0 ; // hour displacement cause by minutes
+        double hoursAngle =  ( ( (hour*5) %60 ) + displacement ) * 6 ; // degree hours arrow makes 
+        cout << displacement << " " << minutesAngle << " "  << hoursAngle << " \n";  
+        double finalAngle = abs(hoursAngle - minutesAngle);
+        return (finalAngle < 180 ) ? finalAngle : 360-finalAngle ; 
+        
+        
+    }
+};
+
+//O(1)
+
+// 1- divide minutes by 12 you'll get how many points of 5 the 
+// hour arrow moved 
+//2- every point of 5 makes 6 degress ( 90/15) 
+
+//minutes * 6  gives you angle minutes makes
+
+// ( hour * 5 %60 + ( displacement in 1 ) *6 ) gives you degree of hours 
+
+//abs( angle 1 - angle 2 )
+
+
+// biggest angle between them is always 180 , so if bigger youll return 360- answer 
+// all of the conclusions above made based on the images given in example. 

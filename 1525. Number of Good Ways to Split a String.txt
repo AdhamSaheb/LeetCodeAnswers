@@ -1,0 +1,101 @@
+
+
+
+
+
+//first solution (slow) 
+class Solution {
+    //inclusive 
+    int countDistinct(string s , int start,int end ) {
+        map<char,int> letters ;
+        //counter
+        int count =0 ;
+        if(s.size() == 0 ) return 0; 
+        for (int i=start ;i<=end;i++) {
+            if (letters.find(s[i]) == letters.end() ) {
+                //not found
+                letters[s[i]] = 1 ;
+                count ++ ;
+            } 
+            
+        }
+                return count ;
+    }
+public:
+    int numSplits(string s) {
+        int length = s.size();
+        //these will hold the number of ditinct chars at each iteration
+         int leftCount[length] ;
+         int rightCount[length] ;
+        //occurances 
+         map <char,int> lefts ; 
+         map <char,int> rights ;
+        
+        //pointer on charaters 
+        int splits =0; 
+        int distinct  = countDistinct(s,0,s.size()-1 ); 
+        
+        for(int i =0 ; i<s.size() -1 ;i++){
+            if(i==0) {
+                //first iteration
+                leftCount[0] = 1; 
+                lefts[s[i]] = 1 ;
+                rightCount[0] = countDistinct(s,i+1,s.size()-1);
+                //count occurances of right side 
+                for(int i =1 ; i<s.size()  ;i++) {
+                    if(rights.find(s[i])==rights.end() ) {
+                        //not found 
+                        rights[s[i]] =1 ;
+                    }
+                    else {
+                        rights[s[i]] ++;
+                    }
+                }
+                
+                if(leftCount[i] == rightCount[i]) splits ++ ;
+                
+            }
+            else {
+                //if not first iteration
+                int prevLeft=leftCount[i-1] ;
+                int prevRight=rightCount[i-1];
+                cout << rights['a'] << "is a " ;
+                // check the latest left char 
+                if (lefts.find(s[i]) == lefts.end() ) {
+                    //not found
+                    lefts[s[i]] = 1 ;
+                    leftCount[i]= prevLeft+1;
+                }
+                else {
+                    lefts[s[i]] ++ ;
+                    leftCount[i] = prevLeft ;
+                }
+                
+                if (rights[s[i]] > 1) {
+                    rights[s[i]] = rights[s[i]] -1  ;
+                    rightCount[i]= prevRight;
+                }
+                else if (rights[s[i]] ==1 )  {
+                    //one occurance 
+                    rights[s[i]] = rights[s[i]] - 1  ;
+                    rightCount[i] = prevRight - 1 ;
+                }
+
+                if(leftCount[i] == rightCount[i]) splits ++ ;
+            }
+            }
+        
+
+    
+            return splits ;
+        
+        
+    }
+};
+
+
+
+//another solution : 
+// create 2 sets ,a for left side and b for rightside, at first, add all characters of stiring to set 1 , also ,create map for occurrences of characters in right side 
+//then in a loop , move a character from set b to set a , and remove it from set b if occurrences become 0
+// if set sizes are equal ,increment :) 

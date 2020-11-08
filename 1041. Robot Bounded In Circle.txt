@@ -1,0 +1,61 @@
+class Solution {
+    //function to decide direction after turn 
+    char decideDirection (char current, char command ){
+        //if the input is G then no change will occur on the direction
+        if (command == 'G') return current ;
+        switch(current) {
+            case 'N' : 
+                return (command == 'L') ? 'W' : 'E' ;
+            case 'S' : 
+                return (command == 'L') ? 'E' : 'W' ;
+            case 'W' : 
+                return (command == 'L') ? 'S' : 'N' ;
+            case 'E' : 
+                return (command == 'L') ? 'N' : 'S' ;
+                
+            default : break;
+        }
+        return current;
+    }
+    
+    
+public:
+    
+    
+    bool isRobotBounded(string instructions) {
+        //current position
+        int current [2] = {0} ; 
+        //direction of robot  
+        char direction = 'N';
+        double displacement = 0.0 ;
+        double maxDisplacement = 0.0 ;
+        for (int j=0 ; j<4;j++ ) { // I dont understand why I had to repeat it 4 times 
+            // maybe becuase if it was the shortest string ( 1 char ) ill have to see it 4 times to check if it repeats 
+        for (int i=0 ; i<instructions.size();i++) {
+            direction = decideDirection(direction,instructions[i]);
+            if(instructions[i] == 'G') {
+            switch(direction){
+                case 'N' :  current[1] ++ ;
+                            break ;
+                case 'S' :  current[1] -- ;                  
+                            break; 
+                case 'W' :  current[0] -- ;            
+                            break; 
+                case 'E' :  current[0] ++ ;     
+                            break ;
+            }
+            }
+             //cout << current[0] << " "<< current[1]  << "\n"; 
+             //cout << direction << "\n" ;
+            // displacement = sqrt( pow(current[0],2)+ pow(current[1],2) );
+            // if (displacement > maxDisplacement) maxDisplacement = displacement ;
+                                
+        }
+
+    }
+        // 2 cases for true 
+        // if (direction != 'N') return true ; 
+        // else if (displacement < maxDisplacement ) return true ; 
+        return(current[0] == 0 && current[1] ==0  ) ; 
+    }
+};

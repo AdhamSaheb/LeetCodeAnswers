@@ -1,0 +1,36 @@
+class Solution {
+    
+    int hammingDistance(int num1, int num2) {
+        int hamming =0 ;
+        int temp = num1 xor num2 ; 
+        for (int i=0 ;i<31 ; i++) {
+            int prevTemp = temp ;
+            hamming += temp & 1; 
+            temp = temp >> 1 ;
+        }
+        return hamming ;
+    }
+public:
+    int totalHammingDistance(vector<int>& nums) {
+        int totalHamming=0 ; 
+        int zeroes = 0, ones=0 ;
+        for (int i =0 ; i<31; i++ ) {
+
+            for(int j=0 ; j<nums.size();j++) {
+                if ( ( (nums[j] >> i) &1  ) == 1 ) ones++ ;
+                else zeroes ++ ;
+
+
+            }
+             totalHamming +=  (zeroes*ones) ; // total bit difference in row 
+
+            // cout << zeroes << " " << ones <<  " " << (zeroes*ones) << "\n";
+
+            //cout << totalHamming << "\n";
+            zeroes =0 ; 
+            ones=0 ;
+            
+        }
+        return totalHamming;
+    }
+};

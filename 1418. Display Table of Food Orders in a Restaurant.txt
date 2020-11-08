@@ -1,0 +1,45 @@
+#include <iostream>   // std::cout
+#include <string>     // std::string, std::st
+class Solution {
+public:
+    vector<vector<string>> displayTable(vector<vector<string>>& orders) {
+        //vector of hashtables for each table number 
+         map<string,int> tableMaps[501]  ; 
+         set<int> tableNumbers;
+         set<string> orderNames; 
+        
+        for (int i =0 ; i< orders.size(); i ++){
+            int tableNumber = stoi(orders[i][1]) ;  
+            //increment the number of order to this specific type 
+            tableMaps[tableNumber][orders[i][2]] ++ ; 
+            //cout << tableMaps[tableNumber][orders[i][2]] << "\n " ; 
+            tableNumbers.insert(tableNumber);
+            orderNames.insert(orders[i][2]);
+        }
+        vector<vector<string>> ans ; 
+
+        //first Row
+        vector<string> firstRow ; 
+        firstRow.push_back("Table") ; 
+        for(string  order : orderNames ) firstRow.push_back(order);
+        ans.push_back(firstRow);
+        // the other rows 
+        for (int table : tableNumbers) {
+            vector<string> row ; 
+            row.push_back(to_string(table));
+            for (string orderName : orderNames ) row.push_back( to_string (tableMaps[table][orderName]) );
+            ans.push_back(row);
+        }
+        // for (int i =0 ; i< firstRow.size();i++) {
+        //     cout << firstRow[i] << "\t";
+        // }
+        // for (auto i : tableNumbers ) {
+        //     cout  << i << " " << tableMaps[i]["Beef Burrito"] << "\n "; 
+        // }
+        
+        
+        
+        return  ans ; 
+        
+    }
+};

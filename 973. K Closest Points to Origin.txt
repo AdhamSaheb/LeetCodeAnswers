@@ -1,0 +1,40 @@
+// using priority queue 
+import java.util.*;
+//Comparator.java
+import java.util.Comparator;
+// comparator now defined in pq constructor
+// public class pointComparator implements Comparator<int[]> {
+//     @Override
+//     public int compare(int[] x, int[] y) {
+//         double distance1= Math.sqrt( Math.pow(x[0],2) + Math.pow(x[1],2)  ) ; 
+//         double distance2= Math.sqrt( Math.pow(y[0],2) + Math.pow(y[1],2)  ) ; 
+//         if (distance1 < distance2) {
+//             return -1;
+//         }
+//         else return 1;
+        
+//     }
+// }
+
+class Solution {
+    public int[][] kClosest(int[][] points, int K) {
+        //Comparator<int[]> comparator = new pointComparator();
+
+        PriorityQueue<int[]> pq = new PriorityQueue<int[]>(points.length,(a,b) -> 
+										b[0] * b[0] + b[1] * b[1] -  a[0] * a[0] - a[1] * a[1]);
+
+        
+        for(int i =0;i<points.length;i++) {
+            pq.add(points[i]);
+            if(pq.size() > K) pq.remove();
+        }
+        return pq.toArray(new int[pq.size()][]);
+        
+
+        
+    }
+}
+
+
+
+

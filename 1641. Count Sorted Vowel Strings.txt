@@ -1,0 +1,29 @@
+//not my solution DP
+//last ( the last index before the current ) 
+class Solution {
+    int cache[51][51] ;
+    int visited[51][51];
+    int calculate(int index , int size , int last ) {
+        int ans= 0; 
+        if (index ==size) return 1 ;
+        if (visited[index][last] == 1) return cache[index][last];
+        for ( int i =last ; i<= 4 ; i++) { // 4 ( 5 letters , 0-4 )
+            ans+= calculate(index+1, size ,i);    
+        }
+        cache[index][last] = ans ;
+        visited[index][last] = 1 ;
+        return ans ;
+    } 
+    
+public:
+    int countVowelStrings(int n) {
+        
+        int temp = calculate(0,n,0);
+        return temp ;
+        
+    }
+    
+
+    
+};
+

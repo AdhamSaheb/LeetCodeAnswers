@@ -1,0 +1,41 @@
+//create a stack ,push '(', when ')' is pushed pop the last '(', the remaining '(/)' then removed 
+
+import java.util.*; 
+
+
+class Solution {
+    public String minRemoveToMakeValid(String s) {
+        
+        Stack<Pair<Integer, Character>> stack = new Stack<Pair<Integer, Character>>();
+        StringBuilder sb = new StringBuilder(s);
+
+        
+        for (int i =0 ; i< s.length(); i++ ) {
+            
+            if(s.charAt(i) == '(' ) {
+                stack.push( new Pair<Integer, Character> (i,'('));                
+            }
+            else if (s.charAt(i) == ')') {
+                if( (!stack.empty()) && 
+                   stack.peek().getValue() == '(' ) stack.pop() ;
+                else stack.push( new Pair<Integer, Character> (i,')')); 
+                //I also tried removing it right away the problem is that the indecies in the map will
+                //no longer be valid when deleting 
+            }
+            else continue ; 
+            
+        }
+
+        //remove all element remaining in stack 
+        while(!stack.empty()) {
+            sb.deleteCharAt(stack.pop().getKey());
+        }
+        // System.out.println(stack);
+        // System.out.println(sb);
+        
+        
+
+
+        return sb.toString();
+    }
+}
