@@ -1,0 +1,68 @@
+//all possible permutations of AAB = fact(3)/fact(2) // because we have 2 occurances of A , same if we had more than one repeated character 
+// find all subsequences  , apply formula above for it 
+
+//subsequences are got when remove one or more character , and they are 2^n 
+// substrings tho are n(n+1) /2 
+
+
+
+
+class Solution {
+    
+    int fact(int num) {
+        if(num==0) return 1; 
+        int ans =1 ;
+        while(num>0) {
+            ans *= num; 
+            num --;   
+        }   
+        return ans ; 
+    }
+    
+    int countSequences(string s ) {
+        int occurances[26]={0}; 
+        for (char c : s ) {
+            occurances[c -'A'] ++ ;
+        }
+        
+        int denominator =1 ; 
+        for(char c : s ) {
+             //cout << occurances[c-'A'] << endl ;
+             denominator *= fact( occurances[c -'A']) ;
+            occurances[c -'A'] =1 ;
+        }
+        //cout << denominator << endl; 
+        return fact(s.size()) / denominator ;
+    }
+
+public:
+    int numTilePossibilities(string tiles) {
+        map<string,int> sequences ; 
+        int sequencesCount =0 ;
+
+        // to get all subsequences, you have to iterate over 2^n bits, and mask with 1 over all bits, check if 1 then char exists 
+        // example, AAB , 000 , check 001 , 010 , 100 and concat for every time 1 is there 
+        
+        //get all substrings 
+        for (int i=1 ;i < (1<<(tiles.size()));i ++) {
+            //i will mask bits on each number from 0 to 2^n (1<<n) , every 1 bit means "exists" and will concat it to the string 
+            string temp = "" ;
+            for(int j=0; j<tiles.size(); j++ ) {
+                //construct temp
+                if( ((i>>j)&1) == 1) temp+=tiles[j];
+            }
+
+            sort(begin(temp), end(temp)); // this had to be done bacuase CA = AC , DA=AD
+            if(sequences.count(temp) != 0 ) continue ; 
+            else { 
+                sequences[temp] = 1; // checked this subsequence before 
+                sequencesCount += countSequences(temp);
+            }
+        } 
+         //cout << countSequences("AB");
+         return sequencesCount ;
+    }
+};
+
+
+

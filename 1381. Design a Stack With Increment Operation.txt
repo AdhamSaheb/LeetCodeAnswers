@@ -1,0 +1,61 @@
+class CustomStack {
+    int capacity ; 
+    int currentSize;
+    private: vector<int> stack ;
+public:
+    CustomStack(int maxSize) {
+        this->capacity = maxSize ; 
+        this-> currentSize=0 ;
+    }
+    
+    void push(int x) {
+        
+        if(this->currentSize < this->capacity){ 
+            this-> currentSize ++ ;
+            if(this->stack.size() >= this->currentSize ) this-> stack[currentSize -1] = x ; // if it has an element at this index dont push, replace , else push
+            else stack.push_back(x); ;
+            
+//             cout <<  "top is now "<< this->stack[ (this->currentSize) -1 ] << "after adding " << x << "\n" ;
+//             for(int i=0 ;i<currentSize;i++) {
+//                cout <<  this->stack[i] << "\n"  ;
+//             } 
+
+//             cout << "push " << this->currentSize  << "\n"; 
+        }
+    }
+    
+    int pop() {
+
+        if(this->currentSize != 0) {
+            int temp = this-> stack[ (this->currentSize -1) ] ;
+            this->currentSize --;
+            return temp ;
+        } 
+        else return -1 ;
+    }
+    
+    void increment(int k, int val) {
+        if(k<currentSize) {
+            for(int i=0 ;i<k;i++) {
+                this->stack[i] = this->stack[i] + val ;
+            }
+        }
+        else if(k>=currentSize) {
+            for(int i=0 ;i<currentSize;i++) {
+                this->stack[i] = this->stack[i] + val ;
+            }
+        }
+            // for(int i=0 ;i<currentSize;i++) {
+            //    cout <<  this->stack[i] << "\n"  ;
+            // } 
+        
+    }
+};
+
+/**
+ * Your CustomStack object will be instantiated and called as such:
+ * CustomStack* obj = new CustomStack(maxSize);
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * obj->increment(k,val);
+ */
