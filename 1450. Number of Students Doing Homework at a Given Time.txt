@@ -1,0 +1,27 @@
+//create a timeline, and fill each (start-end ) period  in the timeline with 1s for every student 
+class Solution {
+public:
+    int busyStudent(vector<int>& startTime, vector<int>& endTime, int queryTime) {
+        int timeSlots[10001]= {0}; 
+        for (int i =0 ; i< startTime.size() ; i++ ) 
+            for(int j = startTime[i] ; j<=endTime[i] ; j ++) timeSlots[j] += 1 ;
+        //for (int i =0; i<10 ; i++ ) cout << timeSlots[i] << "\t " ;
+        return timeSlots[queryTime] ; 
+        
+    }
+};
+
+
+//really nice solution ( not mine )
+class Solution {
+public:
+int busyStudent(vector<int>& startTime, vector<int>& endTime, int queryTime) {
+    int count = 0;
+    for(int i = 0; i < startTime.size(); i++){
+        if(startTime[i] <= queryTime and queryTime <= endTime[i]){
+            count++;
+        }
+    }
+    return count;
+}
+};

@@ -1,0 +1,27 @@
+class Solution {
+
+public:
+    
+
+    vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+    
+        vector<pair<int,int>> rows ; // set of pair of values <row index,number of ones >
+        vector<int> ans  ;
+        for(int i =0 ; i< mat.size() ; i++ ) {
+            pair<int,int> temp ; 
+            temp.first = i ; 
+            temp.second =0 ;
+            for(int number  : mat[i])  temp.second+= (number == 1) ? 1 : 0 ;
+            rows.push_back(temp);
+        }
+        sort(rows.begin(),rows.end(),[](const pair<int,int>& a, const pair<int,int>& b) {
+            if(b.second == a.second) return b.first > a.first ;
+            
+            else return b.second >= a.second ;
+        });
+        for (int i=0; i<k ;i++) ans.push_back(rows[i].first);
+        return ans ;
+        
+    }
+
+};

@@ -1,0 +1,44 @@
+class Cashier {
+    int n; 
+    int discount ;
+    vector<int> products; 
+    vector<int> prices ;
+    map<int, int> mappedPrices ; 
+    int current  ; 
+public:
+    Cashier(int n, int discount, vector<int>& products, vector<int>& prices) {
+        //products cotains IDs 
+        //prices has price per unit for each product 
+        //cost after discount x - (discount * x) / 100
+        this->n = n ;
+        this-> discount = discount ; 
+        this-> products = products ;
+        this-> prices = prices ; 
+        // I will map every id with its price in the prices array 
+        for (int i =0 ; i<products.size(); i++ ) {
+            mappedPrices[products[i]] = prices[i];
+        }
+        this-> current =0 ;
+    
+    }
+    
+    double getBill(vector<int> product, vector<int> amount) {
+        //product has the ids of the products 
+        // amount[i] has number of units 
+        double price =0; 
+        for (int i =0 ; i< product.size();i++ ) {
+            //cout << "product id = " << product[i] << endl ;
+            price += amount[i] * mappedPrices[product[i]]; 
+        }
+        this-> current = (this-> current+1)%n;
+        if(this-> current == 0)  price = price - ((this->discount*price)/100) ; 
+        return price  ;
+        
+    }
+};
+
+/**
+ * Your Cashier object will be instantiated and called as such:
+ * Cashier* obj = new Cashier(n, discount, products, prices);
+ * double param_1 = obj->getBill(product,amount);
+ */

@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool stoneGame(vector<int>& piles) {
+        
+        int n = piles.size() ;
+        int totalAlex =0; 
+        int totalLee =0 ;
+        int start= 0, end = n-1 ; 
+        while(start<=end) {
+            totalAlex+= max(piles[start],piles[end]);
+            totalLee+= min(piles[start],piles[end]);
+            start++; 
+            end--; 
+        }
+        cout << totalAlex << " " << totalLee << endl; 
+        return totalAlex>totalLee; 
+        
+    }
+};

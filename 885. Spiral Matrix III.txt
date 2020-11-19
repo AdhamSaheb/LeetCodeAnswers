@@ -1,0 +1,83 @@
+class Solution {
+public:
+    vector<vector<int>> spiralMatrixIII(int R, int C, int r0, int c0) {
+        int visitedCount =0 ; // to count visited nodes in order to stop
+        int displacement = 1; // spiral movement radius 
+        // R is for the Boundaries of the row, and C for the columns.
+        vector<vector<int>> ans ;
+        
+        while (visitedCount != R*C)  { // while not all elements are named 
+            //cout << "current point at start  : " << c0 << "," <<  r0 << endl ;
+            //East 
+            for(int i=0; i<displacement;i ++) {
+                //cout << r0<< "," <<c0 << endl ; 
+                //cout << "current point at east   : " << c0 << "," <<  r0 << endl ;
+                if( ( r0< R && r0>=0) && (c0 < C && c0 >= 0 ) ) {
+                    vector<int> temp ; 
+                    temp.push_back(r0);
+                    temp.push_back(c0);
+                    //cout << temp[0]<< "\t" << temp[1];
+                    ans.push_back(temp);
+                    visitedCount ++ ;
+                } 
+                 c0++ ;
+            }
+            //South 
+            for(int i=0; i<displacement ; i ++) {
+                //cout << "current point at south   : " << c0 << "," <<  r0 << endl ;
+                //cout << r0<< "," <<c0 << endl ; 
+
+                if( ( r0< R && r0>=0) && (c0 < C && c0 >= 0 ) ) {
+                    vector<int> temp ; 
+                    temp.push_back(r0);
+                    temp.push_back(c0);
+                    //cout << temp[0]<< "\t" << temp[1];
+                    ans.push_back(temp);
+                    visitedCount ++ ;
+                } 
+                r0++ ;
+
+                
+                
+            }
+            //West  
+            for(int i=0; i< displacement+1 ; i ++) {
+                //cout << "current point at west   : " << c0 << "," <<  r0 << endl ;
+                //cout << r0<< "," <<c0 << endl ; 
+
+                if( ( r0< R && r0>=0) && (c0 < C && c0 >= 0 ) ) {
+                    vector<int> temp ; 
+                    temp.push_back(r0);
+                    temp.push_back(c0);
+                    //cout << temp[0]<< "\t" << temp[1];
+                    ans.push_back(temp);
+                    visitedCount ++ ;
+                } 
+                c0-- ;
+                
+            }
+            //North   
+            for(int i=0; i< displacement+1 ; i ++) {
+                //cout << "current point at north    : " << r0 << "," <<  c0 << endl ;
+                //cout << r0<< "," <<c0 << endl ; 
+
+                if( ( r0< R && r0>=0) && (c0 < C && c0 >= 0 ) ) {
+                    vector<int> temp ; 
+                    temp.push_back(r0);
+                    temp.push_back(c0);
+                    //cout << temp[0]<< "\t" << temp[1];
+                    ans.push_back(temp);
+                    visitedCount ++ ;
+                } 
+                r0-- ;
+
+                
+            }
+            displacement +=2 ;
+        }
+        
+        return ans ;
+        
+        
+    }
+};

@@ -1,0 +1,37 @@
+//how could have this code bocome faster ? for 4 characters, instead of 16 iteration 4 only would have been done if numbers were ignored 
+
+class Solution {
+public:
+    vector<string> letterCasePermutation(string S) {
+        
+        int n = S.size() ; // length of binary code 
+        set<string> ans ;
+        for (int binary=0; binary < (1<<n) ; binary++) { // where 1<<n is 2^n
+            string temp = "" ;
+            for (int bitIndex=0 ; bitIndex<n;bitIndex++) {
+                int bit = (binary >>bitIndex)&1 ;
+                if(isalpha(S[bitIndex])) {
+                    if (bit == 0) temp += toupper(S[bitIndex]);
+                    else temp += tolower(S[bitIndex]);
+                }
+                else temp += S[bitIndex];
+                
+            }
+            //cout << temp  << endl ;
+            ans.insert(temp);
+        }
+        
+
+	    vector<string> v(ans.size());    
+	    copy(ans.begin(), ans.end(), v.begin());
+        //convert set to vector and return it 
+        return v; 
+        
+    }
+};
+
+
+
+//represent the string in binary code 
+// try all binary combinations, 1 is upper case and 0 is lower 
+// you could ignore numbers and make the binary code shorter -> less iterations 
