@@ -1,0 +1,57 @@
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* prev;
+    Node* next;
+    Node* child;
+};
+*/
+
+
+//idea, if node has a child , push its next node to a stack, set its child as its next 
+// if node has no child nor next, make the stacks top its next until stack is empty 
+
+
+class Solution {
+public:
+    Node* flatten(Node* head) {
+        
+        stack <Node*> s; 
+        //empty list case 
+        Node* ptr = head;
+        if(!ptr) return ptr ;
+        while (ptr->next || ptr->child ) {
+            if(ptr->child) {
+                // push its next to be concat it later
+                if(ptr->next) s.push(ptr->next); 
+                //set its child as it next and its child prev as itself
+                ptr->next = ptr->child ;
+                ptr->child->prev = ptr ; 
+                //set the child as null (to make it a valid doubly linked list )
+                ptr->child = NULL ;
+            }
+            ptr = ptr->next ;
+        }
+        while (!s.empty()) {
+            if(!ptr->next) {
+                ptr->next = s.top();
+                ptr->next->prev = ptr; 
+                s.pop();
+            } 
+            ptr= ptr->next; 
+        }
+        Node* temp = head ;
+        //printing the result for debug : 
+        // while(temp) {
+        //     if(temp->prev && temp->next) 
+        //         cout << "Node : " << temp->val << " Next : " << temp->next->val << " Prev: " << temp->prev->val << endl ; 
+        //     else 
+        //         cout << "Node : " << temp->val << endl ; 
+        //     temp=temp->next ;
+        // }
+        return head; 
+        
+    }
+};

@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        
+        unordered_map <int,bool> exists ;  
+        
+        for (int num : nums) {
+            if(exists.find(num)  != exists.end() ) return true ;
+            else exists[num] = true ; 
+        }
+        
+        
+        return false ; 
+    }
+};
+
+//        return nums.size() > set<int>(nums.begin(), nums.end()).size();        

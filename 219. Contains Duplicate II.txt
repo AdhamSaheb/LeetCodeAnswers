@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        //map number to index
+        unordered_map<int,int> existsWithIndex ; 
+        
+        for (int i =0 ;i <nums.size();i++) {
+            if(existsWithIndex.find(nums[i]) != existsWithIndex.end() ) {
+                if ( abs( i - existsWithIndex[nums[i]] ) <= k ) return true ; 
+                else existsWithIndex[nums[i]] = i ; // there might be 2 dublicates , set the map to the second one since first one didnt match 
+            }
+            else existsWithIndex[nums[i]] = i ; 
+        }
+        return false ;
+        
+    }
+};

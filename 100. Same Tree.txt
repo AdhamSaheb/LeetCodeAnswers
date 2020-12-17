@@ -1,0 +1,103 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSame = true ; 
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        helper(p,q) ; 
+        return isSame ; 
+    }
+    void helper(TreeNode* p, TreeNode* q) {
+        
+        
+        //empty case 
+        if (p==NULL && q==NULL)  {
+            isSame = true ; 
+            return ;
+        } 
+        //one doesn't exit case 
+        if (p ==NULL && q!=NULL  || p!= NULL && q ==NULL) {
+            isSame = false ;
+            return ;
+        }
+        //main case 
+        if(p->val != q-> val ) {
+            isSame = false ; 
+        }
+        
+        //other cases
+        if(p-> right != NULL &&  q->right ==NULL  || p-> left != NULL &&  q->left ==NULL)  {
+            isSame = false  ; 
+            return ;
+        } 
+        if(q-> right != NULL &&  p->right ==NULL  || q-> left != NULL &&  p->left ==NULL)   {
+            isSame = false  ; 
+            return ;
+        } 
+        //recursion
+        if (p->right != NULL and q->right != NULL) helper(p->right ,  q->right); 
+        if (p->left != NULL and q->left != NULL) helper(p->left ,  q->left); 
+    }
+};
+
+
+
+
+
+//solution 2 
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSameTree(TreeNode* p, TreeNode* q) {
+        return helper(p,q) ; 
+    
+    }
+    bool helper(TreeNode* p, TreeNode* q) {
+        
+        
+        //empty case 
+        if (p==NULL && q==NULL)  {
+            return true ;
+        } 
+        //one doesn't exit case 
+        if (p ==NULL && q!=NULL  || p!= NULL && q ==NULL) {
+            return false  ;
+        }
+        //main case 
+        if(p->val != q-> val ) {
+           return false ;  
+        }
+        
+        //other cases
+        if(p-> right != NULL &&  q->right ==NULL  || p-> left != NULL &&  q->left ==NULL)  {
+            
+            return false  ;
+        } 
+        if(q-> right != NULL &&  p->right ==NULL  || q-> left != NULL &&  p->left ==NULL)   {
+             return false  ;
+        } 
+        //recursion
+        // if (p->right != NULL and q->right != NULL)  helper(p->right ,  q->right) ; 
+        // if (p->left != NULL and q->left != NULL) helper(p->left ,  q->left); 
+        return helper(p->right,q->right) && helper(p->left ,  q->left) ;  
+    }
+};
