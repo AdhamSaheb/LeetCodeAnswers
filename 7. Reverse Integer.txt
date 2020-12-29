@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int reverse(int x) {
+        
+        //count number of digts 
+        int temp = abs(x);
+        int digitCount = 1;
+        while(temp/10) {
+            digitCount ++ ;
+            temp = temp/10;
+        }
+        temp = abs(x);
+        long ans =0 ; // to avoid overflow 
+        for (int i =0 ; i<digitCount ; i++) {
+             if ( ans +  (int)( temp/pow(10,(digitCount-i)-1) ) * pow(10,i) >= INT_MAX ) return 0 ; // only for the dumb testcases
+             ans +=  (int)( temp/pow(10,(digitCount-i)-1) ) * pow(10,i);
+            temp = temp % (int) pow(10,(digitCount-i)-1);
+        }
+        if (ans < 0) return 0; // stupid test cases as well 
+        if(x < 0) ans *= -1 ;
+        return ans;
+        
+    }
+};

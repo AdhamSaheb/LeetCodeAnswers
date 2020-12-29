@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool checkPossibility(vector<int>& nums) {
+        int cnt = 0;                                                                    //the number of changes
+        for(int i = 1; i < nums.size() && cnt<=1 ; i++){
+            if(nums[i-1] > nums[i]){
+                cnt++;
+                if (i-2<0 || nums[i-2] <= nums[i]) nums[i-1] = nums[i];                    //modify nums[i-1] of a priority
+                else nums[i] = nums[i-1];                                                //have to modify nums[i]
+            }
+        }
+        return cnt<=1;
+    } 
+};
+
+
+//small explanation 
+/*
+3 4 2 3
+
+when you arrive at 2 , 4>2 ; you have 2 choices, either make 2 -> 4 , or make 4-> 2 
+how to decide ? check if digit before 4 is <=4 , if yes , 4 has to become 2 so that 3>2
+else 
+4 4 2 4 
+at 2 , check , 4 <=4 ? yes , then 2 has to become 4
+*/

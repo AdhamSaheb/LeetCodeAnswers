@@ -1,0 +1,45 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+    TreeNode* actualRoot = NULL; 
+public:
+    bool findTarget(TreeNode* root, int k) {
+        if(! actualRoot) actualRoot = root; 
+        if(!root) return false ;
+        int target = k- (root->val) ; // compliment to look for 
+        //cout << "I'm " << root->val << " I will start looking for " << target << " from " << actualRoot->val << endl ;
+        if (helper( actualRoot , target , root ) ) return true;
+        return findTarget(root->right,k) || findTarget(root->left,k)   ; 
+
+    }
+    
+    bool helper (TreeNode* root, int compliment ,TreeNode* dontCheck) {
+        //uncomment next line to see visiting order 
+        //cout << "Im at " << root->val << " looking for " << compliment << " can't visit " << dontCheck->val << endl; 
+        if(root ==NULL ) return false ;
+        if(root != dontCheck) if(root->val == compliment) return true ; 
+          
+        if (root->right && compliment > root->val)  return helper(root->right,compliment ,dontCheck);
+        if (root->left && compliment < root->val)  return helper(root->left,compliment,dontCheck);
+        return false ;
+    }
+    
+};
+
+
+
+//idea : 
+/*
+- Start at root, save it the first time because I will need to scan the whole tree starting the actual root 
+- start scanning for compliment of absolute root not visiting the root itself 
+- if not found , scan for right's and left's compliments starting the actual root not visiting the right or left nodes 
+*/

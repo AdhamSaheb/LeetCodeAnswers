@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<int> mostVisited(int n, vector<int>& rounds) {
+        
+        vector<int> visited;
+        //maximum number of visits 
+        int max =0 ;
+        //initialize list 
+        for  (int i=0;i<n;i++) visited.push_back(0);
+        
+        
+        //iterate over rounds 
+        for  (int i=0;i<rounds.size()-1;i++) {
+            for ( int num = rounds[i] ; num!= rounds[i+1] ; num++ ) {
+                if(num == n+1) num =1 ; // circle 
+                if (num == rounds[i+1]) break ; // might have iterated back to end point  
+                //cout << num << endl ;
+                //check if bigger than max and increment
+                 if ( ++visited[num-1] >max ) max = visited[num-1] ;
+            }
+            //cout << "----------------------" << endl;         
+        }
+        //after race ends, increment finish point 
+        if ( ++visited[rounds[rounds.size()-1] -1 ] > max ) max =visited[rounds[rounds.size()-1] -1 ] ;
+        
+        vector<int> ans; 
+        //cout << "max = " << max  ;
+        for (int i =0 ; i< visited.size();i++ )  {
+            if (visited[i] == max ) {
+                
+              ans.push_back(i+1);   
+            } 
+        }
+        
+        return ans ; 
+        
+    }
+};
