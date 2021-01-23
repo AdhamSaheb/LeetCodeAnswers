@@ -1,0 +1,8 @@
+class Solution {
+    public String defangIPaddr(String address) {
+        
+        String ans = address.replaceAll("\\.","[.]");
+        //System.out.println(ans);
+        return ans ;
+    }
+}

@@ -1,0 +1,93 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * å
+ */
+class Solution {
+public:
+    TreeNode* bstToGst(TreeNode* root) {
+        
+        vector<int> values ; 
+        inOrderTraversal(root, values); 
+        adder(root ,values); 
+        return root ; 
+        
+        
+    }
+    
+    void inOrderTraversal(TreeNode* root, vector<int> &values) {
+        if(!root) return ;
+        if(!root->left && !root->right) {
+            values.push_back(root->val);
+            return ;
+        } 
+        inOrderTraversal(root->left,values);
+        values.push_back(root->val);
+        inOrderTraversal(root->right,values);
+    
+    }
+    
+    void adder(TreeNode * root , vector<int> &values) {
+        if(!root) return ;
+        //make a copy of the original value
+        int temp = root->val; 
+        for (int i=values.size()-1 ; i>=0 ;i--) {
+            //traversal from the end would be better on sorted lists here 
+            if(values[i] <= temp) break ;
+            else root->val += values[i];
+        }
+        adder(root->right , values);
+        adder(root->left , values );
+    }
+};
+
+
+
+// my solution : 
+/*
+    Traverse the tree , store the values in a vector or a list (in-order)
+    in order traversal on a bst will result in a sorted list
+    Traverse the tree again, changing values of tree nodes 
+*/
+
+
+
+
+
+//Solution 2 :
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+	// Reversed inorder recursive function
+    void rev(TreeNode* root, int& cnt){
+        if(!root) return ;
+        rev(root->right, cnt);
+		// The root value is continously updated with the help of cnt.
+        root->val += cnt;
+		// And the count variable is changed so, that the next node in the traversal will be updated.
+        cnt = root->val;
+        rev(root->left, cnt);
+    }
+    TreeNode* bstToGst(TreeNode* root) {
+		// this consists of the answer for each node.
+		int cnt = 0;
+        rev(root, cnt);
+        return root;
+    }
+};

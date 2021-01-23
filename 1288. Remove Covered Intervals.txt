@@ -1,0 +1,31 @@
+class Solution {
+public:
+    static bool cmp(vector<int> &a, vector<int> &b) {
+        return a[0] != b[0] ? a[0] < b[0] : a[1] > b[1];
+    }
+    int removeCoveredIntervals(vector<vector<int>>& intervals) {
+        // support variables
+        int len = intervals.size(), res = len;
+        // sorting by beginning, then ending time
+        sort(begin(intervals), end(intervals), cmp);
+        for (int i = 1, ed = intervals[0][1]; i < len; i++){
+            if (intervals[i][1] <= ed) res--;
+            else ed = intervals[i][1];
+        }
+        return res;
+    }
+};
+
+/*
+Here's how it goes with demo :
+
+intervals = [[1,4],[3,6],[2,8]]
+after sort : intervals = [ [1,4],[2,8], [3,6]]
+now starting at [3,6], compare end points (start points are guarenteed to be increasing since its sorted )
+if end point of [3,6] is greater , it means its a new interval, else it means its included and will decrease the number of intervals
+
+*/
+
+/*
+Lesson learnd : when checking if something contains something else you have to check with sorted values 
+*/

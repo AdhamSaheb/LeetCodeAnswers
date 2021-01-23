@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        
+        while(s.size()>2) {
+            size_t found = s.find("abc");
+            if(found == std::string::npos) break ; //npos means not found 
+            // Deletes 3 characters from index of abc
+            s.erase(found, 3); // start at found , delete 3 characters
+        }
+        return s.size()==0 ;    
+    }
+};
+
+
+/*
+keep removing abc until empty or else not valid 
+*/
+
+
+/*
+Here's another solution, iterate over string , push letters one by one in stack, if you push abc pop them, if stack eventually is empty, true , otherwise if you push b with no prev a or c with no prev b return fast 3a tool 
+
+*/
