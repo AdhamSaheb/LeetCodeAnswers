@@ -1,0 +1,11 @@
+class Solution {
+public:
+    int minPartitions(string n) {
+        // the answer is equal to the max digit 
+        int maxDigit =0 ;
+        for (char letter : n ) {
+            if ( int(letter)- '0' > maxDigit ) maxDigit = int(letter) - '0';
+        }
+        return maxDigit; 
+    }
+};

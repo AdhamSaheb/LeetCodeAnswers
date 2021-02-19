@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        // you need to basically find the 2 points that give the biggets rectangle area 
+        // the brute force approche would be the O(n^2) to calculate all areas 
+        // technically we can start with the biggest width (0,n-1) and calculate area with 2 pointers
+        // the index with smaller height a[i] changes, low increments, while high decrements
+        int lo = 0, hi = height.size()-1 ;
+        int maxArea= 0 ; 
+        while (lo < hi) {
+            int area = ( hi - lo )   *  min(height[lo],height[hi]) ;
+            if (  area > maxArea) maxArea= area ; 
+            if (height[lo] < height[hi]) lo ++ ;
+            else hi -- ; 
+        }
+        return maxArea; 
+        
+        
+    }
+};
