@@ -1,0 +1,85 @@
+class Solution {
+public:
+    vector<vector<int>> queensAttacktheKing(vector<vector<int>>& queens, vector<int>& king) {
+  	//Start from king , walk left right up down , then diagonal right left in both directions
+        vector<vector<int>> attackingQueens ;
+        vector<int> temp; 
+        // 4 for loops, check same row, check same col , check both diagonals 
+        //row 
+        int row = king[0]; 
+        for (int col = king[1] ; col<8 ; col++) {
+            temp = {king[0],col};
+            if ( count(queens.begin(),queens.end(),temp)!= 0) {
+                attackingQueens.push_back(temp);
+                break;
+            }
+        }
+        for (int col = king[1] ; col>=0 ; col--) {
+            temp = {king[0],col};
+            if ( count(queens.begin(),queens.end(),temp) != 0) {
+                attackingQueens.push_back(temp);
+                break;
+            }
+        }
+        //col
+        int col = king[1]; 
+        for (int row = king[0] ; row<8 ; row++) {
+            temp = {row,king[1]};
+            if ( count(queens.begin(),queens.end(),temp)!= 0) {
+                attackingQueens.push_back(temp);
+                break;
+            }
+        }
+        for (int row = king[0] ; row>=0 ; row--) {
+            temp = {row,king[1]};
+            if ( count(queens.begin(),queens.end(),temp) != 0) {
+                attackingQueens.push_back(temp);
+                break;
+            }
+        }
+        //diagonals 
+        //going up
+        row = king[0] , col = king[1];
+        while (row < 7 && col <7) {
+            temp = {row+1,col+1} ;
+            if ( count(queens.begin(),queens.end(),temp) != 0) {
+                attackingQueens.push_back(temp);
+                break;
+            }
+            col ++ ; row ++ ;
+        } 
+        //going down
+        row = king[0] , col = king[1];
+        while (row > 0 && col > 0) {
+            temp = {row-1,col-1} ;
+            if ( count(queens.begin(),queens.end(),temp) != 0) {
+                attackingQueens.push_back(temp);
+                break;
+            }
+            col -- ; row -- ;
+        } 
+        //other direction
+        //going up
+        row = king[0] , col = king[1];
+        while (row >0 && col <7) {
+            temp = {row-1,col+1} ;
+            if ( count(queens.begin(),queens.end(),temp) != 0) {
+                attackingQueens.push_back(temp);
+                break;
+            }
+            col ++ ; row -- ;
+        } 
+        row = king[0] , col = king[1];
+        //going down
+        while (row < 7 && col > 0) {
+            temp = {row+1,col-1} ;
+            if ( count(queens.begin(),queens.end(),temp) != 0) {
+                attackingQueens.push_back(temp);
+                break;
+            }
+            col -- ; row ++ ;
+        } 
+        
+        return attackingQueens  ;
+    }
+};

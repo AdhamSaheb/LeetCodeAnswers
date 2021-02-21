@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<int> selfDividingNumbers(int left, int right) {
+        vector<int> ans ; 
+        int ptr = left ;
+        int temp ;
+        bool isSelfDividing ;
+        while (ptr<=right) {
+            temp = ptr ; 
+            isSelfDividing = true;
+            while(temp != 0) {
+                if(temp%10 == 0) {
+                    isSelfDividing = false ;  
+                    break ;
+                }
+                if(  (ptr%(temp%10)) != 0  ) {
+                isSelfDividing = false ;
+                break;
+            }
+            temp/=10 ;
+            }
+            if(isSelfDividing) ans.push_back(ptr);
+            ptr ++ ;
+        }
+        return ans ;
+
+    } 
+
+    
+};
+
+
+
+

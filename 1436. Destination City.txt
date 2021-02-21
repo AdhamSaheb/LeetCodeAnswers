@@ -1,0 +1,14 @@
+class Solution {
+public:
+    string destCity(vector<vector<string>>& paths) {
+        vector<string> cities ;
+        for (vector<string>  row : paths) {
+            cities.push_back(row[0]);
+        }
+        for (vector<string> row :paths) {
+            if (count(cities.begin(),cities.end(),row[1]) == 0) return row[1] ;
+        }
+        return "1"; 
+    }
+
+};
