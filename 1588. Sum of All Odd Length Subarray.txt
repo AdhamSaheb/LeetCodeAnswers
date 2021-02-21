@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int sumOddLengthSubarrays(vector<int>& arr) {
+        if (arr.size()==0) return 0; 
+        
+        int ans =0 ; 
+        int maxWindowSize = (arr.size()%2 !=0 ) ? arr.size() : arr.size()-1 ; 
+        cout << maxWindowSize;
+        
+        for (int i=1; i<= maxWindowSize ; i+=2) {
+            int low = 0,high = low + i ; 
+            while (high <= arr.size() ) {
+                for (int j= low ; j<high ; j ++) ans += arr[j]; 
+                low ++ ; high ++ ; 
+            }
+        }
+        return ans ;
+
+     }
+};

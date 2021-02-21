@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int largestAltitude(vector<int>& gain) {
+    if(gain.size()==0) return 0;
+        int currentAltitude = 0 , ans=0 ; 
+        for (int altitue : gain) {
+            currentAltitude +=altitue ;   
+            if(currentAltitude > ans ) ans = currentAltitude;
+        }
+        return ans;
+    }   
+};
+
