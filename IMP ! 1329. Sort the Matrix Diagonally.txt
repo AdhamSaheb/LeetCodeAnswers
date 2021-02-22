@@ -1,0 +1,49 @@
+class Solution {
+public:
+    vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
+        //to read diagonals, for each row , decrement column (or increment based on direcion needed )
+        // start with row =k, col = 0 
+        //print mat[row][col] 
+        // decrement row and increment col (inner loop)
+        //decrement row until 0 , inrement col (outer loop)
+        // Another option , the difference between indecies for each diagonal is constant 
+        
+        vector<vector<int>> tempVectors ;
+        //size of diagonals 
+        int diagonals = mat.size() + mat[0].size() -1 ;
+ 
+        for (int i=0 ; i< diagonals ; i ++)  {
+            vector<int> temp = {};
+            tempVectors.push_back(temp);
+        } // initialize vectors to be sorted 
+        int row = mat.size()-1 , col =0  , rowPtr= row , colPtr= col;
+        int vectorPtr = 0 ; // which vector to storet the diagonal in 
+        while(row >=0 && col < mat[0].size()) {
+            rowPtr= row ; colPtr= col ; 
+            while(rowPtr < mat.size() && colPtr < mat[row].size()) {
+                tempVectors[vectorPtr].push_back(mat[rowPtr][colPtr]);
+                rowPtr ++ ; colPtr++ ;
+            }
+            sort(tempVectors[vectorPtr].begin() , tempVectors[vectorPtr].end()); // sort the vector 
+            //arrange them back 
+            rowPtr= row ; colPtr= col ;
+            int vectorCol = 0; // column of tempvector 
+            while(rowPtr < mat.size() && colPtr < mat[row].size()) {
+                //cout << mat[rowPtr][colPtr] << "\t"; 
+                mat[rowPtr][colPtr] = tempVectors[vectorPtr][vectorCol]; 
+                vectorCol ++ ;
+                //cout << "pushed " << mat[rowPtr][colPtr] << " into row number " << vectorPtr << endl;
+                rowPtr ++ ; colPtr++ ;
+            }
+            //NEXT DIAGONAL
+            vectorPtr ++ ;
+            if(row != 0 ) row -- ;
+            else col ++ ; 
+        }
+
+        
+        return mat ;
+            
+                
+    }
+};
