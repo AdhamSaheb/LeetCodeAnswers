@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<int> findDiagonalOrder(vector<vector<int>>& matrix) {
+        //stupid idea, read diagonals ,reverse if even , and store in ans 
+        vector<int> ans ;
+
+        int row =0 , col =0 ;
+        int rowPtr = row , colPtr = col ;
+        bool reverse = false  ;
+        while (row < matrix.size() && col< matrix[0].size()) {
+            rowPtr = row , colPtr = col ;
+            vector<int> diagonal ; 
+            while(rowPtr >=0 && colPtr < matrix[0].size()) {
+                diagonal.push_back(matrix[rowPtr][colPtr]);
+                //cout << matrix[rowPtr][colPtr] << "\t" ; 
+                rowPtr -- ; colPtr ++ ; 
+            }
+            if(reverse) {
+                for(int i=diagonal.size()-1 ; i>=0 ; i--) ans.push_back(diagonal[i]);
+            }
+            else for (int num : diagonal ) ans.push_back(num);
+            reverse=!reverse ; 
+            //cout << endl ;
+            if(row != matrix.size()-1) row ++ ;
+            else col ++ ; 
+        }
+        return ans ;
+    }
+};
