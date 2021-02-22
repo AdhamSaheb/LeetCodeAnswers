@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<vector<int>> diagonalSort(vector<vector<int>>& mat) {
+        //to read diagonals, for each row , decrement column (or increment based on direcion needed )
+        // start with row =k, col = 0 
+        //print mat[row][col] 
+        // decrement row and increment col (inner loop)
+        //decrement row until 0 , inrement col (outer loop)
+        // Another option , the difference between indecies for each diagonal is constant 
+        int row = mat.size()-1 , col =0  , rowPtr= row , colPtr= col;
+        while(row >=0 && col < mat.size()) {
+            rowPtr= row ; colPtr= col ; 
+            while(rowPtr <mat.size() && colPtr < mat[row].size()) {
+                cout << mat[rowPtr][colPtr] << "\t"; 
+                rowPtr ++ ; colPtr++ ;
+            }
+            cout << endl; 
+            if(row != 0 ) row -- ;
+            else col ++ ; 
+        }
+        return mat ;
+            
+                
+    }
+};

@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<vector<int>> transpose(vector<vector<int>>& matrix) {
+        vector<vector<int>> transposed ;
+        for (int i=0 ; i< matrix[0].size(); i ++)  {
+            vector<int> temp = {};
+            transposed.push_back(temp);
+        }
+        
+        int col =0 ;
+        while (col < matrix[0].size()) {
+            int row = 0; 
+            while (row< matrix.size())  {
+                transposed[col].push_back(matrix[row][col]);
+                row ++ ;
+                }
+            col ++ ;   
+        }
+        return transposed ;
+    }
+};

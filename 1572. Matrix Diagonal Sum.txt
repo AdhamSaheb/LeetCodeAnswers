@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int diagonalSum(vector<vector<int>>& mat) {
+        int row = 0 , col =0 , sum=0; 
+        while (row < mat.size() && col<mat[0].size()) {
+            cout << mat[row][col] << "\t" ;
+            sum+=mat[row][col];
+            row ++ ; col ++;
+            }
+        cout << endl; 
+        row = mat.size()-1 ; col =0 ;
+        while (row >=0 && col<mat[0].size()) {
+            if(row == col ) {
+              row -- ; col ++ ; continue ;   
+            } 
+            sum+=mat[row][col];
+            row -- ; col ++;
+            }
+        return sum ;
+    }
+};
