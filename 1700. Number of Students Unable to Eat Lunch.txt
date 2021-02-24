@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int countStudents(vector<int>& students, vector<int>& sandwiches) {
+        int unable =0 ;
+        while (students.size() != 0) {
+            if(students[0] == sandwiches[0]) {
+                students.erase(students.begin());
+                sandwiches.erase(sandwiches.begin());
+            }
+            else if ( count(students.begin(),students.end(),sandwiches[0]) == 0 ) {
+                unable+= students.size() ;
+                break ;
+            }
+            else {
+                students.push_back(students[0]);
+                students.erase(students.begin());
+            }
+        }
+        return unable ;
+        
+    }
+};
+
+
+

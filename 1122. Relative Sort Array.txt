@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> relativeSortArray(vector<int>& arr1, vector<int>& arr2) {
+        vector<int> ans ;
+        vector<int> differnet; // in arr 1 but not in 2
+        for (int num : arr1) {
+            if (count(arr2.begin(), arr2.end(),num) == 0) differnet.push_back(num);
+        }
+        for (int num : arr2 ) 
+            for (int num2 : arr1) 
+                if(num2 == num) ans.push_back(num2); // or num thats ok
+        sort(differnet.begin(),differnet.end());
+        for(int num  : differnet ) ans.push_back(num);
+        return ans; 
+    }
+};

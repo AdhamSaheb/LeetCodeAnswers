@@ -1,0 +1,23 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        ListNode* tortoise = head;  // will jump one node at a time 
+        ListNode* hare = head->next; // will jump 2 nodes at a time 
+        while (hare != NULL) {
+            tortoise = tortoise->next ;
+            if(hare -> next) hare = hare->next->next ; 
+            else hare = NULL ;
+        }
+        return tortoise ;
+    }
+};

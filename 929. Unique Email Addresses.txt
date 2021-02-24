@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int numUniqueEmails(vector<string>& emails) {
+        if(emails.size() == 1 ) return 1;
+        set<string> proccedEmails ;
+        for(string email : emails) {
+   
+            string newLocalName = "";
+            int ptr =0 ;
+            for( ptr= 0; ptr< email.size() ; ptr++) {
+                if(email[ptr] == '+') break;
+                if(email[ptr] == '@') break ;
+                if(email[ptr] != '.') newLocalName+= email[ptr];   
+            }
+   
+            while(email[ptr] != '@') {
+                ptr++ ;
+            }
+
+            while(ptr < email.size()) {
+                newLocalName+= email[ptr];
+                ptr ++ ;
+            }
+            //cout << newLocalName << endl ;
+            proccedEmails.insert(newLocalName) ;
+        }
+
+        return proccedEmails.size() ;
+    }
+};

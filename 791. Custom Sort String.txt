@@ -1,0 +1,13 @@
+class Solution {
+public:
+    string customSortString(string S, string T) {
+        int indecies[27] = {-1}; // in this array, each index has the position of the letter in S, where 0->a.... 26->z
+        for(int i=0 ;i<S.size();i ++) indecies[S[i] - 'a'] = i; 
+        //custom sort T based on the indecies array, 
+        sort(T.begin(),T.end() ,[&](char firstLetter , char secondLetter ) -> bool
+        { 
+            return indecies[firstLetter-'a'] < indecies[secondLetter-'a']; 
+        });
+        return T ;
+    }
+};

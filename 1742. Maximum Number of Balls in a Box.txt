@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int countBalls(int lowLimit, int highLimit) {
+        int summations[54] = {0}; // the maximum ball number has 5 digits (10^5) six 9s = 54
+        int max =0 , tempSum =0 , tempNum =0;
+        for(int num = lowLimit ; num <= highLimit ; num ++  ) {
+            tempSum =0 ;
+            tempNum = num ;
+
+            while(tempNum != 0) {
+                tempSum += tempNum%10;
+                tempNum/=10 ;
+            }
+            summations[tempSum] ++  ; 
+        }
+        for (int num : summations ) {
+            if(num > max ) max = num ;
+        }
+        return max; 
+    }
+    
+};

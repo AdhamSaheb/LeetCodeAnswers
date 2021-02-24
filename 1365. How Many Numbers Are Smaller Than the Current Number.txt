@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
+        vector<int>a(101);
+        vector<int>b(101);
+        int n=nums.size();
+        for(int i=0;i<n;i++)  // making the frequency array
+            a[nums[i]]++;
+        for(int i=1;i<101;i++)  //filling the prefix sum array
+            b[i]=b[i-1]+a[i-1];
+        vector<int>ans(n);  // final solution array
+        // for(int i=0;i<10;i++)
+        //     cout<<b[i]<<" ";
+        for(int i=0;i<n;i++){
+            ans[i]=b[nums[i]];
+        }
+        return ans;
+    }
+};
+
+
+//Explained : 
+// for each number, find occurances (input constrains help us here), create array of all possible inputs 101 
+// for each index in the occurances array, if i want to know how many numbers are smaller than current index, its the summation of all occuraces to the left of it 
+// create another array , that each index of it , has the summation of all occurances to the left of it , now , each index has the numbers less. than it at index-1 
