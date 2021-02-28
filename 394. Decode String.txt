@@ -1,0 +1,51 @@
+class Solution {
+public:
+    string decodeString(string s) {
+        stack <string> stk;
+        string res = "" ;
+        int k =0 ;
+        while( k < s.size()) {
+            char c = s[k];
+            if(isdigit(c)) {
+                string num(1,c);
+                int displacement =1 ;
+                while(s[k+displacement] != '['){ num += s[k+displacement] ; displacement++ ;}
+                cout << num << endl;
+                stk.push(num);
+                k+= displacement ;
+            }
+            else if(c == ']') {
+                string temp = ""; 
+                while(stk.top() != "[") {
+                    temp = stk.top() + temp ;
+                    stk.pop();
+                }
+                cout << temp << endl;
+                stk.pop(); // pop [
+                string prev= temp ;
+                int times= stoi(stk.top());
+                stk.pop();
+                for(int j =0 ; j<times-1 ; j++) temp += prev;
+                stk.push(temp);
+                cout << temp << endl;
+                 k++ ;
+            }
+            else {
+                string s(1,c);
+                stk.push(s);
+                k++;
+            } 
+            
+            
+        }
+        while(!stk.empty()) {
+            res = stk.top() + res; 
+            stk.pop();
+        }
+        return res;
+    }
+};
+    
+    
+
+        

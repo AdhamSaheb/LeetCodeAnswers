@@ -1,0 +1,14 @@
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        int i =0 ;
+        while (i<t.size()){
+            if( s[i] != t[i]) t.erase(t.begin()+i);
+            else i++ ;
+        }
+        return (s==t) ;
+    }
+    
+};
+
+

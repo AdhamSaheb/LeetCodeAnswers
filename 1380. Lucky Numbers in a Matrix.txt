@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> luckyNumbers (vector<vector<int>>& matrix) {
+        vector<int> mins  ; 
+        vector<int> maxes ; 
+        vector<int> ans ;
+        //sort the rows 
+      //rows
+        for(int i=0 ; i< matrix.size();i++ ) {
+            int min = 1000000;
+            for(int j =0 ; j < matrix[i].size();j++) {
+                
+                if(matrix[i][j] < min ) min = matrix[i][j];
+            }
+            mins.push_back(min);
+        }
+        
+        //cols 
+        for(int i=0 ; i< matrix[0].size();i++ ) {
+            int max = 0;
+            for(int j =0 ; j < matrix.size();j++) {
+                if(matrix[j][i] > max ) max = matrix[j][i];
+            }
+            maxes.push_back(max);
+        }
+        for(int num : mins ) 
+            if ( find(maxes.begin(),maxes.end(),num) != maxes.end() ) ans.push_back(num);
+        
+        return ans ; 
+    }
+};

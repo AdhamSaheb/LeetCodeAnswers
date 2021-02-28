@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool canFormArray(vector<int>& arr, vector<vector<int>>& pieces) {
+        vector<int> concatenated ;
+        sort(pieces.begin(), pieces.end(), 
+            [&]( vector<int>  a,  vector<int>  b) -> bool { 
+            return find(arr.begin(),arr.end(),a[0]) < find(arr.begin(),arr.end(),b[0]) ;
+        });
+        int index =0 ; 
+        for(vector<int> piece :pieces ) { 
+            for(int num :piece ) {
+                if(arr[index] != num) return false; 
+                index ++ ;
+            }
+        }
+
+       
+        return true ; 
+    }
+};

@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int findLucky(vector<int>& arr) {
+        int occurances[501] = {0};
+        int ans = -1 ;
+        for(int num : arr) occurances[num] ++ ;
+        for(int i=1 ; i<501 ; i++) {
+            if( i == occurances[i] && i>ans) ans = i ;
+        }
+        return ans  ;
+    }
+};

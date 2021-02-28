@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int binaryGap(int n) {
+        string binary =  "" ;
+        int maxDistance = 0; 
+        for(int i =30 ; i>=0 ; i--) {
+            if(n >= pow(2,i)) {
+                binary += "1" ;
+                n -=pow(2,i) ;
+            }
+            else binary+= "0";
+        }
+        while(binary[0]=='0') binary.erase(binary.begin());
+        if(binary.size() == 1 ) return 0 ; // only 1 is remaining 
+        int tempDistance =0 ;
+        cout << binary ;
+        for(int i=1; i<binary.size();i++ ){
+            if(binary[i] == '1') {
+                if(tempDistance >= maxDistance ) maxDistance =tempDistance+1 ;
+                tempDistance =0 ;
+            }else tempDistance ++ ;
+        
+        }
+        return maxDistance ; 
+    }
+};
