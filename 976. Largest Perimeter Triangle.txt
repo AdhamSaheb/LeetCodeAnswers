@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int largestPerimeter(vector<int>& A) {
+        sort(A.begin(),A.end());
+        int hi = A.size()-1 ;
+        int ans =0 ;
+        while(hi >= 2) {
+            if(A[hi-2] + A[hi-1] > A[hi]) {
+                ans= A[hi-2] + A[hi-1] +A[hi];
+                break; 
+            }
+            else hi -- ;
+        }
+        return ans ;
+    }
+};

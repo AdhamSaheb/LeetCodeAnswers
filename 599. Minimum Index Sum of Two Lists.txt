@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
+        unordered_map<string,int> sums ;
+        vector<string> shared;
+        vector<string> ans ;
+        int minSum = INT_MAX ;
+        //iterate over all first list 
+        for(int i=0 ;i<list1.size();i++) {
+            sums[list1[i]] = i ;
+        }
+        //iterate over all second list 
+        for(int i=0 ;i<list2.size();i++) {
+            //also seen in 1 
+            if( sums.count(list2[i])) {
+                shared.push_back(list2[i]);
+                sums[list2[i]] += i ;
+            }
+        }
+        //now check summations of shared res.
+        for(string restaurant : shared) {
+            if(sums[restaurant] < minSum ) {
+                minSum = sums[restaurant] ;
+                ans ={restaurant};
+            }
+            else if(sums[restaurant] == minSum) ans.push_back(restaurant);
+        }
+        return ans ;
+    }
+};

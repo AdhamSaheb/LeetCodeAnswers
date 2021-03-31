@@ -1,16 +1,18 @@
 class Solution {
-    public int[] twoSum(int[] numbers, int target) {
-        //point to the 2 ends of the array since sorted
-        int i = 0 ;
-        int j = numbers.length - 1 ; 
-        
-        while(i!=j) {
-            // either i moves forward or j backwards 
-            if(numbers[i] + numbers[j] > target ) j --;
-            else if(numbers[i] + numbers[j] < target ) i++ ;
-            else return new int[] {i +1 ,j+1 } ; 
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        int low = 0 , hi = numbers.size() -1 ;
+        vector<int> ans ;
+        while (low<=hi) {
+            if(numbers[low] + numbers[hi] == target){
+                ans= {low+1, hi+1 };
+                break; 
+            }
+            else if(numbers[low] + numbers[hi] > target) {
+                hi -- ;    
+            }
+            else low ++ ; 
         }
-        return new int[]{-1,-1}; 
-        
+        return ans ;
     }
-}
+};

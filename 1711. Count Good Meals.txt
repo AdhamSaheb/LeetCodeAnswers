@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int countPairs(vector<int>& deliciousness) {
+        vector<int> powers;
+        long ans =0 ;
+        for(int i=0 ;i<=21;i++)  powers.push_back(pow(2,i)); //21 since ^20  + ^20 is ^21 max sum
+        unordered_map<int,int> umap;
+        for(int i=0;i<deliciousness.size() ; i++) {
+            for(int j=0;j<=21 ;j++) {
+                int compliment = powers[j] - deliciousness[i]; 
+                if(umap.count(compliment)) ans+=umap[compliment] ;
+            }
+            umap[deliciousness[i]] ++ ;
+        }
+    
+        return ans%1000000007 ;
+    }
+};

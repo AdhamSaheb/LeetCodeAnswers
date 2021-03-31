@@ -1,0 +1,24 @@
+
+class Solution {
+public:
+    int distanceBetweenBusStops(vector<int>& distance, int start, int destination) {
+        if(abs(destination - start) == distance.size() -1 ) return distance[distance.size() -1] ; 
+        int clockWise =0; 
+        int counterClockWise  =0 ;
+        int lower =min(start,destination) , upper = max(start,destination);
+        
+        int tempStart = lower ; 
+        while (tempStart != upper )  {
+            clockWise += distance[tempStart] ; 
+            tempStart= (tempStart + 1 ) ; 
+        }
+        tempStart = upper ;
+        while (tempStart != lower )  {
+            counterClockWise += distance[tempStart] ; 
+             tempStart= (tempStart + 1 ) % distance.size() ; 
+            
+        }
+        //cout << clockWise << "\t" << counterClockWise << endl; 
+        return min(clockWise,counterClockWise) ;
+    }
+};

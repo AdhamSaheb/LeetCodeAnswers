@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int maximumSwap(int num) {
+        string sorted = to_string(num);
+        sort(sorted.begin(), sorted.end() , greater<int>());
+        string original = to_string(num);
+        char numberSwappedlow = 'n';
+        char numberSwappedhi = 'n';
+        for(int i = 0 ; i<original.size() ; i++) {
+            if(sorted[i] != original[i]) {
+                numberSwappedhi = sorted[i] ; // store the number swapped (the larger one)
+                numberSwappedlow = original[i] ; // store the number swapped (the larger one)
+                original[i] = sorted[i] ;  // put the new larger number in its place 
+                break ;
+            }
+        }
+        if(numberSwappedlow =='n') return num ; 
+        for(int i= original.size() -1 ; i>=0 ; i--) {
+            if(original[i] == numberSwappedhi ) {
+                original[i] = numberSwappedlow ;
+                break ;
+            }
+        }
+        return stoi(original);
+    }
+};

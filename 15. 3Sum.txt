@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> ans ; 
+        map<vector<int>,bool> occured; 
+        if(nums.size() < 3 ) return ans ;
+        vector<int> candidate ;
+        int lo , hi , target , steps ;
+        sort(nums.begin(),nums.end());
+        //for(int num : nums) cout << num << "\t" ; 
+        for(int i =0 ; i<nums.size()-2;i++ ) {
+            if(i>0 && nums[i] == nums[i-1]) continue ;
+            lo = i+1 ;
+            hi =nums.size() -1 ;
+            target = 0 - nums[i];
+            if( nums[i]>0 &&  nums[lo] > 0 && nums[hi]>0)break ;
+            while(lo<hi){
+            if(nums[lo] + nums[hi] == target){
+                candidate = {nums[i],nums[lo],nums[hi]};
+                if(!occured.count(candidate)){
+                    ans.push_back(candidate);
+                    occured[candidate] = true ;
+                }
+                lo ++ ;
+                hi -- ;
+
+
+            }
+            else if(nums[lo] + nums[hi] > target) {
+                hi -- ;    
+            }
+            else lo ++ ; 
+            }
+        }
+        return ans ;
+    }
+};

@@ -1,0 +1,7 @@
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        double fractpart, intpart,temp = pow(num,0.5);
+        return modf(temp,&intpart) == 0 ;
+    }
+};

@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        unordered_map<int,int> occurances ; 
+        for (int num :nums) {
+            occurances[num] ++ ; 
+        }
+        for (int num :nums) {
+            if(occurances[num] != 3) return num ; 
+        }
+        return 0 ;
+    }
+};

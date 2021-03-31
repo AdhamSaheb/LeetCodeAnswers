@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
+        map<pair<int,int>,int> visited ;
+        int oldColor = image[sr][sc];
+
+        dfs(image,visited,oldColor,newColor,sr,sc);
+        return image ;
+    }
+    void dfs(vector<vector<int>>& image ,map<pair<int,int>,int> &visited, int oldColor, int newColor ,int sr,int sc ) {
+        if(sr >=image.size() || sc>=image[0].size() ) return ; // out of bound 
+        pair<int,int> temp(sr,sc) ;
+        if(!visited.count(temp)) {
+            if(image[sr][sc] == oldColor ) {
+                image[sr][sc] = newColor ;
+                visited[temp] = 1 ;
+                dfs(image,visited,oldColor,newColor,sr-1,sc);//up
+                dfs(image,visited,oldColor,newColor,sr+1,sc);//down
+                dfs(image,visited,oldColor,newColor,sr,sc+1);//left
+                dfs(image,visited,oldColor,newColor,sr,sc-1);//right 
+            }
+
+        }else return ;
+        
+    }
+};

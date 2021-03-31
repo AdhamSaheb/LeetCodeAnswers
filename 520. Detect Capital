@@ -1,0 +1,11 @@
+class Solution {
+public:
+    bool detectCapitalUse(string word) {
+        int occurances[2] = {0} ;//upper , lower
+        for(char c : word) {
+            if(isupper(c)) occurances[0] ++ ;
+            else occurances[1] ++ ;
+        }
+        return (occurances[0] == word.size()  || occurances[1]==word.size() || (occurances[0] == 1 && isupper(word[0]))) ;
+    }
+};

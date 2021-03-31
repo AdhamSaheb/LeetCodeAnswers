@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool check(vector<int>& nums) {
+        vector<int> copy = nums ;
+        sort(copy.begin() , copy.end());
+        bool flg ;
+        for(int i=0 ; i<nums.size() ; i ++) { //indecies
+            flg = true ;
+            for (int j=0 ; j<nums.size();j++) {
+                int rotatedPosition = (j+i)% (nums.size()) ;
+                if(copy[j]!=nums[rotatedPosition]) flg = false ;
+            }
+            if(flg == true) {
+                break ;
+            }
+        }
+        return flg ; 
+    }
+};

@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int maxSum = -1000000 ;
+        int tempSum,low ;
+        for (int  windowSize = 0;windowSize<nums.size(); windowSize ++  ) {
+            low =0 ;
+            int initialSum =0;
+            for(int i=0 ;i<=low+windowSize; i++) initialSum += nums[i] ;//first window
+            if(initialSum > maxSum) maxSum = initialSum ;
+            while(low+windowSize < nums.size()-1 ) { // slide the window
+                // tempSum = initialSum ; 
+                initialSum-=nums[low]; //window leaving the window
+                initialSum += nums[low+windowSize+1]; // element entering widnow
+                if(initialSum > maxSum ) maxSum = initialSum; 
+                //initialSum = tempSum ;
+                low++ ;
+            }
+        }
+            
+        return maxSum ;
+    }
+};
