@@ -1,0 +1,60 @@
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int islands =0 ;
+        queue<pair<int,int>> q; 
+        int visited[300][300] = {0} ; 
+        for(int i = 0  ;i<grid.size(); i++)
+            for(int j =0 ; j<grid[0].size() ; j++) {
+                //bfs each node
+                pair node (i,j) ;
+                if(!visited[i][j] && grid[i][j] != '0' ) {
+                    //cout << i <<"-"<< j << "\t" << visited[i][j] << endl; 
+                    
+                    q.push(node);     
+                    while(q.size()) {
+                        pair<int ,int >front = q.front();
+                        q.pop();
+                        int row = front.first, col = front.second; 
+                        //cout << "front : " << row << "," <<col << endl;
+                        if(row+1 < grid.size() && grid[row+1][col] =='1' ) { // down
+                            pair temp(row+1,col) ;
+                            if(!visited[row+1][col]) q.push(temp);
+                             visited[row+1][col]= 1;
+                            //cout << row+1 << " " << col << endl; 
+                        }
+                        if(row-1 >=0 && grid[row-1][col] =='1' ) { // up
+                            pair temp(row-1,col) ;
+                            if(!visited[row-1][col]) q.push(temp);
+                            visited[row-1][col] = 1 ;
+                            //cout << row-1 << " " << col << endl; 
+                        }
+                        if(col+1<grid[0].size() && grid[row][col+1] =='1' ) { // right
+                            pair temp(row,col+1) ;
+                            if(!visited[row][col+1]) q.push(temp);
+                            visited[row][col+1] = 1 ;
+                            //cout << row << " " << col+1 << endl; 
+                        }
+                        if(col-1 >=0 && grid[row][col-1] =='1' ) { // left
+                            pair temp(row,col-1) ;
+                            if(!visited[row][col-1]) q.push(temp);
+                            visited[row][col-1] = 1 ;
+                            //cout << row << " " << col-1 << endl; 
+                        }
+                        visited[row][col]=1  ; 
+                    }
+                    //cout << visited[3][3]  << endl ;
+                    islands ++ ; 
+                }
+                
+            }
+        // for(int i=0 ; i<grid.size() ; i++) {
+        //     for(int j =0 ; j<grid[0].size() ; j++)
+        //         cout << visited[i][j] << " " ;
+        //     cout << endl; 
+        //}
+        return islands; 
+        
+        
+    }
+};
