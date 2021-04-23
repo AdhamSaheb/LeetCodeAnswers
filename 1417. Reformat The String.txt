@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string reformat(string s) {
+        if(s.size() ==1 ) return s ;
+        string ans  ="" ;
+        vector<char> letters, digits ; 
+        for(char c : s) 
+            if(isdigit(c)) digits.push_back(c);
+            else letters.push_back(c);
+        if(!letters.size() || !digits.size() ) return "" ; // all digits/letters
+        //what I could have done better here is to check that difference in letters And digits is more than 1 then just return "" 
+        bool letterTurn  = (digits.size() >= letters.size()) ? false : true ;  // start with longer
+        while(ans.size() != s.size() ){
+            if(letterTurn){
+                if(!letters.size() ) return "";  
+                else {
+                ans.push_back(letters[0]);
+                letters.erase(letters.begin());
+                letterTurn = false;
+                }
+            }
+            else {
+                if(!digits.size()) return "" ; 
+                else {
+                    ans.push_back(digits[0]);
+                    digits.erase(digits.begin());
+                    letterTurn = true;
+                }
+            }
+                        
+        }
+        cout << ans <<endl;
+        return ans; 
+    }
+};

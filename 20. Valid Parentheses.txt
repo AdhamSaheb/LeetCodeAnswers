@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool isValid(string str) {
+        stack<char> s; 
+        for(char c :str) {
+            if(isOpenining(c)){
+                s.push(c);
+            }
+            else{
+                if(!s.size()) return false ;
+                if( s.top() == twin(c) ) s.pop();
+                else s.push(c);
+            }
+        }
+        cout << s.size() ;
+        return !s.size();
+    
+    }
+    
+    char twin(char c ){
+        if(c==')' ) return '(';
+        else if(c==']') return '[';
+        else return '{';
+    }
+    bool isOpenining(char c){
+        return (c=='(' || c=='{' || c=='[') ;
+    }
+};

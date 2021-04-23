@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> s ;
+        int first, second ;
+        for(string token : tokens){
+            if(!isOperation(token)) s.push(stoi(token));
+            else{
+                first = s.top();
+                s.pop();
+                second = s.top();
+                s.pop();
+                if(token == "+") s.push(second + first) ;
+                else if (token == "-") s.push(second - first) ;
+                else if (token == "*") s.push(second * first) ;
+                else s.push(second / first) ;
+                
+            }
+        }
+        
+        return s.top()  ; 
+    }
+        bool isOperation(string s ){
+            return (s=="+" || s=="-" || s=="*" || s=="/");
+        }
+};

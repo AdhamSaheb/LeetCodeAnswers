@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool isPossibleDivide(vector<int>& nums, int k) {
+        
+        if (k == 1) return true;
+        if (nums.size() % k) return false; // set is larger than vector 
+        map<int, int> occurances;
+        
+        for (int num : nums)  occurances[num]++;
+
+        while (!occurances.empty()) {
+            int first = occurances.begin()->first; // first number with not 0 occurances (entry is a pair)
+            
+            for (int i = 0; i < k; i++) {
+                if (occurances.find(first) == occurances.end()) return false;
+                occurances[first]--;
+                if (!occurances[first]) occurances.erase(first); // I can no longer use it 
+                first++; // see next consecutive number 
+            }
+            
+        }
+        
+        return true;
+    }
+        
+    
+};

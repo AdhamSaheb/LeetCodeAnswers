@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        int occurances[26]={0};
+        for(char c : magazine) occurances[c-97]++ ;
+        for(char c : ransomNote) {
+            if(!occurances[c-97]) return false ;
+            else{
+                occurances[c-97] -- ;
+            }
+        }
+        return true ;
+        
+    }
+};

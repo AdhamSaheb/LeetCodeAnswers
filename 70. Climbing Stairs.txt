@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int hash[46]= {0}; 
+    int climbStairs(int n) {
+        if(hash[n]) return hash[n]; 
+        if(n==1) return 1;
+        if(n==2) return 2 ; 
+        
+        hash[n-1] =climbStairs(n-1);
+        hash[n-2]= climbStairs(n-2);
+        return hash[n-1] + hash[n-2];
+        
+    }
+};

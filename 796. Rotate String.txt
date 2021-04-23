@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool rotateString(string A, string B) {
+        if (A.size() != B.size()) return false ;
+        if(!A.size() && !B.size()) return true ; 
+        bool flg  ; 
+        for(int i = 0 ; i<A.size() ; i++) {
+            flg = true ;
+            for(int j=0 ; j<A.size() ;j++) {
+                //cout << i << " with " << (j+i)%B.size()  << endl; 
+                if(A[j] != B[ (j+i)%B.size()] ) {
+                    flg = false ; 
+                    break;
+                }
+            } 
+            if(flg) return true; 
+        }
+        
+        return false; 
+        
+    }
+};

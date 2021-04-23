@@ -1,0 +1,18 @@
+class Solution {
+public:
+    double findMaxAverage(vector<int>& nums, int k) {
+        double total =0 ;
+        if(nums.size() < k ) return  0 ; // not possible 
+        int low = 0 , hi = k-1 ;
+        for(int i = low ; i<=hi ; i ++ ) total += nums[i] ; 
+        double ans = total/(double)k ;
+        while(hi<nums.size()-1){
+            total += nums[++hi] ;
+            total -= nums[low]; 
+            low ++ ;
+            if(total /(double) k > ans ) ans = total/(double)k  ;
+        }
+        return ans ;
+        
+    }
+};

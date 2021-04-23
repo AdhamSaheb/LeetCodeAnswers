@@ -1,0 +1,50 @@
+class Solution {
+public:
+    void gameOfLife(vector<vector<int>>& board) {
+        int rows = board.size() ;
+        int cols = board[0].size() ;
+        int neighbourOnes = 0, neighbourZeroes =0 ;
+        vector<vector<int>> clone ;
+        for(int row = 0 ; row<board.size() ; row++){
+            vector<int> temp ;
+            for(int col = 0 ; col<board[row].size();col++) {
+                neighbourOnes = 0; neighbourZeroes =0 ;
+                //up
+                if(row -1 >= 0   ) 
+                    (board[row-1][col] ==1) ?  neighbourOnes ++ : neighbourZeroes ++ ;
+                //down
+                if(row +1 < rows   )  
+                    (board[row+1][col] ==1) ?neighbourOnes ++ : neighbourZeroes ++ ;
+                //left 
+                if(col-1 >= 0  )  
+                    (board[row][col-1 ] ==1) ? neighbourOnes ++ : neighbourZeroes ++ ;
+                //right
+                if(col +1 < cols  )
+                    (board[row][col+1 ] ==1) ? neighbourOnes ++ : neighbourZeroes ++ ;
+                //upright
+                if(row -1 >= 0 && col +1 < cols  ) 
+                    (board[row-1][col+1] ==1 ) ? neighbourOnes ++ : neighbourZeroes ++ ;
+                //upleft 
+                if(row -1 >= 0 && col- 1 >= 0   ) 
+                    (board[row-1][col-1] ==1) ? neighbourOnes ++ : neighbourZeroes ++ ;
+                //downright 
+                if(row +1 < rows && col +1 < cols  ) 
+                   (board[row+1][col+1] ==1 ) ? neighbourOnes ++ : neighbourZeroes ++ ;
+                //down left 
+                if(row +1 <rows && col -1 >= 0   ) 
+                    (board[row+ 1][col-1] ==1) ? neighbourOnes ++ : neighbourZeroes ++ ;
+                //next state
+                if(board[row][col] == 0)
+                    if(neighbourOnes == 3) { temp.push_back(1);continue;}
+                    else { temp.push_back(0);continue;}
+                if(board[row][col] == 1) 
+                    if(neighbourOnes < 2  || neighbourOnes > 3) { temp.push_back(0); continue; }
+                    else { temp.push_back(1); continue; }
+                
+            }
+            clone.push_back(temp) ;
+        }
+        board = clone ; 
+        
+    }
+};
