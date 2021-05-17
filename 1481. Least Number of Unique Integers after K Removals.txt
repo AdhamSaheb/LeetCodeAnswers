@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int findLeastNumOfUniqueInts(vector<int>& arr, int k) {
+        
+        unordered_map<int,int> occurances ; 
+        vector<int> unique ;
+        int ans ;
+        for(int num : arr) {
+            if(!occurances.count(num)) unique.push_back(num) ;
+            occurances[num] ++ ;
+        }
+        sort(unique.begin(), unique.end(), 
+            [&](int a, int b) -> bool{ 
+            return occurances[a] < occurances[b]; 
+        });
+        ans = unique.size() ;
+        int i =0 ;
+        while(i<unique.size()){
+            if(k >= occurances[unique[i]]) {
+                k-= occurances[unique[i]] ;
+                ans -- ;
+                i++ ; 
+            }else break ; 
+        }
+
+        
+        return ans ;
+        
+    }
+};

@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool checkIfExist(vector<int>& arr) {
+        unordered_map<int,bool> mp ;
+        for(int num : arr) {
+            if(mp.count(num) ) return true ;
+            if(!(num%2)) mp[num/2] =1 ;
+            mp[num*2] =1 ;
+        }
+        return false ;
+    }
+};
+

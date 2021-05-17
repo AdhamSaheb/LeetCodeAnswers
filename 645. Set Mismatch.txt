@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        vector<int> ans = {0,0} ;
+        unordered_map<int,int> mp;
+        for(int num : nums) {
+            if ( ++mp[num] > 1 ) {
+                ans[0] = num ;
+                break; 
+            }
+        }
+        // the missing number : duplicate numer + (n(n+1)/2 - sum )
+        int n = nums.size() ;
+        ans[1] =  n*(n+1) /2 - accumulate(nums.begin() , nums.end() , 0) + ans[0] ;
+        return ans ;  
+    }
+};

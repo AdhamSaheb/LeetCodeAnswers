@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string makeGood(string s) {
+        
+        stack<char> st; 
+        for(char c : s){
+            if(!st.size()){
+                st.push(c);
+                continue ;
+            }
+            if( abs(st.top() - c )  == 32  ) {
+                st.pop();
+                continue ;
+            }
+            else st.push(c);
+        }
+        s="" ;
+        while(st.size()){
+            s =  st.top() + s ; // so that I dont reverse 
+            st.pop() ;
+        }
+        return s ; 
+    }
+};
+               
+               

@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool checkIfPangram(string sentence) {
+        int uniqueOccurances = 0 ;
+        int exists[26] = {0};
+        for(char c : sentence) {
+            uniqueOccurances += !exists[c - 97] ; 
+            exists[c-97] =1 ;
+        }
+        
+        return uniqueOccurances == 26; 
+    }
+};

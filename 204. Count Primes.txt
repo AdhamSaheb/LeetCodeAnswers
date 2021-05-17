@@ -1,0 +1,30 @@
+//sieve 
+
+class Solution {
+public:
+    int countPrimes(int n) {
+        if(n == 0 || n==1 ) return 0 ; 
+        vector<int> isPrime(n,1) ;
+        int ans =0 ;
+        int filler ; 
+        isPrime[0] = 0 ;
+        isPrime[1] = 0 ;
+        for(int i = 4 ; i<n ; i+=2 ) isPrime[i] = 0 ;
+        for(int i = 3 ; i<n ; i++ ) {
+            if(! isPrime[i]  ) continue ; 
+            else {
+                if(isPrime[i]) {
+                    filler = i+i ;
+                    while(filler < n) {
+                        isPrime[filler] =0 ; 
+                        filler += i ; 
+                    }
+                }
+            }
+        }
+        for(int num : isPrime) 
+            ans += num ;
+        return ans  ;
+    }
+
+};

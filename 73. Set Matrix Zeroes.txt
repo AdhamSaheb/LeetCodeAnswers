@@ -1,0 +1,38 @@
+class Solution {
+public:
+    map<pair<int,int> , bool > visited ; 
+    void setZeroes(vector<vector<int>>& matrix) {
+        for(int row =0 ; row <matrix.size() ; row ++ ) {
+            for(int col = 0 ; col < matrix[0].size(); col++) {
+                if(!matrix[row][col] && !visited.count(pair(row,col)) ){
+                    dfs(matrix, row , col+1 , 1) ; // right
+                    dfs(matrix, row , col-1 , 2) ; //left
+                    dfs(matrix, row-1 , col , 3) ; //up
+                    dfs(matrix, row+1 , col , 4) ; //down
+                }
+            }
+        }
+    }
+    void dfs(vector<vector<int>>& matrix , int x , int y , int direction ) {
+            if( check(matrix,x,y) ) {
+                if (matrix[x][y]) visited[pair(x,y)] =1 ;
+                matrix[x][y] = 0 ;
+            }
+            else return ; 
+            switch(direction){                    
+                case 1 : dfs(matrix, x , y+1 , 1) ; break;  // right
+                case 2 : dfs(matrix, x , y-1 , 2) ; break; //left
+                case 3 : dfs(matrix, x-1 , y , 3) ; break;  //up
+                case 4 : dfs(matrix, x+1 , y , 4) ; break;//down
+            }
+
+    }
+    
+    bool check(vector<vector<int>>& matrix, int x , int y){
+        if(x<0 || x>= matrix.size()) return false ;
+        if(y<0 || y>= matrix[0].size() ) return false ;
+        return true ;
+    }
+};
+
+

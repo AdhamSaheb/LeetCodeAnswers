@@ -1,0 +1,21 @@
+class Solution {
+public:
+ vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        if(intervals.size()<=1) return intervals;
+        sort(intervals.begin(), intervals.end());
+        vector<vector<int>> output;
+        output.push_back(intervals[0]);
+        for(int i=1; i<intervals.size(); i++) {
+            if(output.back()[1] >= intervals[i][0]) output.back()[1] = max(output.back()[1] , intervals[i][1]);
+            else output.push_back(intervals[i]); 
+        }
+        return output;
+    }
+    /* Explanation 
+        * sort all intervals based on the start of each interval
+        * push the first interval into the answer vector 
+        * for each interval following the first one, compare the end of the interval at the answer with the start of the current interval iterated 
+        * if the end of the interval in ans is larger than the start of the current interval, change the end of the ans interval to the end of current interval ( overlapping)
+        * if not, push the current interval to the answer vector and do the same with it 
+    */
+};

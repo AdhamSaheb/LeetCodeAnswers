@@ -1,0 +1,28 @@
+class Solution {
+public:
+    
+    vector<string> ans ;
+    vector<string> lookUp = {"abc","def", "ghi","jkl","mno","pqrs","tuv","wxyz"};
+    vector<string> letterCombinations(string digits) {
+        if(!digits.size() ) return ans  ;
+        int index = (digits[0]-48) -2 ; 
+        for(char c : lookUp[index]){
+            dfs(string(1,c) , digits , 1 );
+        }
+        return ans ;
+    }
+    
+    void dfs(string base, string digits, int current){ // base is the string so far, digits is the original number string, and current is the current index 
+        if(current >= digits.size() ) {
+            ans.push_back(base);
+            return ; 
+        }
+        int index = (digits[current]-48) -2 ; 
+        for(char c : lookUp[index]) {
+            dfs( base + c , digits , current+1 );
+        }
+        
+    }
+};
+
+

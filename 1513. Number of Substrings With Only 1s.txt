@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int numSub(string s) {
+        vector<int> sizes; // the sized of sequences of 1 ;
+        int counter = 0 ;
+        long ans =0 ;
+        for(char c : s) {
+            if (c=='1') counter ++ ; 
+            else {
+                sizes.push_back(counter);
+                counter =0 ;
+            }
+        }
+        sizes.push_back(counter);
+        for(int num : sizes) {
+            for(int i = 1;i<=num;i++) {
+                ans += i;
+            } 
+        }
+        
+        return ans% 1000000007 ;
+    }
+};

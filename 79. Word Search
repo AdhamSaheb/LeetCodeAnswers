@@ -1,0 +1,39 @@
+
+class Solution {
+public:
+    bool exist(vector<vector<char>>& board, string word) {
+        bool ans = false ;
+        for(int row = 0; row<board.size() ; row ++ ) {
+            for(int col =0 ; col< board[0].size() ; col ++) {
+                if(board[row][col] == word[0]) {
+                    ans |= helper(board , word , 1 , row ,col );
+                }
+            }
+        }
+        return ans ;
+    }
+    
+    bool helper(vector<vector<char>>& board, string word , int targetIndex ,int row , int col ) {
+        if(targetIndex >= word.size()) return true ; 
+        bool ans  = false ;
+        char temp = board[row][col] ;
+        board[row][col] = ' '; // just so that it doesnt visit it on its path again
+        int dx[] = {1,-1,0,0} ;
+        int dy[] = {0,0,1,-1} ;
+        for(int i = 0 ;i<4;i++) {
+            int toX = row + dx[i];  
+            int toY = col + dy[i];
+            if( check(board,toX,toY ,word[targetIndex] )  ) {
+                ans = ans | helper(board,word,targetIndex+1,toX,toY);
+            }
+        }
+        board[row] [col] = temp ; // restore it in case another stack call is checking it 
+        return ans ;
+    }
+    bool check(vector<vector<char>>& board , int row , int col, char target) {
+        if(row < 0 || row >= board.size() )return false ;
+        if(col < 0  || col >= board[0].size()) return false ;
+        if(board[row][col] == target ) return true; 
+        else return false ;
+    }
+};

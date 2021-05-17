@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        
+        int lo = 0, hi=nums.size() -1 ; 
+        int middle ; 
+        while(lo < hi ) {
+            middle = lo + (hi-lo + 1 ) /2 ;
+            if(  nums[ middle ] == target ) return middle ;
+            if(nums[middle] > target ) {
+                hi = middle -1 ; 
+            }else{
+                lo = middle  ; 
+            }
+        }
+        return (nums[lo] == target) ? lo : -1  ;
+        
+    }
+};
+
+

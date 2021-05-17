@@ -26,3 +26,22 @@ public:
         return ans;
     }
 };
+
+
+//-----
+
+class Solution {
+public:
+      
+    string frequencySort(string s) {
+        int arr[256] = {0};
+        for(char c : s) {
+            arr[c] ++ ;  
+        }
+        sort(s.begin(),s.end(), [&] (char &a , char &b ) -> bool {
+            if(arr[a] == arr[b] ) return a>b  ;
+            else return arr[a] > arr[b]; 
+        });
+        return s;
+    }
+};

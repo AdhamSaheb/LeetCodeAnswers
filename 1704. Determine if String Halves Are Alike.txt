@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool halvesAreAlike(string s) {
+        int right = 0 , left = 0 ;
+        for(int i = 0; i<s.size() ; i++) {
+            if( is_vowel(s[i]  | 32)) {
+                if(i<s.size() /2 ) left ++ ;
+                else right ++ ;
+            }
+        }
+        return right == left ;
+    }
+    bool is_vowel(char c ) {
+         return (c=='a' || c == 'i' || c=='e' || c=='u' || c=='o');
+    }
+    
+};

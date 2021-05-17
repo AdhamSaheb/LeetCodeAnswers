@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        set<char> st;
+        int maxsize=0;
+        int i=0,j=0; //i is used for removing elements , j for adding them
+        while(j< s.size()){
+            if(st.count(s[j])==0){
+                st.insert(s[j]);
+                maxsize=max(maxsize,(int)st.size());
+                j++; // if the char is new, add it to the list
+            }
+            else{
+                st.erase(s[i]);
+                i++; // if it has been seen in set, start removing elements at i until it no                     longer exists in set 
+            }
+        }
+        return maxsize;
+    }
+};

@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int countServers(vector<vector<int>>& grid) {
+        int m = grid.size() , n = grid[0].size();
+        vector<int> row(m,0); //to store the count of servers in each row
+        vector<int> column(n,0); //to store the count of servers in each column
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++) {
+                if(grid[i][j]){
+                    row[i]++; //there is a server in the ith row
+                    column[j]++;//there is a server in the jth column
+                }
+            }   
+        }
+        int count =0;
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+                if(grid[i][j]==1 && (row[i]>1 || column[j]>1)) //why >1? because there should be atleast 2 servers for communication
+                    count++;
+        return count;
+    }
+};

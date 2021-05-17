@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+        //vector<vector<int>> ans ;
+        sort(intervals.begin(),intervals.end()); // based on start of interval 
+        int ans = 0 ;
+        vector<int> current = intervals[0]; 
+        for(int i = 1 ; i<intervals.size() ;i++) {
+            if( current[1] > intervals[i][0] ) {
+                current[1] = min(current[1],intervals[i][1]) ;
+                ans ++ ; // if overlapping, pretend that it doens't exists and increment counter ( current stays at its place )
+            }else{
+                current = intervals[i] ;
+            }
+        }
+        return ans ;
+    }
+};
+

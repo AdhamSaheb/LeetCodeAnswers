@@ -1,0 +1,38 @@
+class WordDictionary {
+public:
+    /** Initialize your data structure here. */
+    unordered_map<int, vector<string>> mp ; // [ length : list of words of that length  ] 
+    WordDictionary() {
+        
+    }
+    
+    void addWord(string word) {
+        if(mp.count(word.size()) ) mp[word.size()].push_back(word);
+        else mp[word.size()] = {word};
+    }
+    
+    bool search(string word) {
+        if(mp.count(word.size())) {
+            vector<string> words = mp[word.size()] ;
+            for(string temp : words) {
+                if(compare(temp,word)) return true;   
+            }
+        }
+        return false ;
+    }
+    
+    bool compare(string s1 , string s2){ // // 100% same size of strings
+        for(int i = 0 ; i<s1.size() ;i++ ) {
+            if(s2[i] == '.' ) continue ; 
+            if(s1[i] != s2[i]) return false ; 
+        }
+        return true; 
+    }
+};
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary* obj = new WordDictionary();
+ * obj->addWord(word);
+ * bool param_2 = obj->search(word);
+ */
