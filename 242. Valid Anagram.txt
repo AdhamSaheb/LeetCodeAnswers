@@ -6,3 +6,23 @@ public:
         return s==t ;
     }
 };
+
+better solution
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if(s.size() != t.size()) return false ;
+        int mp1[26] = {0};
+        int mp2[26] = {0};
+        for(char c : s ) {
+            mp1[c-'a'] ++ ; 
+        }
+        for(char c : t ) {
+            mp2[c-'a']  ++ ;
+        }
+        for(char c : s ) 
+            if (mp1[c-'a'] != mp2[c-'a']) return false; 
+        return true ; 
+        
+    }
+};

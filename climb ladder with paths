@@ -1,0 +1,61 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+#include <bits/stdc++.h>
+using namespace std;
+vector<vector<int>> ans ;
+int climbLadder (int , vector<int> &);
+int main()
+{   vector<int> current ;
+    cout<< climbLadder(70,current ) << endl; 
+    for(auto path : ans  ) {
+        for(int num : path ) cout << num << "\t" ;
+        cout << endl; 
+    }
+    return 0;
+}
+
+
+int climbLadder(int steps , vector<int> &current){
+    vector<int> temp1 = current, temp2= current , temp3=current ;
+    if(steps == 1 ) {
+        current.push_back(1);
+        ans.push_back(current);
+        return 1 ;
+    }
+    if(steps == 2 ) {
+        current.push_back(2);
+        ans.push_back(current);
+        current.pop_back();
+        current.push_back(1);
+        current.push_back(1);
+        ans.push_back(current);
+        return 2 ;
+    }
+    if(steps == 3 ){
+        current.push_back(3);
+        ans.push_back(current);
+        current.pop_back() ;
+        current.push_back(2);
+        current.push_back(1);
+        swap(current[current.size() -1] , current [current.size() -2] );
+        ans.push_back(current);
+        current[current.size() -1] =1 ;
+        current.push_back(1);
+        ans.push_back(current);
+        return 4 ;
+    }
+    else{
+        temp1.push_back(1);
+        temp2.push_back(2);
+        temp3.push_back(3);
+    }
+    return  climbLadder(steps-1,temp1) + climbLadder(steps-2,temp2) + climbLadder(steps-3,temp3);
+}
+    

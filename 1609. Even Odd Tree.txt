@@ -1,0 +1,60 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isEvenOddTree(TreeNode* root) {
+        queue<TreeNode*> q ;
+        TreeNode* front ;
+        int currLevel =1 , nextLevel = 0;
+        bool isEven = true ;
+        vector<int> nums ; 
+        q.push(root);
+        while(q.size()){
+            front = q.front() ;
+            q.pop() ;
+            currLevel -- ;
+            nums.push_back(front->val);
+            if(front->left ) {
+                q.push(front->left);
+                nextLevel ++ ;
+            }
+            if(front->right ) {
+                q.push(front->right);
+                nextLevel ++ ;
+            }
+            if(!currLevel) {
+                if(isEven && !checkEvenLevel(nums) ) return false ;
+                else if (!isEven  && !checkOddLevel(nums) ) return false ;
+                nums = {} ;
+                isEven = !isEven ; 
+                swap(currLevel,nextLevel);
+            }
+            
+        }
+        return true ;
+    }
+    bool checkEvenLevel(vector<int> &nums){
+        if(nums[0] % 2 ==0 ) return false ;
+        for(int i=1 ; i<nums.size() ;i++) {
+            if(nums[i] <= nums[i-1] || nums[i]%2 == 0 ) return false ;
+        }
+        return true ;
+    }
+    bool checkOddLevel(vector<int> &nums){
+        if(nums[0] % 2 ) return false ;
+        for(int i=1 ; i<nums.size() ;i++) {
+            if(nums[i] >= nums[i-1] || nums[i]%2 ) return false ;
+        }
+        return true ;
+    }
+
+};

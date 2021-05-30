@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int sumBase(int n, int k) {
+        int baseK =0 ;
+         while(n >= k) {
+             baseK += n%k ;
+             n /= k ;
+         }
+        baseK+= n; 
+        
+        return baseK ;
+    }
+};
+
+//101010

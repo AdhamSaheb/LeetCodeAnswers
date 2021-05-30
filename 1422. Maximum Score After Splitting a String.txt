@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int maxScore(string s) {
+        
+        int leftScore = 0,rightScore =0, maxScore =0  ;
+        leftScore = s[0]=='0' ;
+        for(int i =1 ; i<s.size() ;i++) {
+            rightScore += (s[i]=='1');
+        }
+        maxScore = leftScore + rightScore ;
+        //now split 
+        for(int i =1 ; i<s.size()-1 ;i++) { //one element at least has to be present in right side 
+            rightScore -= (s[i]=='1');
+            leftScore += (s[i]=='0');
+            maxScore = max(maxScore,leftScore+rightScore);
+        }
+        return maxScore ;
+        
+    }
+};

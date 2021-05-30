@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums, int limit) {
+        multiset<int> m;
+        int j=0,ans=1;
+        for(int i=0;i<nums.size();i++)
+        {
+            m.insert(nums[i]);
+            while(!m.empty() && *m.rbegin()-*m.begin()>limit)
+                m.erase(m.find(nums[j++]));
+            ans=max(ans,i-j+1);
+        }
+        return ans;
+    }
+};
+
+// the set will always keep the min and max number at the end 
+// so every time i insert a new element ill add it to the set and compare the 2 end of it if they are < limit 

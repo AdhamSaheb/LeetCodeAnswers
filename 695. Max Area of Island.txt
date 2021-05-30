@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int size = 0;
+    int maxSize = 0 ; 
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        for(int x = 0 ;x< grid.size() ; x++){
+            for(int y =0;y<grid[0].size();y++) {
+                if(grid[x][y]){
+                    size ++ ;
+                    helper(grid,x,y);
+                    maxSize = max(size,maxSize);
+                    size =0 ;
+                }
+            }
+        }
+        return maxSize ; 
+    }
+    void helper(vector<vector<int>>& grid, int x ,int y){
+        grid[x][y] = 0 ;
+        int dx[4] = {1,-1,0,0}; 
+        int dy[4] = {0,0,1,-1}; 
+        queue<pair<int,int>> q ;
+        q.push(pair<int,int>(x,y));
+        while(q.size()){
+            x = q.front().first ;
+            y= q.front().second ; 
+            q.pop() ;
+            for(int i=0;i<4;i++){
+                if(check(grid,x+dx[i],y+dy[i]) ) {
+                    grid[x+dx[i]][y+dy[i]] = 0 ;
+                    size ++ ;
+                    q.push(pair<int,int>(x+dx[i],y+dy[i]));
+                }
+            }
+        }
+    }
+    bool check(vector<vector<int>>& grid, int x ,int y){
+        if(x>=grid.size() || x<0 || y>=grid[0].size() || y< 0 ) return false;
+        if(!grid[x][y]) return false; 
+        return true ;
+    }
+};

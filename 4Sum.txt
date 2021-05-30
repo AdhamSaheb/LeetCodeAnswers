@@ -1,0 +1,42 @@
+class Solution {
+public:
+    map<vector<int>,bool> seen ;
+    vector<vector<int>> ans ;
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        int compliment ; 
+        vector<int> candidate ;
+        sort(nums.begin(),nums.end());
+        for(int first = 0 ;first<nums.size();first++) {
+            for(int second = first+1 ; second<nums.size();second++){
+                compliment = target - (nums[first]+nums[second]) ;  
+                candidate.push_back(nums[first]);
+                candidate.push_back(nums[second]);
+                search(second+1,compliment,nums,candidate);
+                candidate = {} ;
+            }
+        }
+        return ans ;
+    }
+    
+    void search(int low, int target,vector<int>& nums,vector<int> candidate) {
+        int hi = nums.size() -1 ;
+        vector<int> valid ;
+        while(low<hi) {
+            if(nums[low] + nums[hi] == target ) {
+                valid = candidate ;
+                valid.push_back(nums[low]);
+                valid.push_back(nums[hi]);
+                if(!seen.count(valid)) {
+                    ans.push_back(valid);
+                    seen[valid] =1 ;
+                }
+                low++ ; hi -- ;
+            }else if(nums[low] + nums[hi] > target ) {
+                hi -- ;
+            }else {
+                low ++ ;
+            }
+        }
+    }
+};
+

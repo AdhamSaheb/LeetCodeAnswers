@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> countBits(int n) {
+        vector<int> ans(n+1,0);
+        int counter =0 ;
+        for(int i=1 ;i<=n;i++){
+            if( !(i&(i-1))) ans[i] =1 ;
+            else {
+                counter =0 ;
+                for(int bit = 0; bit<32; bit++){
+                     if((i>>bit)&1) counter++ ;
+                }
+                ans[i] = counter ;
+            }
+        }
+        return ans ;
+    }                                       
+};

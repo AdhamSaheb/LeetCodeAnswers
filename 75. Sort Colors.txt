@@ -1,0 +1,38 @@
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        // for(int i =0 ; i<nums.size() ; i++) {
+        //     if(nums[i] == 0){
+        //         for(int j =0 ; j<nums.size() ;j++) 
+        //             if(nums[j]>0) swap(nums[j],nums[i]);
+        //     }
+        // }
+        // for(int i =0 ; i<nums.size() ; i++) {
+        //     if(nums[i] == 1){
+        //         for(int j =0 ; j<nums.size() ;j++) 
+        //             if(nums[j]>1) swap(nums[j],nums[i]);
+        //     }
+        // }
+        /*Attemp 2 */
+        int occurances[3]= {0,0,0};
+        for(int num : nums) occurances[num] ++ ;
+        int current = 0 ;
+        for(int i =0 ;i<nums.size() ;i++){
+            while(!occurances[current]){
+                current++ ;
+            }
+            nums[i] = current ; 
+            occurances[current]-- ;
+        }
+    }
+};
+	/*Attempt 3 */
+
+
+        int hi=nums.size()-1, low=0;
+        for (int i=0; i<=hi; i++) {
+            while (nums[i]==2 && i< hi) swap(nums[i], nums[hi--]);
+            while (nums[i]==0 && i> low) swap(nums[i], nums[low++]);
+        }
+        //idea: low will always point on a 0 and increment 
+        // high will always point to a 2 and decrement  
