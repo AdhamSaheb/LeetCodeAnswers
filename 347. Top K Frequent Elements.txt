@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int ,int> mp; //number to occurances 
+        vector<int> ans;
+        for(auto num : nums) {
+            mp[num] ++ ; 
+        }
+        sort(nums.begin(),nums.end(), [&] (auto a , auto b) -> bool {
+            if( mp[a] == mp[b] )  return a<b;
+            return  mp[a]<mp[b] ;
+        });
+        int index = nums.size() -2 ;
+        ans.push_back(nums[nums.size()-1]);
+        while(ans.size() !=k ) {
+            while(nums[index] == ans[ans.size() -1]) index -- ;
+            ans.push_back(nums[index]);
+        }
+        return ans ;
+    }
+};

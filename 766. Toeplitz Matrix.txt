@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool isToeplitzMatrix(vector<vector<int>>& matrix) {
+        int row = matrix.size() -1 , col = 0  , rowPtr , colPtr, temp  ; 
+        colPtr = col ;
+        rowPtr = row ;
+        for(row = matrix.size() -1 ; row >0 ; row --) {
+            colPtr = 0 ;
+            rowPtr = row ;
+            temp = matrix[row][0] ;
+            while(colPtr < matrix[0].size() && rowPtr < matrix.size() ) {
+                if(matrix[rowPtr][colPtr] !=temp) return false ;
+                colPtr ++ ;
+                rowPtr ++ ;
+            }
+        }
+        colPtr = col ;
+        rowPtr = 0 ;
+        for(col = 0 ; col < matrix[0].size() ; col ++) {
+            temp = matrix[0][col] ;
+            colPtr = col ;
+            rowPtr = 0 ;
+            while(colPtr < matrix[0].size() && rowPtr < matrix.size() ) {
+                if(matrix[rowPtr][colPtr] !=temp) return false ;
+                colPtr ++ ;
+                rowPtr ++ ;
+            }
+        }
+         return true; 
+    }
+};
+
+

@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        int flg = 0 ;
+        unordered_map<int,int> index ;
+        for(int i =0 ;i<nums2.size() ;i++) {
+            index[nums2[i]] = i ;
+        }
+        for(int i =0;i<nums1.size() ;i++) {
+            flg = 0 ; 
+            for(int j = index[nums1[i]] ; j<nums2.size() ;j++) {
+                if(nums2[j]>nums1[i]) {
+                    nums1[i] = nums2[j];
+                    flg = 1 ;
+                    break; 
+                }
+            }
+            if(!flg) nums1[i] = -1 ;
+        }
+        return nums1 ;
+    }
+};
+
+
+
+
+496. Next Greater Element I
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) {
+        stack<int> s;
+        unordered_map<int, int> m;
+        for (int n : nums) {
+            while (s.size() && s.top() < n) {
+                m[s.top()] = n;
+                s.pop();
+            }
+            s.push(n);
+        }
+        vector<int> ans;
+        for (int n : findNums) ans.push_back(m.count(n) ? m[n] : -1);
+        return ans;
+    }
+};

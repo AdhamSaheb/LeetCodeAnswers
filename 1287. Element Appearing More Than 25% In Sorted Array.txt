@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int findSpecialInteger(vector<int>& arr) {
+        double limit = 0.25 *arr.size() ;
+        int current = 0 ;
+        int prev= arr[0] ;
+        int i =0 ;
+        while(i<arr.size()){
+            current = 0; 
+            while(i<arr.size() && arr[i]==prev){
+                current ++ ;
+                if(current > limit) return arr[i];
+                
+                i++ ;
+            }
+            if(i<arr.size()) prev = arr[i] ;
+        }
+        return 0 ;
+    }
+};

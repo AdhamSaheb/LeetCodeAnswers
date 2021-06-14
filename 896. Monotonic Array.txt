@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool isMonotonic(vector<int>& nums) {
+        int changes =0 ;
+        int i =0 ; 
+        while(i<nums.size() -1 ) {
+            if(nums[i+1] == nums[i]) {
+                while( i<nums.size()-1 && nums[i+1] == nums[i] ) i ++ ; // or just continue ;
+            }
+            else if(nums[i+1] > nums[i]) {
+                if(++changes > 1 ) return false ;
+                while( i<nums.size()-1 && nums[i+1] >= nums[i] ) i ++ ;
+            }else {
+                if(++changes > 1 ) return false ;
+                while(i<nums.size()-1 && nums[i+1] <= nums[i] ) i ++ ;
+            }
+        }
+       return true ;  
+    }
+};

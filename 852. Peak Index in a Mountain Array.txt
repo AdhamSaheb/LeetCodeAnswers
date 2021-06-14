@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int peakIndexInMountainArray(vector<int>& arr) {
+        //find high if the increasing part 
+        int low = 0 , high = arr.size() -1 , middle ;
+        while(low<high) {
+            middle = low+ (high-low)/2 ;
+            if(arr[middle] > arr[high] && arr[middle] > arr[middle+1] ) high = middle ; //decresing part 
+            else low = middle +1 ;   
+        }
+        return high ;
+    }
+};
+
+/*
+    [24,69,100,99,79,78,67,36,26,19]
+    [24,69,100,99,79]
+    [24,69,100]
+    [100]
+*/
+
+/*
+    [3,4,5,1]
+    []
+*/
+
+    

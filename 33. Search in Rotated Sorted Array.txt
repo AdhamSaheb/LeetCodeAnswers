@@ -1,0 +1,32 @@
+//1- find the index of the rotation ( minimum element ) using BS 
+//2- Either BS the upper part or the lower part on the sides of the minimum element 
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        int minIndex = findMin(nums) ;
+        if(nums[minIndex] == target) return minIndex ;
+        // now choose wether to BS the part higher than min index or lower 
+        int n = nums.size() ; 
+        int low =  (target <= nums[n-1]) ? minIndex : 0 ;
+        int high = (target <= nums[n-1]) ? n-1  : minIndex ;
+        while (low <= high) {
+            int mid = low + (high - low) /2 ;
+            if(nums[mid] == target ) return mid ;
+            if(target > nums[mid]) low = mid +1 ; 
+            else high = mid-1 ;
+        }
+        return -1 ;
+    }
+    
+    int findMin(vector<int>& nums) {
+        int low = 0 , high = nums.size() -1  ; 
+        while(low < high) { 
+            int mid = low + (high - low) /2 ;
+            if(nums[mid] > nums[high]) low = mid + 1 ;
+            else high = mid ; 
+        }
+        return low ;
+    }
+    
+};

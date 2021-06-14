@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int uniqueMorseRepresentations(vector<string>& words) {
+        
+        string codes[] = {".-","-...","-.-.","-..",".","..-.",
+                          "--.","....","..",".---","-.-",".-..",
+                          "--","-.","---",".--.","--.-",".-.","...",
+                          "-","..-","...-",".--","-..-","-.--","--.."} ;
+        string current ;
+        unordered_map<string,bool> seen ;
+        int ans =0 ;
+        for(string word : words){
+            current = ""; 
+            for(char letter : word){
+                current += codes[letter - 'a'] ;
+            }
+            if(!seen.count(current)) {
+                seen[current] =1; 
+                ans ++ ;
+            }
+        }
+        return ans ;
+    }
+};

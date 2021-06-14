@@ -1,0 +1,13 @@
+//XORing all values also does the job
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        unordered_map<char,int> sOccurances ;
+        unordered_map<char,int> tOccurances ;
+        for(char c : s ) sOccurances[c] ++;
+        for(char c : t ) tOccurances[c] ++;
+        for(auto p : tOccurances)
+            if( !sOccurances.count(p.first) || sOccurances[p.first] != p.second  ) return p.first ;
+        return 0 ;
+    }
+};

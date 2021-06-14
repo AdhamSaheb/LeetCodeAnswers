@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        unordered_map<string ,int> mp; //word to occurances 
+        vector<string> unique;
+        vector<string> ans;
+        for(auto word : words) {
+            if(!mp.count(word)) unique.push_back(word);
+            mp[word] ++ ; 
+        }
+        sort(unique.begin(),unique.end(), [&] (auto a , auto b) -> bool {
+            if(mp[a] == mp[b] ) return a<b;
+            return  mp[a] > mp[b] ;
+        });
+        for(int i = 0 ; i<k;i++) {
+          ans.push_back(unique[i]);  
+        }
+        return ans ;
+    }
+
+};

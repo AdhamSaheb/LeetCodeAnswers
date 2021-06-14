@@ -1,0 +1,17 @@
+class Solution {
+public:
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        int low =0 , high = letters.size() -1 , middle; 
+        char ans = letters[0]; // will stay letters[0] if i never find a number > target ( wrap )
+        while(low <= high) {
+           middle = low + (high-low)/2 ;
+           if(letters[middle] > target ) {
+               high = middle-1 ;
+               ans = letters[middle] ;//temporarely 
+           }
+           else low = middle + 1;  
+        }
+
+        return ans;
+    }
+};

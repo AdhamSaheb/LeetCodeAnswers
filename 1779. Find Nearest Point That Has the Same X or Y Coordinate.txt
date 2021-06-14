@@ -1,0 +1,33 @@
+//to complicated
+
+class Solution {
+public:
+    int nearestValidPoint(int x, int y, vector<vector<int>>& points) {
+        map<int,vector<int>> distances ; // maps distance to the nearest point
+        map<vector<int>,int> indecies ; // maps point to index 
+        vector<int> validDistances ;
+        vector<int> myPoint = {x,y} ;
+        int tempDistance ;
+        int index = 0 ;
+        for(auto point : points) {
+            if(point[0] == x || point[1] == y) {
+                tempDistance = manhattan(point,myPoint) ;
+                if(!distances.count(tempDistance)) {    
+                    validDistances.push_back(tempDistance);
+                    //map distance to point if no smaller point has the same distance
+                    distances[tempDistance] = point ;
+                    indecies[point] = index ;
+                }
+            }
+            index ++ ;
+        }
+        if(!validDistances.size() ) return -1 ; 
+        //for(auto distance : validDistances ) cout << distance << endl; 
+        sort(validDistances.begin() ,validDistances.end()) ;
+        return indecies[distances[validDistances[0]]] ;
+    }
+    
+    int manhattan(vector<int> a , vector<int> b ) {
+        return abs(a[0]-b[0]) + abs(a[1] - b[1]);
+    }
+};
