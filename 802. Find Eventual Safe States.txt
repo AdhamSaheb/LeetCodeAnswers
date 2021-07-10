@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int UNVISITED = 0, VISITING =1, VISITEDSAFE=2 , VISITEDUNSAFE =4  ;
+    
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+        vector<int> visited(graph.size() , UNVISITED);     
+        vector<int> ans ;
+        for(int i = 0; i<graph.size(); ++i){
+            if( dfs(i, graph, visited)) ans.push_back(i);
+        } 
+        return ans; 
+    }
+    
+    bool dfs(int node, vector<vector<int>>& graph, vector<int> &visited ) {
+        if(visited[node] == VISITEDSAFE) return true ;
+        if(visited[node] == VISITEDUNSAFE) return false ;
+        visited[node] = VISITING ;
+        int ans = true ;
+        for(int neighbor: graph[node] ){
+            if(visited[neighbor]  == VISITING) {
+                visited[node] = VISITEDUNSAFE;
+                return false ;
+            }
+            ans = ans & dfs(neighbor,graph,visited);
+        }
+        visited[node] = (ans == true) ? VISITEDSAFE : VISITEDUNSAFE ;
+        return ans ;
+    }
+    
+};
+

@@ -1,0 +1,24 @@
+class Solution {
+public:
+    /*number of open roooms, 0 is open*/
+    int opened = 1 ;
+    /*current number of keys*/
+    int keys = 1 ; // assuming I have the key of 0
+    bool canVisitAllRooms(vector<vector<int>>& rooms) {
+        vector<int> visited(rooms.size() ,0 ) ;
+        visited[0] =1 ;
+        /*traverse graph*/
+        dfs(0,rooms,visited);
+        return keys == rooms.size() ; 
+    }
+    
+    void dfs(int room,vector<vector<int>>& rooms,vector<int> &visited){
+        visited[room] =1 ;
+        for(int neighbor : rooms[room]){
+            if(!visited[neighbor]) {
+                ++keys ;
+                dfs(neighbor,rooms,visited);
+            }
+        }
+    }
+};

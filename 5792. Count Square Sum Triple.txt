@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int countTriples(int n) {
+        unordered_map<int,int> squreSummations; 
+        vector<int> squares;
+        int ans = 0 ;
+        for(int i =1 ; i<=n ; i++) squares.push_back(pow(i,2));
+        for(int i =0 ; i<n ; i++){
+            for(int j=0; j<n;j++) {
+                if(i!=j) squreSummations[squares[i] + squares[j]]++;
+            }
+        }
+        for(int i =1 ; i<=n ; i++) 
+            ans += squreSummations[pow(i,2)];
+        return ans ; 
+    }
+};
+
+
+
+
+
