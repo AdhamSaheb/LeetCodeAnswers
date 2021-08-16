@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int findCenter(vector<vector<int>>& edges) {
+        unordered_set<int> occ;
+        for (auto edge : edges)
+        {
+            if (occ.count(edge[0])) return edge[0];
+            if (occ.count(edge[1])) return edge[1];
+            
+            occ.insert(edge[0]);
+            occ.insert(edge[1]);
+        }
+        
+        return -1;
+    }
+};

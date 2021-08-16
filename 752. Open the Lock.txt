@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int openLock(vector<string>& deadends, string target) {
+        unordered_set<string> deadEndsHashed ; 
+        unordered_map<string,bool> visited;
+        // hash deadends 
+        for(string deadEnd : deadends) deadEndsHashed.insert(deadEnd);
+        int currLevel = 1, nextLevel = 0, moves = 0;
+        queue<string> q ;
+        q.push("0000");
+        visited["0000"] = 1 ;
+        while(q.size()){
+            string current = q.front() ; q.pop();
+            currLevel -- ;
+            if(current == target) return moves ; //found target 
+            if(!deadEndsHashed.count(current)) {
+                /*Neighbor cases*/
+                for(int i = 0 ; i < 4 ; i++){
+                    int up = ( (current[i] - 48 ) + 1 ) % 9;
+                    int down = !(current[i] - 48)  ? 9 : ( (current[i] - 48 ) - 1 ) % 9;
+                    string upString = current, downString = current ;
+                    upString[i] = (up+48) ;
+                    downString[i] = (down+48) ;
+                    if(!visited[upString]) {
+                        nextLevel ++ ;
+                        visited[upString] = 1 ;
+                        q.push(upString);
+                    }
+                    if(!visited[downString]) {
+                        nextLevel ++ ;
+                        visited[downString] = 1 ;
+                        q.push(downString);
+                    }
+                }
+            }
+            if(!currLevel){
+                moves ++ ;
+                swap(currLevel,nextLevel);
+            }
+        } 
+        return -1 ;
+    }
+};

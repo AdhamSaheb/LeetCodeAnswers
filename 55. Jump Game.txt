@@ -1,0 +1,14 @@
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int n = nums.size();
+        int i = 0;
+        
+        for (int reach = 0; i < n && i <= reach; ++i)
+            reach = max(i + nums[i], reach);
+        // i is in plus because we are at that index already and we plus present jump possible to get the max reachable index
+        // reach is basically maximum index we can reach using previous i if i is greater than reach then that means we cannt inc i futher as our reach is not there
+        
+        return i == n;  // if we exit the loop before every i
+    }
+};

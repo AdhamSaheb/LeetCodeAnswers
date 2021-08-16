@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        int  maxLength = 0;
+        int maxWindowOccurances =0, windowStart = 0; 
+        unordered_map<int,int> occurances;
+        for(int windowEnd =0 ; windowEnd < s.size(); windowEnd ++){
+          int rightMost = s[windowEnd];
+          occurances[rightMost] ++ ; 
+          maxWindowOccurances = max(maxWindowOccurances, occurances[rightMost]);
+          //check if window size without the maximum occured char is > k then shirnk
+          if(windowEnd - windowStart + 1 - maxWindowOccurances > k){
+            int leftMost = s[windowStart];
+            occurances[leftMost] -- ;
+            windowStart ++ ;
+          }
+          maxLength = max(maxLength,windowEnd - windowStart + 1 );
+        }
+        return maxLength;
+    }
+};

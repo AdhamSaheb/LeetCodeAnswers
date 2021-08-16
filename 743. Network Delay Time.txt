@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int networkDelayTime(vector<vector<int>>& times, int n, int k) {
+        vector<pair<int,int>> adj[n+1];
+        for(int i=0;i<times.size();i++)
+                adj[times[i][0]].push_back({times[i][1],times[i][2]});
+        vector<int> dist(n+1,1000000000);
+        queue<int> q;
+        q.push(k);
+        dist[k]=0;
+        while(q.size())
+        {   
+            int t = q.front();
+            q.pop();
+            //traverse neighbors
+            for(auto neighbor : adj[t])
+            {   // if neighor cost to node is larger than my cost + cost to neighbor 
+                if(dist[neighbor.first] > dist[t]+neighbor.second)
+                {   //update distance of current node if has shorter path
+                    dist[neighbor.first] = dist[t]+neighbor.second;
+                    q.push(neighbor.first);
+                }
+            }
+        }
+        int res=0;
+        for(int i=1;i<=n;i++)
+        {
+            if(dist[i]==1000000000)
+                return -1;
+            res=max(res,dist[i]);
+        }
+        return res;
+    }
+};

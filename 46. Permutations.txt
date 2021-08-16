@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>> result;
+        vector<int> currentPermutation;
+        generatePermutationsRecursive(nums, 0, currentPermutation, result);
+        return result;  
+    }
+    
+private:
+   void generatePermutationsRecursive(const vector<int> &nums, int index,
+                                      vector<int> &currentPermutation, vector<vector<int>> &result) {
+    if (index == nums.size()) {
+      result.push_back(currentPermutation);
+    } else {
+      // create a new permutation by adding the current number at every position
+      for (int i = 0; i <= currentPermutation.size(); i++) {
+        vector<int> newPermutation(currentPermutation);
+        newPermutation.insert(newPermutation.begin() + i, nums[index]);
+        generatePermutationsRecursive(nums, index + 1, newPermutation, result);
+      }
+    }
+  }
+};
+

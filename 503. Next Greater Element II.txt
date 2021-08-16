@@ -1,0 +1,16 @@
+class Solution {
+public :
+    vector<int> nextGreaterElements(vector<int>& nums) {
+            vector<int> ans(nums.size(),-1);   
+            stack<pair<int, int>> stk;
+
+            for(int i=0, len=nums.size(); i<2*len; i++){
+                while(!stk.empty() && stk.top().first<nums[i%len]){
+                    ans[stk.top().second] = nums[i%len];
+                    stk.pop();
+                }
+                if(i<len) stk.push(make_pair(nums[i%len], i));
+            }
+            return ans;
+        }
+};

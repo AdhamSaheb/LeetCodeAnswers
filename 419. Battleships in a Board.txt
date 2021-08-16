@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool check(int i,int j,vector<vector<char>>& board)
+    {
+        return (i>=0 and i<board.size() and j>=0 and j<board[0].size());
+    }
+    void dfs(int x,int y,vector<vector<char>>& board)
+    {
+        if(board[x][y]=='X')
+        {
+            board[x][y]='O';
+            int dx[]={1,-1,0,0};
+            int dy[]={0,0,1,-1};
+            for (int k=0;k<4;k++){
+                if(check(x+dx[k],y+dy[k],board)){
+                    dfs(x+dx[k],y+dy[k], board);
+                }
+            }
+        }
+    }
+    int countBattleships(vector<vector<char>>& board) {
+        int n=board.size();
+        int m=board[0].size();
+        int res=0;
+        for (int i=0;i<n;i++)
+        {
+            for (int j=0;j<m;j++)
+            {
+                if(board[i][j]=='X'){
+                    dfs(i,j,board);
+                    res++;
+                }
+            }
+        }
+        return res;
+    }
+};
+
+/*Same as counting islands*/

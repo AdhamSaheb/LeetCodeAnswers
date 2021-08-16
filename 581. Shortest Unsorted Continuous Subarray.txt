@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+        int low = 0 , high = nums.size() -1, minimum = INT_MAX, maximum = INT_MIN;
+        //find smallest element out of order 
+        while(low < nums.size()-1 && nums[low+1] >= nums[low]){
+            low++ ;
+        }
+        if (low == nums.size() - 1) return 0 ; //sorted
+        // find the first number out of sorting order from the end
+        while (high > 0 && nums[high] >= nums[high - 1]) {
+          high--;
+        }
+        // find min and max of for the candidate subarray
+        for(int i = low ; i <= high; i++ ){
+            int num = nums[i];
+            minimum = min(minimum,num);
+            maximum = max(maximum,num);
+        }
+        //extend to the left to have all elements > min
+        while(low > 0 &&  nums[low-1] > minimum) low -- ;
+        //extend to the right to have all elements < max
+        while(high < nums.size()-1 && nums[high+1] < maximum) high ++ ;
+        cout << high << " " ;
+        return high - low + 1 ;
+    }
+};

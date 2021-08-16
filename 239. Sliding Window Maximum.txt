@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        map<int,int> occurances; 
+        int windowStart = 0 , localSum = 0 , windowEnd ;
+        vector<int> ans ;
+        for(int windowEnd  = 0 ; windowEnd < nums.size() ; windowEnd ++) {
+            occurances[nums[windowEnd]] ++ ;
+            if(windowEnd - windowStart + 1  > k ){
+                occurances[nums[windowStart]]-- ;
+                if(!occurances[nums[windowStart]]){
+                    occurances.erase(nums[windowStart]);
+                }
+                windowStart ++ ;
+            }
+            if(windowEnd - windowStart + 1  == k ) {
+                ans.push_back(occurances.rbegin()->first);
+            }
+        }
+        return ans ;
+    }
+};
+/*
+[9,10,9,-7,-4]
+[10,9,-7,-4,-8]
+[9,-7,-4,-8,2]
+[-7,-4,-8,2,-6]
+*/
+
