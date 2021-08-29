@@ -1,0 +1,29 @@
+class Solution {
+public:
+    
+    struct comparator{
+      bool operator()(const pair<int,int> &a, const pair<int,int> &b ){
+          return a.second < b.second ;
+      }  
+    };
+    vector<int> rearrangeBarcodes(vector<int>& barcodes) {
+        
+        priority_queue<pair<int,int>,vector<pair<int,int>>, comparator> maxHeap;
+        unordered_map<int,int> occurances ;
+        pair<int,int> prev = {-1,-1};
+        vector<int> ans ;
+        
+        for(auto barcode : barcodes) occurances[barcode] ++ ;
+        for(auto p : occurances) maxHeap.push(p);
+
+        while(maxHeap.size()){
+            pair<int,int> current = maxHeap.top(); maxHeap.pop();
+            ans.push_back(current.first);
+            current.second --;
+            if(prev.second > 0) maxHeap.push(prev); // put prev back to heap
+            prev = current ;
+        } 
+        return ans;
+
+    }
+};

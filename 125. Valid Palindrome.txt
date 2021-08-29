@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        
+        string str = "";
+        for(int ch = 0; ch < s.length(); ch++){
+            if(s[ch] >= 'a' && s[ch] <= 'z')
+                str += s[ch];
+            if(s[ch] >= 'A' && s[ch] <= 'Z')
+                str += s[ch] + 32;
+            if(s[ch] >= '0' && s[ch] <= '9')
+                str += s[ch];
+        }
+        
+        int low = 0, high = str.size()-1 ;
+        while(low < high) {
+            if(str[low] != str[high]) return false ;
+            low ++ ; high -- ;
+        }
+        return true;
+    }
+};
