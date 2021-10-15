@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool PredictTheWinner(vector<int>& num) {
+
+        return solve(0,0,0,num.size(),1,num); // c: counter 
+    }
+    
+    bool solve(int sum1,int sum2,int low,int high,int c,vector<int>& nums)
+    {
+        
+        if(high<=low){
+            if(sum1>=sum2)
+                return true;
+            else
+                return false;
+        }
+        if(c%2==1) // player 1
+            return solve(sum1+nums[high-1],sum2,low,high-1,c+1,nums) || solve(sum1+nums[low],sum2,low+1,high,c+1,nums);
+        else // player 2 
+            return solve(sum1,sum2+nums[high-1],low,high-1,c+1,nums) && solve(sum1,sum2+nums[low],low+1,high,c+1,nums);        
+    }
+};
+

@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int xorOperation(int n, int start) {
+        
+        int ans = 0 ;
+        vector<int> nums(n,0);
+        for(int i = 0 ; i<n ; i++ ) {
+            nums[i] =  start + (i<<1);
+        }
+        for(int num : nums) {
+            ans = ans xor num ;
+        }
+        return ans ;
+        
+    }
+};
+
+
+

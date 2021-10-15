@@ -1,0 +1,81 @@
+        Sat, 04 Sep 2021 12:18:39 +0300 (EEST)
+Date: Sat, 4 Sep 2021 12:18:39 +0300 (EEST)
+From: foo@bar.com
+To: rshahwan@apple.com
+Message-ID: <1911465013.35.1630747119303@adhams-mbp.lan>
+Subject: Demand Change Observed for test-rami B0
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_33_1777378802.1630747119299"
+
+------=_Part_33_1777378802.1630747119299
+Content-Type: multipart/related; 
+	boundary="----=_Part_34_1652003223.1630747119299"
+
+------=_Part_34_1652003223.1630747119299
+Content-Type: text/html;charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link crossorigin=3D"anonymous" href=3D"https://maxcdn.bootstrapcdn.com=
+/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity=3D"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va=
++PmSTsz/K68vbdEjh4u" rel=3D"stylesheet">
+
+    <style>
+=09=09.atlas-email-container {
+=09=09=09padding : 25px;
+=09=09=09width: fit-content;
+=09=09}
+
+=09=09.body-text {
+=09=09    text-align: justify;
+            text-justify: inter-word;
+=09=09}
+
+=09=09.atlas-header{
+=09=09=09padding: 10px 25px 10px 25px;
+=09=09=09min-height: 2rem;
+  =09=09=09background-color: #172734;
+=09=09=09display: flex;
+=09=09}
+
+=09=09.atlas-logo{
+=09=09=09letter-spacing: 0.625rem;
+=09=09=09color: rgb(255,67,60);
+=09=09=09font-weight: bold;
+=09=09}
+
+=09=09.apple-logo{
+=09=09=09color: white;
+=09=09=09margin-right : 2rem;
+=09=09}
+
+    </style>
+</head>
+
+
+<body style=3D"color: black">
+<div class=3D"atlas-header">
+    <b class=3D"h4 align-middle mb-0 mr-3 apple-logo">=EF=A3=BF</b>
+    <h4 class=3D"atlas-logo">A T L A S</h4>
+</div>
+
+<div class=3D"atlas-email-container">
+    <h4 >Hi Rami Shahwan,</h4>
+    <br>
+    <p>Please log into <a href=3D"http://localhost:4200">Atlas</a> to revie=
+w changes </p>
+    <hr style=3D"margin-left: 0%;">
+    <p>Regards,</p>
+    <p >Test </p>
+</div>
+</body>
+
+
+</html>
+------=_Part_34_1652003223.1630747119299--
+
+------=_Part_33_1777378802.1630747119299--

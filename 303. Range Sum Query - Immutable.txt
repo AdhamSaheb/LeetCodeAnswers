@@ -1,0 +1,27 @@
+class NumArray {
+public:
+    vector<int> prefix = {0} ;
+    
+    NumArray(vector<int>& nums) {
+        for (int num : nums) {
+            int prev = (prefix.size()) ? prefix.back() : 0 ; 
+            prefix.push_back( prev + num );
+        }
+    }
+    
+    int sumRange(int left, int right) {
+        return prefix[right+1] - prefix[left]; 
+    }
+};
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray* obj = new NumArray(nums);
+ * int param_1 = obj->sumRange(left,right);
+ */
+
+/*
+[-2, 0, 3, -5, 2, -1]
+prefix : {0,-2,-2,1,-4,-2,-3}
+
+*/

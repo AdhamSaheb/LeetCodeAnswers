@@ -1,0 +1,38 @@
+// class Solution {
+// public:
+//     int subarraysDivByK(vector<int>& nums, int k) {
+//         int ans = 0, sum = 0 ;
+//         unordered_map<int,int> occurances;
+//         for(int num : nums) {
+//             sum += num ;
+//             sum%=k;
+//             if(sum < 0) sum +=k; 
+//             if(!sum) ans ++ ;
+//             if (occurances.count(sum)) {
+//                 ans += occurances[sum];
+//             }
+//             occurances[sum] ++;
+//         }
+//         return ans ;
+        
+//     }
+// };
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) {
+        vector<int> prefix(k,0);
+        int sum=0;
+        int count=0;
+        prefix[0]++;  //sum is equal to k then also we count that so we include 0 initially for that case
+        int n=nums.size();
+        for(int i=0; i<n; i++){
+            sum=(sum+nums[i])%k;  //store the reminder instead of numbers, help in decreasing complexity
+            if(sum<0){
+                sum+=k;    // -1 mod 5 and 4 mod 5 are equivalent, and we storing only positive in vector
+            }
+            count+=prefix[sum];  //how many times this sum has appeared
+            prefix[sum]++;  //increase frequency of this sum 
+        }
+        return count;
+    }
+};

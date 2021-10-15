@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool findRotation(vector<vector<int>>& mat, vector<vector<int>>& target) {
+        int rows = mat.size();
+        int cols = mat[0].size();
+        if(mat==target){
+            return true;
+        }
+        // rotate then transpose 3 times
+        for(int i=0;i<3;i++){
+            reverse(mat.begin(),mat.end());
+            for(int m=0;m<rows;m++){
+                for(int n=m+1;n<cols;n++){
+                    swap(mat[m][n],mat[n][m]);
+                }
+            }
+            if(mat==target){
+                return true;
+            }
+        }
+        return false;
+    }
+};

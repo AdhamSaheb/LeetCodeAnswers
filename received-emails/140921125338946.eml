@@ -1,0 +1,84 @@
+        Tue, 14 Sep 2021 12:53:38 +0300 (EEST)
+Date: Tue, 14 Sep 2021 12:53:38 +0300 (EEST)
+From: foo@bar.com
+To: adhamh@apple.com
+Message-ID: <1613133993.85.1631613218912@localhost>
+Subject: test-rami A1 request Form has been modified
+MIME-Version: 1.0
+Content-Type: multipart/mixed; 
+	boundary="----=_Part_83_1060231047.1631613218907"
+
+------=_Part_83_1060231047.1631613218907
+Content-Type: multipart/related; 
+	boundary="----=_Part_84_315006507.1631613218907"
+
+------=_Part_84_315006507.1631613218907
+Content-Type: text/html;charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+=09<link crossorigin=3D"anonymous" href=3D"https://maxcdn.bootstrapcdn.com/=
+bootstrap/3.3.7/css/bootstrap.min.css"
+=09integrity=3D"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz=
+/K68vbdEjh4u" rel=3D"stylesheet">
+=09
+=09<style>
+=09=09.atlas-email-container {
+=09=09=09padding: 25px;
+=09=09=09width: fit-content;
+=09=09}
+
+=09=09.body-text {
+=09=09=09text-align: justify;
+=09=09=09text-justify: inter-word;
+=09=09}
+
+=09=09.atlas-header {
+=09=09=09padding: 10px 25px 10px 25px;
+=09=09=09min-height: 2rem;
+=09=09=09background-color: #172734;
+=09=09=09display: flex;
+=09=09}
+
+=09=09.atlas-logo {
+=09=09=09letter-spacing: 0.625rem;
+=09=09=09color: rgb(255, 67, 60);
+=09=09=09font-weight: bold;
+=09=09}
+
+=09=09.apple-logo {
+=09=09=09color: white;
+=09=09=09margin-right: 2rem;
+=09=09}
+=09</style>
+</head>
+
+
+<body style=3D"color: black">
+=09<div class=3D"atlas-header">
+=09=09<b class=3D"h4 align-middle mb-0 mr-3 apple-logo">=EF=A3=BF</b>
+=09=09<h4 class=3D"atlas-logo">A T L A S</h4>
+=09</div>
+
+=09<div class=3D"atlas-email-container">
+=09=09<h4 >Hi Adhamh Findlay,</h4>
+=09=09<br>
+=09=09<span><span style=3D"font-weight : bold" >test-rami</span> <span styl=
+e=3D"font-weight : bold" >A1</span> Request form has been modified </span>
+=09=09<p>Please log into <a href=3D"http://localhost:4200">Atlas</a> to rev=
+iew changes </p>
+=09=09<hr style=3D"text-align : left;">
+=09=09<p>Regards,</p>
+=09=09<p>Atlas Team</p>
+=09</div>
+</body>
+
+</html>
+
+<!--Todo : Add attribute-->
+------=_Part_84_315006507.1631613218907--
+
+------=_Part_83_1060231047.1631613218907--

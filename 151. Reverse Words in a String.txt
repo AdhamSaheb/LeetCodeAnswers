@@ -1,0 +1,16 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        string token = "" ;
+        string ans = "" ;
+        for(char c : s ) {
+            if(c != ' ') token += c ; 
+            else {
+                if(token.size()) ans = token + (ans.size() ?  " " : "") + ans ;
+                token = "";
+            }
+        }
+        if(token.size() and token != " ") ans = token + (ans.size() ?  " " : "") + ans ;
+        return ans ;
+    }
+};

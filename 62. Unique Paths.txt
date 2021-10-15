@@ -1,0 +1,28 @@
+class Solution {
+public:
+    
+    map<pair<int,int>,int> memo ;
+    int uniquePaths(int m, int n) {
+        pair<int,int> goal = {m-1, n-1};
+        return dfs(0,0,goal);    
+    }
+    
+    int dfs(int x , int y , pair<int,int> goal){
+        if(memo.count({x,y})) return memo[{x,y}];
+        pair<int,int> current(x,y);
+        if(!check(x,y,goal.first,goal.second)) return 0 ; // Out of bound or obstacle
+        if(isGoal(current,goal)) return 1 ; // goal 
+        memo[{x,y}] = dfs(x,y+1,goal) + dfs(x+1,y,goal);
+        return memo[{x,y}] ; 
+    }
+    
+    bool isGoal(pair<int,int> current , pair<int,int> goal) {
+        return current.first == goal.first and current.second == goal.second ;
+    }
+    
+    bool check(int x , int y , int m , int n ) {
+        if(x>m) return false ; 
+        if(y>n) return false ;
+        return true ;
+    }
+};

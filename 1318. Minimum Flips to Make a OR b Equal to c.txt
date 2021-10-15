@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int minFlips(int a, int b, int c) {
+        int count = 0 ; 
+        for(int i = 0 ; i<31;i++){
+            int tempA = (a>>i) & 1 ; 
+            int tempB = (b>>i) & 1 ; 
+            int tempC = (c>>i) & 1 ; 
+            if((tempA | tempB) != tempC) {
+                if(tempC) {
+                    count += 1 ;
+                }else {
+                    count += (tempA and tempB ) ? 2 : 1  ;
+                }
+            }
+        }
+        return count ;
+    }
+};
+
+
+/*
+10 ^ 9 
+30 bit 
+
+
+4 0100
+2 0010
+7 0111
+
+*/
+
+

@@ -1,0 +1,58 @@
+class Solution {
+public:
+    int shortestPath(vector<vector<int>>& grid, int k) {
+        int ans = 0, currLevel = 1, nextLevel = 0 ;
+        set<vector<int>> visited ; //{row,col,k remaining}
+        
+        queue<vector<int>> q ; //{row,col,k remaining}
+        q.push({0,0,k});
+        
+        visited.insert({0,0,k}) ;
+        //displacement
+        int dx[4] = {1,-1,0,0};
+        int dy[4] = {0,0,1,-1};
+        
+        
+        while(q.size()) {
+            vector<int> front = q.front(); q.pop(); 
+            currLevel -- ;
+            //goal
+            if(isGoal(front[0],front[1],grid)) return ans ;
+            int remainingObstacles = front[2];
+            // neighbors 
+            for(int i = 0 ; i < 4 ; i ++ ) {
+                int newRow = front[0] + dx[i];
+                int newCol = front[1] + dy[i];
+                if(check(newRow,newCol,grid)){
+                    if(grid[newRow][newCol] and !visited.count({newRow,newCol,remainingObstacles-1})) {
+                        if(remainingObstacles>0){
+                            visited.insert({newRow,newCol,remainingObstacles-1}) ;
+                            q.push({newRow,newCol,remainingObstacles-1});
+                            nextLevel ++ ;  
+                        }
+                    }else if (!grid[newRow][newCol] and !visited.count({newRow,newCol,remainingObstacles})  ) {
+                        visited.insert({newRow,newCol,remainingObstacles}) ;
+                        q.push({newRow,newCol,remainingObstacles});
+                        nextLevel ++ ;    
+                    }
+                } 
+            }
+            // next level 
+            if(!currLevel) {
+                ans ++ ;
+                swap(currLevel,nextLevel);
+            }
+        }
+        return -1 ;
+    }
+    
+    bool check(int row, int col,vector<vector<int>>& grid){
+        if(row > grid.size() -1 or row < 0 ) return false ;
+        if(col> grid[0].size() -1 or col < 0 ) return false ;
+        return true ;
+    }
+    
+    bool isGoal(int row, int col,vector<vector<int>>& grid) {
+        return (row == grid.size() -1) and (col == grid[0].size() -1) ;
+    }
+};

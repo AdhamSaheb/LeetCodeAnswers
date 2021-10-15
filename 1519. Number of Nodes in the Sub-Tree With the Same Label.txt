@@ -1,0 +1,45 @@
+class Graph{
+public:
+    vector<list<int>> l;
+    void add_edge(int &u,int &v){
+        l[u].push_back(v);
+        l[v].push_back(u);
+    }
+    vector<int> countPair(int src,int &n,string &labels,vector<bool> &visited,vector<int> &ans){
+        vector<int> freq(26,0);
+        visited[src]=true;
+        for(auto &it : l[src]){
+            if(!visited[it]){
+                vector<int> temp=countPair(it,n,labels,visited,ans);
+                for(int i=0;i<26;i++){
+                    freq[i]+=temp[i];
+                }
+            }
+        }
+        freq[labels[src]-'a']++;
+        ans[src]=freq[labels[src]-'a'];
+        return freq;
+    }
+    vector<int> countTrees(int &n,string &labels){
+        vector<bool> visited(n,false);
+        vector<int> ans(n,0);
+        countPair(0,n,labels,visited,ans);
+        return ans;
+    }
+};
+
+class Solution {
+public:
+    vector<int> countSubTrees(int&n, vector<vector<int>>&edges, string&labels){
+        Graph g;
+        g.l.resize(n);
+        for(auto&it:edges){
+            int u=it[0];
+            int v=it[1];
+            g.add_edge(u,v);
+        }
+        return g.countTrees(n,labels);
+    }
+};
+
+
