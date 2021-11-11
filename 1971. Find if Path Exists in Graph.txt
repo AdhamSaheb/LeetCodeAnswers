@@ -1,0 +1,46 @@
+class Solution {
+public:
+    bool validPath(int n, vector<vector<int>>& edges, int start, int end) {
+        vector<vector<int>> graph(n,vector<int>()); 
+        // build graph
+        for(auto edge : edges){
+            int u = edge[0],v= edge[1];
+            graph[u].push_back(v);
+            graph[v].push_back(u);
+        }
+        vector<bool> visited(n,false);
+        return dfs(graph,start,end,visited);
+    }
+    
+    bool bfs(vector<vector<int>> &graph, int start, int end){
+        queue<int> q ;
+        int visited[200000] = {0};
+        q.push(start);
+        visited[start] = 1;
+        while(q.size()){
+            int front = q.front(); q.pop();
+            if(front == end) return true ; // goal 
+            // neighbors
+            for(int neighbor : graph[front]){
+                if(!visited[neighbor]){
+                    visited[neighbor] =1 ;
+                    q.push(neighbor);
+                }
+            }
+        }
+        return false;
+    }
+    
+    bool dfs(vector<vector<int>> &graph, int current , int end, vector<bool> &visited){        
+        if(current == end ) return true;  // goal
+        visited[current] =1 ;
+        int flag = false ;
+        // neighbors
+        for(int neighbor : graph[current]){
+            if(!visited[neighbor]){
+                if (dfs(graph,neighbor,end,visited) ) return true;
+            }
+        }
+        return false  ;
+    }
+};

@@ -1,0 +1,33 @@
+using ANSWER = vector<vector<int>>;
+
+class Solution {    
+public:
+    
+    void helper(int index,vector<int> nums, int currentSum, vector<int> currentComb, int target, ANSWER &ans){
+        // Invalid
+        if(currentSum > target) return ;
+        // Goal
+        if(currentSum == target) {
+            ans.push_back(currentComb);
+            return ;            
+        }
+        // loop and backtrack
+        for(int i = index ; i < nums.size() ; i ++ ) {
+            int num = nums[i];
+            currentSum += num ;
+            currentComb.push_back(num);
+            helper(i , nums,currentSum,currentComb,target,ans);
+            currentSum -= num ;
+            currentComb.pop_back();
+        }
+    }
+
+
+    vector<vector<int>> combinationSum(vector<int>& nums, int target) {
+        ANSWER ans ;
+        vector<int> currentComb = {};
+        sort(nums.begin(),nums.end());
+        helper(0,nums,0,currentComb,target, ans);
+        return ans;
+    }
+};

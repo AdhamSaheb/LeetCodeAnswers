@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int nextGreaterElement(int n) {
+        string s = to_string(n);
+        int j = s.size();
+        while(j>0){
+            // first element with value to the left larger than it 
+            if(s[j-1] < s[j])
+                break;
+            j--;
+        }
+        if(j==0) return -1;
+        int i = j;
+        int min = j;
+        for(i=j;i<s.size();i++){  // find char to swap with
+            if(s[i] < s[min] && s[i] > s[j-1]){
+                min = i;
+            }
+        }
+        char temp = s[min];
+        s[min] = s[j-1];
+        s[j-1] = temp;
+        // sort the rest 
+        sort(s.begin()+j, s.end());
+        int ans = 0;
+        return stol(s)>INT_MAX?-1:stol(s);
+    }
+};
+
+/*
+
+1234 -> 1243 
+swap first digit from the right that has a higher digit on its right with the first greater element from the right then sort the rest to the left 
+12455 -> 12545
+
+*/

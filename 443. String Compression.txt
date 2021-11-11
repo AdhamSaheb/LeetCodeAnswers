@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+        string ans = ""; 
+        int p1 = 0 ;
+        while(p1<chars.size()) {
+            int count = 1 ;
+            char c = chars[p1];
+            int p2 = p1+1 ;
+            while(p2<chars.size() and chars[p2] == c) {            
+                count ++ ;
+                p2 ++ ;
+            }
+            ans = ans + c + ( (count > 1) ?  to_string(count) : "") ; 
+            p1 = p2 ;
+        }
+        chars = {}; 
+        for(char c : ans ) chars.push_back(c);
+        return ans.size(); 
+    }
+};

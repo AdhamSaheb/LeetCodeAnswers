@@ -1,0 +1,45 @@
+/*
+BEST EXPLANATION :
+https://www.youtube.com/watch?v=qhBVWf0YafA&ab_channel=NeetCode
+
+Instead of using the vector itself as the decision tree, use a hashmap, and the keys are the number of decisions I can make 
+*/
+
+using Map = unordered_map<int,int> ;
+using Permutations = vector<vector<int>>;
+    
+    
+class Solution {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        Permutations ans ;
+        vector<int> perm; 
+        Map occurances ;
+        int n = nums.size() ;
+        for(int num : nums) occurances[num] ++ ;
+        permute(perm,occurances,ans,n);
+        return ans ;
+    }
+    
+    void permute(vector<int> &perm, Map &occurances, Permutations &ans, int size ) {
+        // Valid permutation 
+            if(perm.size() == size) {
+                ans.push_back(perm);
+                return ;
+            }
+        // next decision ( use keys of hashmap for decisions)
+        for(auto p : occurances){
+            if(p.second > 0 ) {
+                perm.push_back(p.first);
+                occurances[p.first] -- ;
+                permute(perm,occurances,ans,size);
+                // Backtrack (go up in decision tree)
+                occurances[perm.back()] ++ ;
+                perm.pop_back();
+            }
+        }
+
+    }
+};
+
+
