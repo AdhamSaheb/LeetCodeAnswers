@@ -1,0 +1,35 @@
+class SnapshotArray {
+    int curSnap = 0;
+    unordered_map<int, vector<pair<int, int>>> snapShot;
+
+public:
+    SnapshotArray(int length) {
+    }
+    
+    void set(int index, int val) {
+        
+        if (snapShot.count(index) && snapShot[index].back().first == curSnap) {
+            snapShot[index].back().second = val;
+        } else {
+            snapShot[index].emplace_back(curSnap, val);
+        }
+    }
+    
+    int snap() {
+        return curSnap++;
+    }
+    
+    int get(int index, int snap_id) {
+        // it was set at or after snap_id, before that it was zero 
+        if (snapShot.count(index) && snapShot[index].front().first <= snap_id) {
+            auto cmp = [](const int val, const pair<int, int> &p) {
+                return val < p.first;
+            };
+            auto it = upper_bound(snapShot[index].begin(), snapShot[index].end(), snap_id, cmp);
+            --it;
+            return it->second;
+        } else {
+            return 0;
+        }
+    }
+};

@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> targetIndices(vector<int>& nums, int target) {
+        int occurances = 0 ; 
+        int lowerCout = 0 ; 
+        vector<int> ans ;
+        for(int num : nums) {
+            occurances += (num == target);
+            lowerCout += (num < target);
+        }
+        int index = lowerCout ;
+        for(int i = index ; i < (index + occurances) ; i++ ){
+            ans.push_back(i);
+        }
+        return ans ;
+    }
+};

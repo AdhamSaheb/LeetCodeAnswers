@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string findDifferentBinaryString(vector<string>& nums) {
+        unordered_set<string> seen;
+        for(auto num : nums) seen.insert(num);
+        string ans(nums[0].size(),'0');
+        return dfs(0,ans,seen); 
+    }
+    
+    string dfs(int index, string &ans, unordered_set<string> seen){
+        // goal
+        if(!seen.count(ans)) return ans ;
+            
+        // OOB
+        if(index >= ans.size() ){
+            return "" ;
+        }
+        
+        for(int i = index; i<ans.size() ; i++) {
+            ans[index] = '1' ;
+            string candidate = dfs(index + 1, ans, seen) ;
+            if(candidate.size()) return candidate; 
+            ans[index] = '0';
+        }
+        return "" ;
+    }
+};

@@ -1,0 +1,36 @@
+using graph =  unordered_map<int,vector<int>>;
+
+class Solution {
+public:
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        int ans = 0, n = isConnected.size() ;
+        graph g ;
+        bool visited[200] = {0};
+        // Build graph
+        for(int i = 0 ; i < n ; i++){
+            for(int j = 0 ; j < n ; j++) {
+                if(isConnected[i][j]) g[i].push_back(j);
+            }
+        }
+        // Traverse Graph
+        for(int city = 0 ; city < n ; city ++ ){
+            if(!visited[city]){
+                // new province
+                ans ++ ;
+                dfs(city,g,visited);
+            }
+        }
+        return ans ;
+    }
+    
+    void dfs(int city, graph g, bool visited[] ) {
+        visited[city] = 1 ; 
+        for(int neighbor : g[city]) {
+            if(!visited[neighbor]){
+                dfs(neighbor,g,visited);
+            }
+        }
+    }
+};
+
+

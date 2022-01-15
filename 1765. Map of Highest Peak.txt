@@ -1,0 +1,30 @@
+class Solution {
+public:
+  vector<vector<int>> highestPeak(vector<vector<int>>& grid) {
+    int y = grid.size(), yend = grid.size() - 1, x = grid[0].size(), xend = grid[0].size() - 1, level = -1;
+  
+    queue<pair<int,int>> q;  
+    for(int ty = 0; ty != y; ty++)
+      for(int tx = 0; tx != x; tx++){
+        if(grid[ty][tx] == 1) q.push({ty,tx});
+        grid[ty][tx] = INT_MAX; 
+      }
+    
+    while(!q.empty()){
+      level++;
+      int n = q.size();
+      while(n--){
+        auto [cy,cx] = q.front(); q.pop();
+        if(grid[cy][cx] != INT_MAX) continue;
+        grid[cy][cx] = level;
+          
+        if(cy         && grid[cy-1][cx] == INT_MAX) q.push({cy-1,cx});
+        if(cy != yend && grid[cy+1][cx] == INT_MAX) q.push({cy+1,cx});
+        if(cx         && grid[cy][cx-1] == INT_MAX) q.push({cy,cx-1});
+        if(cx != xend && grid[cy][cx+1] == INT_MAX) q.push({cy,cx+1});
+      }
+    }
+      
+    return grid;
+  }
+};

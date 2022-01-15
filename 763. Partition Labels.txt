@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+         
+        vector<int> ans;
+        
+        // For Storing each char last poisition
+        int hash_table[26] = {0};
+        
+    
+        for(int i = 0; i < s.length(); i++){
+            hash_table[s[i]-'a'] = i+1;
+        }
+        
+        int init_ptr = 0 , final_ptr = hash_table[s[0]-'a'];        
+        //Initially final_ptr equal to the last postion of first char in the string which will get updated as if final_ptr if any other char in between init_ptr and final_ptr have postion index  greater than final_ptr. If found update the final_ptr.
+                
+        for(int  i = 0; i < s.length(); i++){
+            
+            if(hash_table[s[i]-'a'] > final_ptr){
+                final_ptr = hash_table[s[i]-'a'];
+            }
+              // When final_ptr and i+1 become equal i.e each letter appears at most one in the partitiona and no same char between init_ptr and final_ptr will found after this.
+        //Include this length into the partition
+            
+            if(i+1 == final_ptr){
+                ans.push_back(final_ptr - init_ptr);
+                init_ptr = final_ptr;
+                if(i+1 < s.length())
+                  final_ptr = hash_table[s[i+1] - 'a'];
+            }
+        }
+            
+        return  ans;  
+    }
+};

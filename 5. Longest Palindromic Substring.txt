@@ -1,0 +1,22 @@
+class Solution {
+public:
+    string expandFromMiddle(string s, int left, int right) {
+        while (left >= 0 && right < s.size() && s[left] == s[right]) {
+            left--;
+            right++;
+        }
+        return s.substr(left + 1, right - (left + 1));
+    }
+    string longestPalindrome(string s) {
+        if (s.size() < 1)
+            return "";
+        string substring;
+        for (int i = 0; i < s.size(); i++) {
+            string odd = expandFromMiddle(s, i, i);
+            string even = expandFromMiddle(s, i, i + 1);
+            string max = odd.size() > even.size() ? odd : even;
+            substring = max.length() > substring.length() ? max : substring;
+        }
+        return substring;
+    }
+};

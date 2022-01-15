@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        map<int,int> mp;
+        int ans = 0 ;
+        int counter = 0 ;
+        for(int num : nums) mp[num]++ ;
+        int first = mp.begin()->first;
+        while(mp.size()){
+            mp.erase(first);
+            counter ++ ;
+            ans = max(counter,ans);
+            if(mp.begin()->first != first + 1  ) {
+                counter = 0 ;
+            }
+            first = mp.begin()->first;
+        }
+        return ans ;
+    }
+};

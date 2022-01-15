@@ -1,0 +1,53 @@
+using Grid = vector<vector<int>> ;
+
+class Solution {
+public:
+    int uniquePathsIII(vector<vector<int>>& grid) {
+        set<pair<int,int>> visited;
+        int ans = 0, totalSquares = 0 ;
+        int row =0, col =0 ;
+        // Find start and count empty squares
+        for(int i = 0 ; i < grid.size() ; i ++ ){
+            for(int j = 0 ; j < grid[0].size() ; j++) {
+                totalSquares += (grid[i][j] == 0 );
+                if(grid[i][j] == 1 ) {
+                    row = i ; col = j ; 
+                }
+            }
+        }
+        // brute force all possible paths 
+        visited.insert({row,col});
+        dfs(row,col,grid,visited,totalSquares,0,ans);
+        return ans ;
+    }
+    
+    void dfs(int row, int col, Grid & grid, set<pair<int,int>> &visited, int totalSquares ,int count, int &ans) {
+
+        // Goal ( +1 because the goal is counted )
+        if(grid[row][col] == 2 and count == totalSquares+1 ) {
+            ans ++ ;
+            return ;
+        }
+        // neighbors
+        int dx[4] = {1,-1,0,0};
+        int dy[4] = {0,0,1,-1};
+        
+        for(int i = 0 ; i < 4 ; i ++ ) {
+            int toRow = row + dx[i], toCol = col + dy[i]; 
+            // backtrack
+            if(check(toRow, toCol, grid) and !visited.count({toRow,toCol}) ) {
+                visited.insert({toRow,toCol});
+                count ++ ;
+                dfs(toRow,toCol,grid,visited,totalSquares,count,ans);
+                count -- ;
+                visited.erase({toRow,toCol});
+            }
+        }
+        
+    }
+    
+    bool check(int row , int col , Grid grid) {
+        return row >=0 and row < grid.size() and col >=0 and col< grid[0].size() and grid[row][col] != -1 ;
+    }
+    
+};

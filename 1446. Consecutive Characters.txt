@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int maxPower(string s) {
+        int windowStart = 0 ; 
+        int ans = 0 ; 
+        unordered_map<char,int> mp;
+        for(int windowEnd = 0; windowEnd < s.size() ; windowEnd ++ ) {
+            mp[s[windowEnd]] ++ ;
+            while(mp.size() > 1){
+                mp[s[windowStart]] -- ;
+                if(mp[s[windowStart]] ==0 ) mp.erase(s[windowStart]);
+                windowStart ++ ;
+            }
+            ans = max(ans,mp[s[windowEnd]]);
+        }
+        return ans ;
+    }
+};
