@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        unordered_set<int> seen ; // seen this number of occurances 
+        unordered_map<int,int> count ; 
+        for(int num : arr){
+            count[num] ++ ;
+        }
+        for(auto a : count ){
+            if(seen.count(a.second)) return false ;
+            seen.insert(a.second) ;
+        }
+        return true ;
+    }
+};

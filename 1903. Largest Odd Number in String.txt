@@ -1,0 +1,10 @@
+class Solution {
+public:
+    string largestOddNumber(string num) {
+        int last = num.size()-1 ;
+        while(last >=0 and ((num[last] - 32)%2) == 0) {
+            last -- ;
+        }
+        return num.substr(0,last+1);
+    }
+};

@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int addDigits(int num) {
+        if(num<10) return num ;
+        int clone = 0 ;
+        while(1) {
+            clone += num%10 ;
+            num /=10; 
+            if(!num) {
+                if(clone <10) return clone ;
+                else{
+                    num = clone ;
+                    clone = 0 ; 
+                }
+            }
+        }
+    }
+};

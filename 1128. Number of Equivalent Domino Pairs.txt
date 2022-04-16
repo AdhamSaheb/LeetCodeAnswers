@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int numEquivDominoPairs(vector<vector<int>>& dominoes) {
+        int ans =0 ;
+        map<vector<int>,int> mp ;
+        for(auto  domino : dominoes) {
+            if(mp.count(domino) ) ans += mp[domino] ;
+            vector<int> comiplemtDomino = {domino[1],domino[0]} ;
+            mp[domino] ++ ;
+            if(domino != comiplemtDomino) mp[comiplemtDomino] ++ ;
+        }
+        return ans ;
+    }
+};

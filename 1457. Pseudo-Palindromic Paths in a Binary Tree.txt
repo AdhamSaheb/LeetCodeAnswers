@@ -1,0 +1,35 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int pseudoPalindromicPaths (TreeNode* root) {        
+        vector<int> pathCnt(9);
+        return dfs(root, pathCnt);
+    }
+    
+private:
+    int dfs(TreeNode* root, vector<int> pathCnt) {
+        int ans = 0;
+        if(!root) return 0;        
+        ++pathCnt[root->val - 1];
+        if(!root->left && !root->right) return isPalindrom(pathCnt);
+        ans += dfs(root->left, pathCnt);
+        ans += dfs(root->right, pathCnt);
+        return ans;
+    }
+    
+    bool isPalindrom(vector<int>& pathCnt){
+        int cnt = 0;
+        for(auto i: pathCnt) if(i % 2 == 1) cnt++;
+        return cnt <= 1;
+    }
+};

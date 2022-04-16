@@ -1,0 +1,8 @@
+class Solution {
+public:
+    bool isThree(int n) {
+        int count = 1 ; // number itself
+        for(int i = 1 ; i <= n/2 ; i++) count += (n%i == 0) ;
+        return count == 3;
+    }
+};
