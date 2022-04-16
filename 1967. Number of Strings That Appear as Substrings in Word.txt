@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int numOfStrings(vector<string>& patterns, string word) {
+        int count = 0;
+        for(auto pattern : patterns){
+            int windowSize = pattern.size() ;
+            count += slidingWindow(pattern,word,pattern.size());
+        }
+        return count ;
+    }
+    bool slidingWindow(string pattern, string word, int k) {
+        
+        string curr = "" ;
+        for(int windowEnd = 0 ; windowEnd < word.size(); windowEnd ++) {
+            curr += word[windowEnd] ;
+            if(windowEnd >= k-1) {
+                if(curr == pattern) return true ;                
+                curr.erase(0,1);
+            }
+        }
+        return false ;
+    }
+};

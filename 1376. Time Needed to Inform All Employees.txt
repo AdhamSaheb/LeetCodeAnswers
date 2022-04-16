@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
+        int ans = 0 ;
+        unordered_map<int,vector<int>> graph ; //<id,subordinates>
+        for(int subordinate = 0 ; subordinate < manager.size() ; subordinate ++ ) {
+            graph[manager[subordinate]].push_back(subordinate);
+        }
+        bfs(graph,ans,headID,informTime);
+        return ans ;
+    }
+    
+    void bfs(unordered_map<int,vector<int>> &graph,int &ans , int root,vector<int>& informTime){
+        queue<pair<int,int>> q ; // manager,current cost  
+        q.push({root,0});
+        int maxCost = 0 ; 
+        while(q.size()){
+            int manager = q.front().first; 
+            int currentCost = q.front().second;
+            q.pop(); 
+            ans = max(ans,currentCost+informTime[manager]);
+            // if has children, compare inforTime with all nodes on the same level
+            for(int employee : graph[manager]){
+                q.push({employee,currentCost+informTime[manager]});
+            }
+        }
+    }
+};
+
+//calculate path with max cost 

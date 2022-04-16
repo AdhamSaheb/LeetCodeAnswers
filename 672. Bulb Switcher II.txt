@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int flipLights(int n, int presses) {
+        if(n <= 0 or presses <= 0) return 1;
+        string bulbs = "" ;
+        for(int i = 0 ; i < n ; i++) bulbs += "1";
+        int level = 0 ;
+        queue<string> q;
+        q.push(bulbs);
+        while(!q.empty()) {
+            int size = q.size() ;
+            map<string,bool> visited;
+            while(size --) {
+                string front = q.front(); q.pop();
+                string option1="",option2="",option3="",option4="";
+                for(int i = 0 ; i<bulbs.size() ; i++){
+                    option1+= flip(front[i]);
+                    if((i+1)%2 == 0) option2+= flip(front[i]); else option2 += front[i];
+                    if((i+1)%2) option3 += flip(front[i]); else option3 += front[i];
+                    if(i%3 == 0) option4 += flip(front[i]); else option4 += front[i];   
+                }
+                if(!visited[option1])  q.push(option1),  visited[option1] =1 ;
+                if(!visited[option2])  q.push(option2),  visited[option2] =1;
+                if(!visited[option3])  q.push(option3),  visited[option3] =1;
+                if(!visited[option4])  q.push(option4),  visited[option4] =1;
+            }
+            if(++level == presses) {
+                return q.size();
+            }            
+        }
+        return -1;
+    }
+    
+private :
+    char flip(char a) {
+        return a == '1' ? '0' : '1';
+    }
+};
+

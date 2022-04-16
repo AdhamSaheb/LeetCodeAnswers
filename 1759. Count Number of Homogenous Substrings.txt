@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int countHomogenous(string s) {
+        int windowStart = 0 ;
+        long ans = 0;
+        unordered_set<char> st ;
+        for(int windowEnd = 0 ; windowEnd < s.size() ; windowEnd ++ ) {
+            char rightMost = s[windowEnd] ;
+            st.insert(rightMost);
+            if(st.size() > 1) {
+                for(int i = 1 ; i < (windowEnd - windowStart + 1 ) ; i++ ) {
+                    ans += i ;
+                }
+                st.erase(s[windowStart]);
+                windowStart= windowEnd; 
+            }
+        }
+        for(int i = 1 ; i < (s.size() - windowStart + 1 ) ; i++ ) {
+            ans += i ;
+        }
+        return ans % 1000000007 ;
+    }
+};

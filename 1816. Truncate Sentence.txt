@@ -1,0 +1,13 @@
+class Solution {
+public:
+    string truncateSentence(string s, int k) {
+        string ans = "" ;
+        string temp = "";
+        stringstream stream(s);
+        for(int i = 1 ; i<=k ;i++){
+            stream >> temp ;
+            ans = ans + temp + ( (i==k) ? "" : " ");
+        }
+        return ans ;
+    }
+};

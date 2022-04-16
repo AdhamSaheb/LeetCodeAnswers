@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        /*longest subarray of size 2 */
+        int ans = 0, windowStart = 0 ;
+        unordered_map<int,int> occurances; 
+        for(int windowEnd = 0 ; windowEnd < fruits.size() ; windowEnd ++ ){
+            int rightMost = fruits[windowEnd];
+            occurances[rightMost] ++ ;
+            //shrink window if distinct > 2
+            while(occurances.size() > 2 ){
+                int leftMost = fruits[windowStart]; 
+                if(!--occurances[leftMost]) occurances.erase(leftMost);
+                windowStart ++ ; 
+            }
+            ans = max(ans,windowEnd - windowStart + 1 );
+        }
+        return ans ;
+    }
+};

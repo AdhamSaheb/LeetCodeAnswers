@@ -1,0 +1,13 @@
+class Solution {
+public:
+    string reversePrefix(string word, char ch) {
+        bool chFound = false ;
+        string ans = "" ;
+        for(char c : word) {
+            if(chFound) ans += c ;
+            else ans = c + ans ;
+            if(c == ch ) chFound = true ;
+        }
+        return chFound  ? ans : word ;
+    }
+};

@@ -1,0 +1,62 @@
+class Solution {
+private:
+    bool hasCycle(vector<vector<int>> &adj, vector<bool> &visited, int source){
+        // cycle detected, thus true, this graph has a cycle
+        if(visited.at(source)) return true;
+        visited.at(source) = true;
+        for(int &childNode : adj[source]){
+            if(childNode == -1) continue;
+            // we've detected a cycle along this path
+            if(hasCycle(adj, visited, childNode)) return true;
+        }
+        // no cycle detected in graph
+        return false;
+    }
+    
+public:
+    bool validateBinaryTreeNodes(int n, vector<int>& leftChild, vector<int>& rightChild) {
+        // Valid tree must have the three following properties
+        // 1) connected
+        // 2) directed
+        // 3) acyclic
+        
+        vector<vector<int>> adj(n);        
+        for(int i = 0; i < n; i++){            
+            adj[i].push_back(leftChild.at(i));
+            adj[i].push_back(rightChild.at(i));
+        }
+        
+        // determine if node has a parent, 
+        vector<bool> nodeHasParents(n, false);
+        for(int i = 0; i < n; i++){
+            for(int childNode : adj[i]){
+                if(childNode == -1) continue;
+                // this node has a parent;
+                nodeHasParents[childNode] = true;
+            }
+        }
+        
+        // if node does not have a parent, then it is a root node
+        int rootNode = 0;
+        for(int i = 0; i < n; i++){
+            if(!nodeHasParents.at(i)){
+                rootNode = i;
+                break;
+            }
+        }
+                
+        // if the graph has a cycle, then it is not a valid tree
+        // a valid tree must be acyclic, meaning no cycles
+        vector<bool> visited(n, false);
+        if(hasCycle(adj, visited, rootNode)) return false;
+        
+        // check if we've visited all nodes
+        // if the tree is valid, only one traversal
+        // is enough to have visited all nodes in the tree
+        // this is because the tree is connected
+        for(bool visitedNode : visited) 
+            if(!visitedNode) return false;
+        
+        return true;
+    }
+};

@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> countPoints(vector<vector<int>>& points, vector<vector<int>>& queries) {
+        vector<int> ans ;
+        for(auto circle : queries) {
+            int temp = 0 ;
+            for(auto point : points) {
+                if( distance(point,{circle[0],circle[1]}) <= (double)circle[2]) temp ++;
+            }
+            ans.push_back(temp);
+        }
+        return ans ;
+    }
+    
+    double distance(vector<int> point1, vector<int> point2) {
+        return sqrt(  pow((point1[0] - point2[0]),2) +   pow((point1[1] - point2[1]),2) ); 
+    }
+};
+
+
+// (1,1) (1,3) 2  
+// (1,1) (3,3) 
+// (1,1) (5,3) 
+// (1,1) (2,2) 

@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maximumScore(int a, int b, int c) {
+        int count = 0 ;
+        priority_queue<int,vector<int>> maxHeap;
+        
+        maxHeap.push(a);
+        maxHeap.push(b);
+        maxHeap.push(c);
+        
+        while(maxHeap.size() > 1){
+            int top = maxHeap.top(); maxHeap.pop();
+            int top2 = maxHeap.top(); maxHeap.pop();
+            top-- ; top2 -- ;
+            count ++ ;
+            if(top) maxHeap.push(top);
+            if(top2) maxHeap.push(top2);
+        }
+        
+        return count ;
+        
+    }
+};
+

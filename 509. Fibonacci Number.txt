@@ -1,0 +1,10 @@
+class Solution {
+public:
+    int cache[31] = {0};
+    int fib(int n) {
+        if(n<=1) return n ; 
+        if(cache[n]) return cache[n];
+        cache[n] = fib(n-1) + fib(n-2);
+        return cache[n];
+    }
+};

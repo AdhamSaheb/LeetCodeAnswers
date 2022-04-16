@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int wateringPlants(vector<int>& plants, int capacity) {
+        int i = 0, cap = capacity, steps = 1  ; 
+        while(i < plants.size() ) {
+            if(plants[i] <= cap){
+                cap -= plants[i]; 
+            }
+            if(i+1 < plants.size()){
+                // go back
+                if(cap < plants[i+1]){
+                    steps += ( (i+1)*2 ) +1;
+                    cap = capacity ;
+                }else { // proceed 
+                    steps ++ ;
+                }
+            }
+            i++ ;
+        }
+        return steps ;
+    }
+};

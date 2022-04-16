@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int nearestExit(vector<vector<char>>& maze, vector<int>& entrance) {
+        int currLevel=1, nextLevel=0, level=0;
+        map<pair<int,int>,bool> visited;
+        queue<pair<int,int>> q;
+        q.push(pair(entrance[0],entrance[1]));
+        maze[entrance[0]][entrance[1]] = '+';
+        pair<int,int> front;
+        while(q.size()){
+            front = q.front(); q.pop();
+            currLevel -- ;
+            int row = front.first, col = front.second;
+            if(isOnBorder(row,col,maze) && !isEntrance(row,col,entrance) ) return level;
+            /*neighbors*/
+            int dx[] = {1,-1,0,0};
+            int dy[] = {0,0,1,-1};
+            for(int i=0 ; i<4; i++){
+                if(check(row+dx[i],col+dy[i],maze) && maze[row+dx[i]][col+dy[i]] != '+' ){
+                    q.push( pair(row+dx[i],col+dy[i]) );
+                    /*Set as visited*/
+                    maze[row+dx[i]][col+dy[i]] = '+';
+                    nextLevel ++ ;
+                }
+            }
+            if(!currLevel){
+                level ++ ;
+                swap(currLevel,nextLevel);
+            }
+        }
+        return -1; 
+    }
+    
+    bool isOnBorder(int row, int col, vector<vector<char>>& maze){
+        if (row == maze.size()-1 || col==maze[0].size()-1) return true;
+        if (row == 0 || col==0) return true; 
+        return false;
+    }
+    
+    bool check(int row, int col, vector<vector<char>>& maze){
+        if(row > maze.size()-1 || col > maze[0].size()-1 ) return false;
+        if(row < 0 || col < 0 ) return false;
+        return true; 
+    }
+    
+    bool isEntrance(int row, int col, vector<int>& entrance ){
+        return (row == entrance[0] && col == entrance[1]); 
+    }
+};

@@ -1,0 +1,82 @@
+class Solution {
+public:
+    
+    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
+		// Take a vector to keep track of visited cells.
+        vector<vector<int>> visited(mat.size(), vector<int>(mat[0].size(), 0));
+		// Lets mark all the 1's as INT_MAX representing its distance form 0's.
+        for(int i=0;i<mat.size();i++){
+            for(int j=0;j<mat[0].size();j++){
+                if(mat[i][j]){
+                    mat[i][j] = INT_MAX;
+                }
+            }
+        }
+		// Call to the BFS function.
+        bfs(mat, visited);
+        return mat;
+    }
+    
+   void bfs(vector<vector<int>> &mat, vector<vector<int>> &visited){
+        int i=0, j=0;
+        queue<int>  q;
+        // Put indecies of cells containing 0 to the queue and mark them visited.
+        for(int i=0;i<mat.size();i++){
+            for(int j=0;j<mat[0].size();j++){
+                if(!mat[i][j]){
+                    q.push(i);q.push(j);visited[i][j]=1;
+                }
+            }
+        }
+        // Now start the magic. 
+        while(!q.empty()){
+            // i and j represents the current cell. 
+            i = q.front();
+            q.pop();
+            j = q.front();
+            q.pop();
+            
+            // Update the distance of cell above the current cell, as the current cell has the optimum distance from 0. 
+            if(i>0 && visited[i-1][j]==0){
+                q.push(i-1);
+                q.push(j);
+                visited[i-1][j]=1;
+                mat[i-1][j] = mat[i][j]+1;
+            }
+
+            // Update the distance of cell left to the current cell, as the current cell has the optimum distance from 0. 
+            if(j<mat[0].size()-1 && visited[i][j+1]==0){
+                q.push(i);
+                q.push(j+1);
+                visited[i][j+1]=1;
+                mat[i][j+1] = mat[i][j]+1;
+            }
+
+            // Update the distance of cell down to the current cell, as the current cell has the optimum distance from 0. 
+            if(i<mat.size()-1 && visited[i+1][j]==0){
+                q.push(i+1);
+                q.push(j);
+                visited[i+1][j]=1;
+                mat[i+1][j] = mat[i][j]+1;
+            }
+
+            // Update the distance of cell right to the current cell, as the current cell has the optimum distance from 0. 
+            if(j>0 && visited[i][j-1]==0){
+                q.push(i);
+                q.push(j-1);
+                visited[i][j-1]=1;
+                mat[i][j-1] = mat[i][j]+1;
+            }
+        }
+
+    }
+    
+};
+
+//  [0,1,0]
+//  [1,1,1]
+//  [0,1,0]
+ 
+//  [0,1,0]
+// ,[1,2,1]
+// ,[0,1,0]

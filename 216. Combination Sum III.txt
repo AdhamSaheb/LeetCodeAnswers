@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<int> current ; 
+        vector<vector<int>> ans ;
+        
+        helper(1,0,current,ans,k,n) ;
+            
+        return ans ;
+    }
+    
+    
+    void helper(int currentNumber, int currentSum, vector<int> &currentComb, vector<vector<int>> &ans, int size, int goal ) {
+        
+        //invalid
+        if(currentSum > goal) return ; 
+        
+        // goal
+        if(currentSum == goal and currentComb.size() == size ){
+            ans.push_back(currentComb);
+            return ;
+        }
+        
+        for(int i = currentNumber ; i < 10 ; i ++ ) {
+            currentSum += i;
+            currentComb.push_back(i);
+            helper(i + 1,currentSum,currentComb,ans,size,goal);
+            // backtrack
+            currentSum -= i ;
+            currentComb.pop_back();
+        }
+    }
+};

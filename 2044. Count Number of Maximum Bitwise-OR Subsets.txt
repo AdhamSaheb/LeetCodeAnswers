@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int countMaxOrSubsets(vector<int>& nums) {
+        int maxOr = 0 ;
+        unordered_map<int,int> occurances;
+        helper(0,0,maxOr,occurances,nums);
+        return occurances[maxOr] ;
+    }
+    
+    
+    void helper(int index, int orResult, int &maxOr, unordered_map<int,int> &occurances, vector<int> nums){
+        // check current orResult 
+        maxOr = max(maxOr,orResult);
+        occurances[orResult] ++ ;
+        // OOB
+        if(index >= nums.size() ) return ;
+        // loop and backtrack
+        for(int i = index; i< nums.size() ; i ++ ){
+            int result = orResult | nums[i];
+            helper(i+1,result,maxOr,occurances,nums);
+        }
+    }  
+};

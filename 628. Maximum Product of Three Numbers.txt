@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int maximumProduct(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        if(nums.size()<3) return 0;
+        int n = nums.size();
+        int m = nums[n-1]*nums[n-2]*nums[n-3];
+        int l = nums[n-1]*nums[1]*nums[0];
+        return max(m,l);
+    }
+};
+
+/*
+First we sort the array. Since the largest 3 numbers will make the largest product, we can look for the last 3 digits and multiply them.
+if the number contains more than 2 negative numbers with maximum magnitide.
+Then their product will yield maximum value along with the largest positive number. 
+Example -100,-90,1,2,3,4 will have max val of (-100)(-90)(4). We return the maximum of the two as result.
+*/

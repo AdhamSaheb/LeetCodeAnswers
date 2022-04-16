@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool isNStraightHand(vector<int>& hand, int groupSize) {
+        map<int,int> occurances ;
+        for(int number : hand ) occurances[number] ++ ;
+        while(occurances.size()) {
+            int first = occurances.begin()->first;
+            int currentGroup = 0 ;
+            while(currentGroup < groupSize ){
+                if(!occurances.count(first)) return false; 
+                else {
+                    occurances[first] -- ; 
+                    if(!occurances[first]) occurances.erase(first);
+                    first ++ ;
+                    currentGroup ++ ;
+                }
+            }
+        }
+        return true ;
+    }
+};
+
+
+
+
+/*
+[1,2,2,3,3,4,6,7,8]
+ordered map 
+[ <1,1>  <2,2> <3,2> <4,1> <6,1> <7,1> <8,1> ]
+*/

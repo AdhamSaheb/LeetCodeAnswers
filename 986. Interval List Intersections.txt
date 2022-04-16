@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<vector<int>> intervalIntersection(vector<vector<int>>& arr1, vector<vector<int>>& arr2) {
+        vector<vector<int>> result;
+        int ptr1 = 0, ptr2 = 0;
+        while(ptr1< arr1.size() and ptr2< arr2.size()){
+          int start = max(arr1[ptr1][0] , arr2[ptr2][0]);
+          int end = min(arr1[ptr1][1] , arr2[ptr2][1]);
+          if(end-start >= 0) { // overlap
+            result.push_back({start,end});
+          }
+          if(arr1[ptr1][1] < arr2[ptr2][1]) ptr1 ++ ;
+          else ptr2++;
+        }
+        return result;
+    }
+};

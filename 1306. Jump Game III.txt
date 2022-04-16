@@ -1,0 +1,16 @@
+class Solution {
+public:
+    unordered_map<int,bool> visited ; //[index,visited]
+    bool canReach(vector<int>& arr, int start) {
+        return dfs(arr,start) ;
+    }
+    
+    bool dfs(vector<int>& arr, int index){
+        if(index >= arr.size() || index < 0) return false ;
+        visited[index] = 1 ;
+        if(!arr[index]) return true ; 
+        bool behind = (visited[index+arr[index]]) ? false : dfs(arr,index+arr[index]) ;
+        bool ahead = (visited[index-arr[index]]) ? false : dfs(arr,index-arr[index]) ;
+        return false | ahead | behind ; 
+    }
+};

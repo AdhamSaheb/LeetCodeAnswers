@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        if(!needle.size()) return 0 ;
+        int windowStart = 0 ; 
+        string temp = "" ;
+        for(int windowEnd = 0 ; windowEnd < haystack.size() ; windowEnd++ ){
+            temp += haystack[windowEnd];
+            if(temp == needle) return windowStart ;
+            if(windowEnd >= needle.size() -1  ) {
+                temp.erase(0,1);
+                windowStart ++ ;
+            }
+        }
+        return -1 ;
+    }
+};

@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int minSteps(string s, string t) {
+        unordered_map<char,int> occurances ;
+        int ans = 0 ;
+        int spare = 0 ;
+        for(char c : s) occurances[c] ++ ;
+        for(char c : t){
+            if(occurances.count(c)){
+                occurances[c] -- ;
+                if(!occurances[c]) occurances.erase(c);
+            }
+        }
+        for(auto p : occurances) ans += p.second;
+        return ans ;
+    }
+};
+
+
+// you can also sort sort and loop 

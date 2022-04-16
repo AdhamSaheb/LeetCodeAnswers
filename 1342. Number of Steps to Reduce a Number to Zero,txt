@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int numberOfSteps(int num) {
+        int steps = 0 ; 
+        while(num) {
+            if(num %2) {
+                num -=1 ;
+                steps +=2 ;
+            }
+            else {
+                steps +=1 ;
+            }
+            num /=2 ;
+        }
+        return max(0,steps -1)  ;
+    }
+};

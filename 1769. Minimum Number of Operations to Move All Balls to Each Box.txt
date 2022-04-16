@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> minOperations(string boxes) {
+        vector<int> onesIndecies, ans ; 
+        for(int i = 0 ; i < boxes.size() ; i ++ ) {
+            if(boxes[i] == '1') onesIndecies.push_back(i);
+        }
+        for(int i = 0 ; i < boxes.size() ; i ++ ) {
+            int total = 0 ; 
+            for(int index : onesIndecies ) total += abs(index - i );
+            ans.push_back(total);
+        }
+        return ans ;
+    }
+};
+

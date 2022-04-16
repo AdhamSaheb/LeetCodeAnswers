@@ -1,0 +1,45 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int maxPathSum(TreeNode* root) {
+        int globalMaximumSum = INT_MIN;
+        findMaximumPathSumRecursive(root, globalMaximumSum);
+        return globalMaximumSum;
+    }
+    
+    int findMaximumPathSumRecursive(TreeNode *currentNode, int &globalMaximumSum) {
+    if (!currentNode) {
+      return 0;
+    }
+
+    int maxPathSumFromLeft = findMaximumPathSumRecursive(currentNode->left, globalMaximumSum);
+    int maxPathSumFromRight = findMaximumPathSumRecursive(currentNode->right, globalMaximumSum);
+
+    // ignore paths with negative sums, since we need to find the maximum sum we should
+    // ignore any path which has an overall negative sum.
+    maxPathSumFromLeft = max(maxPathSumFromLeft, 0);
+    maxPathSumFromRight = max(maxPathSumFromRight, 0);
+
+    // maximum path sum at the current node will be equal to the sum from the left subtree +
+    // the sum from right subtree + val of current node
+    int localMaximumSum = maxPathSumFromLeft + maxPathSumFromRight + currentNode->val;
+
+    // update the global maximum sum
+    globalMaximumSum = max(globalMaximumSum, localMaximumSum);
+
+    // maximum sum of any path from the current node will be equal to the maximum of
+    // the sums from left or right subtrees plus the value of the current node
+    return max(maxPathSumFromLeft, maxPathSumFromRight) + currentNode->val;
+  }
+
+};

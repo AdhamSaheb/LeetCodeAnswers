@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+        
+        unordered_map<string,int> occurances; 
+        vector<string> ans ;
+        string window = "" ;
+        for(int windowEnd = 0 ; windowEnd < s.size(); windowEnd++) {
+            window+=s[windowEnd];
+            if(windowEnd >= 9) {
+                if(occurances[window] == 1 ) ans.push_back(window);
+                occurances[window] ++ ;
+                // slide 
+                window.erase(0,1);
+            }
+        }
+        return ans ;
+    }
+};

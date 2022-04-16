@@ -1,0 +1,40 @@
+class Solution {
+public:
+	// Simple DFS to find traverse every connected component 
+    void connectedComp(int node, vector<int> &vis, vector<int> adj[]){
+        vis[node] = 1;
+        for(int child: adj[node]){
+            if(!vis[child]){
+                connectedComp(child, vis, adj);
+            }
+        }
+    }
+    
+    int makeConnected(int n, vector<vector<int>>& connections) {
+        int edges = connections.size();
+		// If the number of edges is not sufficient to make the graph connected
+        if(edges < n-1){
+            return -1;   
+        }
+		
+        // Make Adjacancy List of the Graph
+        vector<int> adj[n+1];
+        for(int i=0;i<edges;i++){
+            adj[connections[i][0]].push_back(connections[i][1]);
+            adj[connections[i][1]].push_back(connections[i][0]);
+        }
+        
+		// find the number of connected components
+        vector<int> vis(n+1, 0);
+        int connected_comp = 0;
+        for(int i=0;i<n;i++){
+            if(vis[i] == 0){
+                connectedComp(i, vis, adj);
+                connected_comp += 1;
+            }
+        }
+        
+		// If the number of connected components is n, then we need n-1 edges to connect them
+        return (connected_comp-1);
+    }
+};

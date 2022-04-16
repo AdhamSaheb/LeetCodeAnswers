@@ -1,0 +1,70 @@
+class Solution {
+public:
+    
+    // return true if node position is a border node of connected component
+    bool isBorder(int &m, int &n, int &tx, int &ty, vector<vector<int>>& grid)
+    {
+        int rowOffset[] = {0,0,1,-1};
+        int colOffset[] = {1,-1,0,0};
+        
+        int px,py;
+        for(int i=0;i<4;i++)
+        {
+            px = tx + rowOffset[i];
+            py = ty + colOffset[i];
+            
+            // node is border node if it has at least one neighbor with different color and so return true
+            if(px>=0 && px<m && py>=0 && py<n && grid[tx][ty]!=grid[px][py]) return true;
+        }
+        
+        // node is border node if it is border of the grid
+        return (tx==0 || ty==0 || tx==m-1 || ty==n-1);
+    }
+    
+    vector<vector<int>> colorBorder(vector<vector<int>>& grid, int r0, int c0, int color) {
+        
+        int m = grid.size();
+        int n = grid[0].size();
+        
+        // track if the square is visited or a border node of connected component
+        vector<vector<int>>visited(m,vector<int>(n,0));
+        
+        // push source node (r0, c0) in to queue and also mark visited 
+        queue<pair<int,int>>Q;
+        Q.push({r0,c0});
+        visited[r0][c0] = 1;
+        
+        int tx,ty,px,py;
+        int rowOffset[] = {0,0,1,-1};
+        int colOffset[] = {1,-1,0,0};
+        
+        // run BFS until queue is empty
+        while(!Q.empty())
+        {
+            tx = Q.front().first;
+            ty = Q.front().second;
+            Q.pop();
+            
+            // check if the current node is a border node, if then mark it as border node
+            if(isBorder(m,n,tx,ty,grid))visited[tx][ty] = 2;            
+
+            // check the neighbor nodes
+            for(int i=0;i<4;i++)
+            {
+                px = tx + rowOffset[i];
+                py = ty + colOffset[i];
+
+                // push unvisited neighbor nodes with same color (connected component node) of the current node
+                if(px>=0 && px<m && py>=0 && py<n && grid[tx][ty]==grid[px][py] && visited[px][py]==0)
+                    visited[px][py] = 1,Q.push({px,py}); 
+            }
+        }
+        
+        // check node positions marked as border node and color them
+        for(int i=0;i<m;i++)
+            for(int j=0;j<n;j++)
+                if(visited[i][j]==2) grid[i][j] = color;
+        
+        return grid;
+    }
+};

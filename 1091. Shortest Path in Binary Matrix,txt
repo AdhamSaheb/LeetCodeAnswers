@@ -1,0 +1,30 @@
+class Solution {
+public:    
+    int shortestPathBinaryMatrix(vector<vector<int>>& grid) {
+        int n=grid.size();
+        if(grid[0][0] || grid[n-1][n-1]) return -1;
+        
+        int x[8]={-1,-1,-1,0,0,1,1,1};
+        int y[8]={-1,0,1,-1,1,-1,0,1};
+        queue<pair<int,int>> q;
+        q.push({0,0});
+        
+        vector<vector<int>> dis(n,vector<int>(n,-1));
+        dis[0][0]=0;
+        
+        while(!q.empty()){
+            pair<int,int> point=q.front();
+            q.pop();
+            for(int i=0;i<8;i++){
+                int xd=point.first+x[i];
+                int yd=point.second+y[i];
+                if(xd>=0 && yd>=0 && xd<n && yd<n && grid[xd][yd]==0 && dis[xd][yd]==-1){
+                    dis[xd][yd]=dis[point.first][point.second]+1;
+                    q.push({xd,yd});
+                }
+            }
+        }
+        if(dis[n-1][n-1]==-1) return -1;
+        return dis[n-1][n-1]+1;
+    }
+};

@@ -1,0 +1,49 @@
+class Solution {
+public:
+    unordered_map<string,bool> visited ;
+    string smallest = "z";
+    string findLexSmallestString(string s, int a, int b) {
+        dfs(s,a,b);
+        return smallest; 
+    }
+    
+    void dfs(string s , int a , int b){
+        visited[s] =1; 
+        /*construct*/
+        string rotated = rotate(s,b);
+        string added = addToAllDigits(s,a); 
+        /*compare*/
+        if(isLexicographicallySmaller(rotated,smallest)) smallest = rotated;
+        if(isLexicographicallySmaller(added,smallest)) smallest = added;
+        /*neighbors*/
+        if(!visited.count(added)) dfs(added,a,b) ;
+        if(!visited.count(rotated)) dfs(rotated,a,b) ;
+    }
+    
+    string addToAllDigits(string s , int a ){
+        for(int i=1; i<s.size(); i+=2){
+            s[i] = (((s[i]-48) + a ) % 10 ) + 48 ;
+        }
+        return s ; 
+    }
+    
+    
+    bool isLexicographicallySmaller(string a , string b){
+        for(int i=0;i< min(a.size() , b.size()) ;i++){
+            if(a[i]<b[i]) return true ; 
+            if(a[i]>b[i]) return false ;
+        } 
+        return a.size() < b.size() ;
+    }
+    
+    string rotate(string s, int b) {
+        string ans = s ;
+        for(int i =0 ; i<s.size();i++){
+            ans[i] = s[(i+b)%s.size()] ;
+        }
+        return ans ;
+    }
+};
+
+
+

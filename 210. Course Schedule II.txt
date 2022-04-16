@@ -1,0 +1,43 @@
+class Solution {
+public:
+    
+    int UNVISITED = 0, VISITED = 2, VISITING = 1 ;
+    vector<int> findOrder(int n, vector<vector<int>> prerequisites) {
+        vector<int> ans ; // final order 
+        vector<int> visited(n,UNVISITED); 
+        stack<int> topSort; // topological sort stack 
+        vector<vector<int>> graph(n);
+        //populate graph 
+        for(auto prerequisit : prerequisites )
+            graph[prerequisit[1]].push_back(prerequisit[0]);
+        // run dfs to detect cycle and return an ordering 
+        for(int i = 0 ; i<n ; i++){
+            if(!visited[i]){
+                if(!dfs(i,graph,visited,topSort)){
+                    return {} ;
+                }
+            }    
+        }
+        //pop stack to ans 
+        while(topSort.size()){
+            ans.push_back(topSort.top());
+            topSort.pop();
+        }
+       return ans ; 
+     }
+    
+    // will return false if no cycle
+    bool dfs(int course, vector<vector<int>> graph, vector<int> &visited, stack<int> &topSort) {  
+        visited[course] = VISITING ;
+        for(int neighbor : graph[course]){
+            if(visited[neighbor] == VISITING) return false ; 
+            else if(visited[neighbor] == UNVISITED) 
+                if(!dfs(neighbor,graph,visited,topSort)) return false ;
+        }
+        //push to stack 
+        topSort.push(course);
+        //mark as visited
+        visited[course] = VISITED ;
+        return true; 
+    }
+};

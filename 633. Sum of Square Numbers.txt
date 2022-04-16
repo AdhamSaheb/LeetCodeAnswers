@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        if(!c) return true; 
+        long long a = 0 ;
+        while(a*a < c ) {
+            int remeinder = c - (a*a) ;
+            double klab = sqrt(remeinder);
+            if(!(klab - (int)(klab))) return true ;
+            a++;
+        }
+        return false ;
+        
+    }
+};

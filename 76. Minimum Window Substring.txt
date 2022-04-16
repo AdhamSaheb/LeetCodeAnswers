@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string minWindow(string str, string pattern) {
+        unordered_map<char,int> occurances; 
+        int startingIndex ;
+        int smallest = str.size() + 1 ;
+        for(char c : pattern) occurances[c]++;
+        int matched = 0, windowStart = 0; 
+        for(int windowEnd = 0 ; windowEnd < str.size(); windowEnd ++){
+          char leftMost = str[windowEnd]; 
+          if(occurances.count(leftMost)){
+            occurances[leftMost]-- ;
+            if(occurances[leftMost]>=0) matched ++ ; // count all matches 
+          }
+        //found candidate, shrink widnow
+          while(matched == pattern.size()){ 
+            // shrink window until matched is not equal to size 
+            if (smallest > windowEnd - windowStart + 1) {
+              smallest = windowEnd - windowStart + 1;
+              startingIndex = windowStart; // here, change only if smaller, we might find a bigger candidate
+            }
+            char leftMost = str[windowStart];
+            if(occurances.count(leftMost)){
+              if(!occurances[leftMost]) matched -- ;
+              occurances[leftMost] ++ ; // put back to map
+            }
+            windowStart ++ ;
+          }
+        }
+        //cout << smallest ; 
+        /*construct ans */
+        string s = "" ;
+        if(smallest == str.size() +1  ) return s ; // not found 
+        return str.substr(startingIndex,smallest) ; 
+    }
+};

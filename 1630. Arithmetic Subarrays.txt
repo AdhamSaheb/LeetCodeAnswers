@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<bool> checkArithmeticSubarrays(vector<int>& nums, vector<int>& lefts, vector<int>& rights) {
+        vector<bool> ans; 
+        
+        for(int i = 0 ; i < lefts.size() ; i++) {
+            vector<int> temp; 
+            for(int j = lefts[i] ; j<=rights[i]; j++) temp.push_back(nums[j]);
+            sort(temp.begin(),temp.end());
+            ans.push_back(isArithmatic(temp));
+        }
+        return ans ;
+    }
+    
+    bool isArithmatic(vector<int> arr){
+        for(int i = 1 ; i < arr.size() -1 ; i++) {
+            if(arr[i+1] - arr[i] != arr[i] - arr[i-1]) return false;
+        }
+        return true;
+    }
+};

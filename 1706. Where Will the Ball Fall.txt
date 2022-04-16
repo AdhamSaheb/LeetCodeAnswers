@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<int> findBall(vector<vector<int>>& grid) {
+        vector<int> ans(grid[0].size(),-1);
+        for(int i = 0 ; i < grid[0].size() ;i++) {
+            ans[i] = solve(i,0,grid);
+        }
+        return ans ;
+    }
+    
+    int solve(int col, int row,vector<vector<int>>& grid ){
+        while(1){
+            if(row == grid.size()) return col ; // goal
+            if(grid[row][col] == 1 ) { // left to right 
+                // wall 
+                if(col == grid[0].size() -1 ) break;
+                //v 
+                if(grid[row][col+1] == -1 ) break;
+                // goes on
+                row ++ ;
+                col ++ ;
+                
+            }else { // right to left 
+                // wall 
+                if(col == 0 ) break;
+                //v 
+                if(grid[row][col-1] == 1 ) break;
+                // goes on
+                row ++ ;
+                col -- ;
+            }
+        }
+        return -1 ; // broke out of while 
+    }
+};
+
+
+
+/*
+1 -> left to rightt 
+-1 -> right to left 
+
+answers[i] -> -1 if stuck, col name if falls 
+
+wall case -> left to right and col = 0 or right to left and col == size[0]- 1 
+V case -> left to right and right of me is right to left  or visa versa 
+
+*/

@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        if(!intervals.size()) {
+            intervals.push_back(newInterval);
+            return intervals;
+        }
+        vector<vector<int>> ans ;
+        int i = 0 ; 
+        while(i<intervals.size() and  intervals[i][0] <= newInterval[0]) i++ ;
+        intervals.insert(intervals.begin() + i , newInterval);
+        // Merge all intervals 
+        ans.push_back(intervals[0]);
+        for(int j = 1 ; j < intervals.size() ; j++) {
+            int currentLow = intervals[j][0];
+            int currentHigh = intervals[j][1];
+            // overlap 
+            if(currentLow <= ans.back()[1] ) {
+                ans.back()[1] = max(ans.back()[1],currentHigh);
+            }else {// none overlap ; 
+                ans.push_back(intervals[j]);
+            }
+        }
+        return ans ;
+    }
+};
+
+
+
+

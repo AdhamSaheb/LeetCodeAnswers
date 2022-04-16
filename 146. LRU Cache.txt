@@ -1,0 +1,72 @@
+/*
+Create a queue using list, LRU always at the back
+*/
+
+class LRUCache {
+public:
+    list<int> frames;
+    unordered_map<int, list<int>::iterator> mp;
+    unordered_map<int, int> cache;
+    int cap;
+    
+    LRUCache(int capacity) {
+        frames.clear();
+        cap=capacity;
+    }
+    
+    int get(int key) {
+        // key not found
+        if(mp.find(key)==mp.end()) return -1;
+        
+        // key found
+        
+        // remove from its current place
+        frames.erase(mp[key]);
+        mp.erase(key);
+        // and move it to front
+        frames.push_front(key);
+        mp[key]=frames.begin();
+        return cache[key];
+    }
+    
+    void put(int key, int value) {
+        // key found
+        if(mp.find(key)!=mp.end()){
+            // remove from current place
+            frames.erase(mp[key]);
+            mp.erase(key);
+            // add new val to front
+            frames.push_front(key);
+            mp[key]=frames.begin();
+            cache[key]=value;
+        }
+        else{
+            if(cap>0){
+                // space is there, so just add to front
+                frames.push_front(key);
+                mp[key]=frames.begin();
+                cache[key]=value;
+                cap--;
+            }
+            else{
+                // cache is full
+                
+                // remove an item from last
+                mp.erase(frames.back());
+                frames.pop_back();
+                // add a new item to front
+                frames.push_front(key);
+                mp[key]=frames.begin();
+                cache[key]=value;
+            }
+        }
+        return;
+    }
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */

@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string maxValue(string n, int x) {
+        if(n[0] == '-') return insertNegative(n.substr(1,n.size()) ,(char)(x+48));
+        return insertPositive(n,(char)(x+48));    
+    }
+    
+    string insertNegative(string s , char digit){
+        string ans = "-";
+        bool inserted = false ;
+        for( char c : s ) {
+            if(!inserted and c > digit ){
+                ans += digit ;
+                inserted =1;
+            }
+            ans += c;
+        }
+        if(!inserted) ans += digit ;
+        return ans ;
+    }
+    
+    string insertPositive(string s, char digit) {
+        string ans = "" ; bool inserted = false;
+        for(char c :s) {
+            if(!inserted and digit>c) {
+                ans += digit;
+                inserted = 1 ;
+            }
+            ans += c;
+        }
+        if(!inserted) ans += digit ; 
+        return ans ;
+    }
+};
+

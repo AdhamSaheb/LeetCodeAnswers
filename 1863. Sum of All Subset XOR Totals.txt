@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int subsetXORSum(vector<int>& nums) {
+        int sum = 0 ;
+        helper(nums,0,0,sum);
+        return sum ; 
+    }
+    
+    void helper(vector<int> nums, int xorResult, int index, int &sum){
+        if(index > nums.size() -1) return ;
+        for(int i = index ; i < nums.size() ; i ++) {
+            int num = nums[i];
+            xorResult ^= num ;
+            sum += xorResult;
+            helper(nums,xorResult,i + 1,sum);
+            xorResult ^= num ;
+        }
+    }
+    
+    void printVector(vector<int> subset){
+        for(int num : subset) cout << num << " " ;
+        cout << endl; 
+    }
+};

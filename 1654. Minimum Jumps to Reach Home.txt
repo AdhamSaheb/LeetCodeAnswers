@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int minimumJumps(vector<int>& forbidden, int a, int b, int x) {
+        set<int>forbid;
+        for(int i=0; i<forbidden.size(); i++)
+            forbid.insert(forbidden[i]);
+            
+        queue<vector<int>>q;                     //currentPos, lastMove(0->forward, 1->backward), minJumps
+        q.push({0, 0, 0});
+        while(!q.empty()){
+            auto top = q.front();
+            q.pop();
+            
+            if(top[0] == x)
+                return top[2];
+            
+            if(forbid.find(top[0]) != forbid.end())
+                continue;
+            
+            forbid.insert(top[0]);
+            
+            if(top[1] != 1 and forbid.find(top[0] - b) == forbid.end() and top[0]-b >=0) //backward
+                q.push({top[0] - b, 1, top[2]+1});
+            
+            if(forbid.find(top[0] + a) == forbid.end() and top[0]+a <10000) //forward
+                q.push({top[0] + a, 0, top[2]+1});
+        }
+        
+        return -1;
+    }
+};

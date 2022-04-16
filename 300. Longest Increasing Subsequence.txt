@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        vector<int>dp(n,1); ; // default dp is 1, length of subsequence
+        int ans = 1;
+        for(int i = 1 ; i < n ; i++){ // check if you extend subsequence with all prev subsequences 
+            int curr = dp[i];
+            for(int j = 0 ; j<i ; j++) { 
+                if(nums[i] > nums[j] ) {
+                    dp[i] = max(dp[i],curr+dp[j]);
+                }
+            }
+            ans = max(ans,dp[i]);
+        }
+        return ans ;
+    }
+};
+
+/*
+Strictly increasing 
+no flat lines 
+O(n^2) time 
+O(n) space 
+*/

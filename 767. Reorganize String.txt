@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string reorganizeString(string s) {
+        // Comparator 
+        struct valueCompare {
+            char operator()(const pair<int, int> &x, const pair<int, int> &y) {
+              return y.second > x.second;
+            }
+        };
+        
+        unordered_map<char,int> occurances; 
+        pair<char,int> current, prev = {-1,-1} ;
+        priority_queue<pair<char,int>,vector<pair<char,int>>,valueCompare> maxHeap ;
+        string res = "" ;
+        
+        for(char c : s) occurances[c] ++ ;
+        for(auto p : occurances) maxHeap.push(p);
+        while(maxHeap.size()){
+            current = maxHeap.top() ; maxHeap.pop();
+            res += current.first;
+            current.second -- ;
+            if(prev.second > 0) maxHeap.push(prev);
+            prev = current; 
+        }
+        return res.size() == s.size() ? res : ""  ;
+    }
+};

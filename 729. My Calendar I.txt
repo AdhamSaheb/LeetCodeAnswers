@@ -1,0 +1,19 @@
+class MyCalendar {
+public:
+    map<int, int> mp;
+    MyCalendar() {
+        mp.clear();
+    }
+    
+    inline bool interset(int k){
+        auto it = mp.upper_bound(k);
+        return it != mp.end() && it->second <= k;
+    }
+    
+    bool book(int start, int end) {
+        if(interset(start) || interset(end-1) || mp.upper_bound(start) != mp.lower_bound(end))
+            return false;
+        mp[end] = start;
+        return true;
+    }
+};

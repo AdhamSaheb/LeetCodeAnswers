@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string findReplaceString(string s, vector<int>& indices, vector<string>& sources, vector<string>& targets) {
+        
+        string ans = "" ;
+        unordered_map<int,int> mp;
+        for(int i = 0 ; i < indices.size() ; i++ ) mp[indices[i]] = i ;
+        for(int i = 0 ; i < s.size() ; i++ ) {
+            // No operation
+            if(!mp.count(i)){
+                ans += s[i] ;
+                continue ;
+            }
+            // Operation
+            string source = sources[mp[i]];
+            string target = targets[mp[i]];
+            string temp = s.substr(i,source.size()); ;
+            i+= temp.size() - 1 ;
+            if(temp == source) ans += target;
+            else ans += temp ;
+        }
+        return ans ;
+    }
+};

@@ -1,0 +1,36 @@
+class Solution {
+public:
+    unordered_map<string, unordered_map<string,double>> gr;
+    set<string> vis;
+    double dfs (string u, string v){
+        if(u==v)return 1.0;
+        if(gr.at(u).count(v))return gr.at(u).at(v);
+        vis.insert(u);
+        for(auto m:gr[u]){
+            if(vis.count(m.first))continue;
+            double res=m.second*dfs(m.first,v);
+            if(res>=0.0)return res;
+        }
+        return -1.0;
+        
+    }
+    
+    vector<double> calcEquation(vector<vector<string>>& eq, vector<double>& val, vector<vector<string>>& que) {
+        for(int i=0;i<eq.size();i++){
+            gr[eq[i][0]][eq[i][1]]=val[i];
+            gr[eq[i][1]][eq[i][0]]=1.0/val[i];
+        }
+        vector<double> ans;
+        for(auto q:que){
+            string u=q[0],v=q[1];
+            if(!gr.count(u)||!gr.count(v)){
+                ans.push_back(-1.0);
+                continue;
+            }
+            vis.clear();
+            ans.push_back(dfs(u,v));
+        }
+        return ans;
+        
+    }
+};

@@ -1,0 +1,38 @@
+class FreqStack {
+public:
+    
+    //Comparator of heap
+    struct Comparator{
+        bool operator()(const vector<int> &a , const vector<int> &b ){
+          if(a[1] != b[1]) return b[1] > a[1] ; // compare stamp
+          else return b[2] > a[2];
+        }
+     };
+    int stamp= 0 ; // time stamp
+    unordered_map<int,int> occurances ; // occurances map
+    priority_queue<vector<int>,vector<vector<int>>,Comparator> maxHeap;
+    
+    FreqStack() {
+        
+    }
+    
+    void push(int num) {
+        occurances[num] ++ ;
+        maxHeap.push({num,occurances[num],stamp++});
+    }
+    
+    int pop() {
+        int num = maxHeap.top()[0];
+        maxHeap.pop();
+        occurances[num] -- ;
+        if(!occurances[num]) occurances.erase(num);
+        return num ;
+    }
+};
+
+/**
+ * Your FreqStack object will be instantiated and called as such:
+ * FreqStack* obj = new FreqStack();
+ * obj->push(val);
+ * int param_2 = obj->pop();
+ */

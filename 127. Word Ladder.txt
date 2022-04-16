@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        unordered_set<string> hash(wordList.begin(), wordList.end());
+        if(hash.find(endWord) == hash.end()) return 0;      //if the end word is not present int the wordlist return 0
+        
+        queue<string> q;
+        q.push(beginWord);
+        int shortest_transformation = 0;
+        
+        while(!q.empty()) {
+           int size = q.size();
+            
+            for(int i = 0; i<size; i++) {
+                string curr_word = q.front();
+                q.pop();
+
+                //when we find the endword return the shortest transformation count
+                if(curr_word == endWord) return shortest_transformation + 1;       
+                
+
+                for(int i = 0; i<curr_word.size(); i++) {               // this loop will convert the word
+                    string new_word = curr_word;
+                    for(char letter = 'a'; letter <= 'z'; letter++) {
+                        new_word[i] = letter;       
+						
+                        /*
+                        for every index, it will choose a new character & make a new word and if it is present in the hash set, then we 
+                        push it in the queue and erase it from the hashset
+                        */
+						
+                        if(hash.find(new_word) != hash.end() and curr_word != new_word )             
+                            q.push(new_word);
+                            hash.erase(new_word);
+                    }
+                } 
+                
+            }
+            
+            ++shortest_transformation;
+            
+        }
+        
+        return 0;
+    }
+};

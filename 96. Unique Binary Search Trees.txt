@@ -1,0 +1,19 @@
+class Solution {
+public:
+    unordered_map<int, int> map = unordered_map<int, int>();
+    int numTrees(int n) {
+        if (map.count(n)) return map[n];
+        if (n <= 1) {
+          return 1;
+        }
+        int count = 0;
+        for (int i = 1; i <= n; i++) {
+          // making 'i' root of the tree
+          int countOfLeftSubtrees = numTrees(i - 1);
+          int countOfRightSubtrees = numTrees(n - i);
+          count += (countOfLeftSubtrees * countOfRightSubtrees);
+        }
+        map[n] = count;
+        return count;
+    }
+};

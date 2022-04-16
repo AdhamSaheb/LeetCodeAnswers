@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string str, string pattern) {
+        
+        vector<int> resultIndices;
+        int windowStart = 0, matched = 0  ;
+        unordered_map<char,int> occurances;
+        for(char c : pattern) occurances[c] ++ ; 
+        for(int windowEnd = 0 ; windowEnd < str.size(); windowEnd++){
+          char rightMost = str[windowEnd];
+          if(occurances.count(rightMost)){
+            occurances[rightMost] -- ;
+            if(!occurances[rightMost]) matched ++ ;
+          }
+          if(matched == occurances.size()){
+            resultIndices.push_back(windowStart);
+          }
+          if(windowEnd - windowStart + 1 >= pattern.size() ){
+            char leftMost = str[windowStart++];
+            if(occurances.count(leftMost)){
+              if(!occurances[leftMost]) matched -- ;
+              occurances[leftMost] ++ ;
+            }
+          }
+        }
+        return resultIndices; 
+    }
+};
+
+/*taken from the educative.io course */
+/*
+ whenever you see a character from the pattern decrease its occurances count 
+ if the occurances becomes 0 you've matched the letter, if all letters matched in the window add the windowStart 
+ if widnow size is same as pattern but no match, shift it right and insert back the occurances of the left most character 
+*/

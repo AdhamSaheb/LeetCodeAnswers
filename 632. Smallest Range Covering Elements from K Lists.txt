@@ -1,0 +1,59 @@
+class Solution {
+public:
+    vector<int> smallestRange(vector<vector<int>>& nums) {
+        
+        vector<int> range = {0,INT_MAX} ;
+        // pointers on lists 
+        vector<int> ptrs(nums.size(),0) ;
+        // min heap
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> minHeap;
+        // vector of pairs <number,which list>
+        vector<pair<int,int>> sorted; 
+        
+        // push first k elements in heap
+        for(int i = 0 ; i < nums.size() ; i++) {
+            // if pointer in range 
+            if(ptrs[i] < nums[i].size() ){
+                minHeap.push({nums[i][ptrs[i]],i});
+            }
+        }
+        
+        // sort array of pairs with heap
+        while(minHeap.size()){
+            pair<int,int> min  = minHeap.top();   
+            minHeap.pop();
+            sorted.push_back(min);
+            ptrs[min.second] ++ ;
+            if( ptrs[min.second] < nums[min.second].size() ) minHeap.push({nums[min.second][ptrs[min.second]],min.second});
+        }     
+        // slide window to get smalles subarray with k keys 
+        int windowStart = 0;
+        // number of indecies inside window 
+        unordered_map<int,int> indecies ; // <index of list, number of elements from that list >
+        for(int windowEnd = 0 ; windowEnd < sorted.size() ; windowEnd ++ ) {
+            pair<int,int> rightMost = sorted[windowEnd];
+            indecies[rightMost.second] ++ ;
+            // shrink 
+            while(indecies.size() == nums.size()) {
+                // update answer 
+                //cout << sorted[windowStart].first << " "  << sorted[windowEnd].first << endl; 
+                if(isSmaller({sorted[windowStart].first,sorted[windowEnd].first},range ) ){
+                    //cout << "Im smaller" << endl; 
+                    range = {sorted[windowStart].first,sorted[windowEnd].first} ;
+                }
+                pair<int,int> leftMost = sorted[windowStart] ;
+                indecies[leftMost.second] --;
+                if(!indecies[leftMost.second]) indecies.erase(leftMost.second);
+                windowStart ++ ;
+            }
+        }
+        return range;
+    }
+    
+    bool isSmaller(vector<int> a, vector<int> b ){
+        if(a[1] - a[0] != b[1]-b[0]) return a[1] - a[0] < b[1]-b[0] ;
+        return a[0] < b[0] ;   
+    }
+};
+
+

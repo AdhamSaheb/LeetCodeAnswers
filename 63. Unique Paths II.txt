@@ -1,0 +1,38 @@
+class Solution {
+public:
+    map<pair<int,int>,int> memo ;
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        pair<int,int> goal = {obstacleGrid.size()-1, obstacleGrid[0].size()-1};
+        return dfs(0,0,obstacleGrid,goal);    
+    }
+    
+    int dfs(int x , int y , vector<vector<int>>& obstacleGrid , pair<int,int> goal){
+        if(memo.count({x,y})) return memo[{x,y}];
+        pair<int,int> current(x,y);
+        if(!check(x,y,obstacleGrid)) return 0 ; // Out of bound or obstacle
+        if(isGoal(current,goal)) return 1 ; // goal 
+        memo[{x,y}] = dfs(x,y+1,obstacleGrid,goal) + dfs(x+1,y,obstacleGrid,goal);
+        return memo[{x,y}] ; 
+    }
+    
+    
+    bool isGoal(pair<int,int> current , pair<int,int> goal) {
+        return current.first == goal.first and current.second == goal.second ;
+    }
+    
+    bool check(int x , int y ,vector<vector<int>>& grid ) {
+        if(x>grid.size() -1 ) return false ; 
+        if(y>grid[0].size() -1 ) return false ;
+        if(grid[x][y]) return false ;
+        return true ;
+    }
+};
+
+
+
+/*
+if goal return 1 ; 
+if memo[index] = return memo[index] ( later )
+else return func(right)  + func(left)
+
+*/

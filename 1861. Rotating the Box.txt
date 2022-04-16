@@ -1,0 +1,64 @@
+// First copy the matrix by turning 90 degrees and then check gravity.
+// Then, for each column, maintain last empty box position which resets when we see a obstacle.
+
+class Solution {
+public:
+    vector<vector<char>> rotateTheBox(vector<vector<char>>& box) {
+        
+    vector<vector<char>> mat(box[0].size(),vector<char>(box.size()));   
+    int row=box.size(),col=box[0].size();
+    for(int i=0;i<row;i++) 
+    {
+        for(int j=0;j<col;j++)
+        {
+            mat[j][row-i-1]=box[i][j];
+        }
+    }
+    for(int i=0;i<row;i++) //here row of box is col of mat
+    {
+        int lastpos=col-1;
+        for(int j=col-1;j>=0;j--)
+        {
+            if(mat[j][i]=='#') 
+            {
+                if(lastpos!=j) mat[j][i]='.';
+                mat[lastpos--][i]='#';
+            }
+            else if(mat[j][i]=='*')
+            {
+                lastpos=j-1;
+            }
+        }
+    }    
+    return mat;
+    }
+};
+
+/*
+
+[2,4]
+[4,2]
+
+
+[0,0] -> [0,1] 
+[0,1] -> [1,1]
+[0,2] -> [2,1]
+[0,3] -> [3,1]
+
+
+[1,0] -> [0,0] 
+[1,1] -> [1,0]
+[1,2] -> [2,0]
+[1,3] -> [3,0]
+
+box[x][y] -> [y][size(j) - x -1] or 
+
+*/
+
+/*
+[1,3]
+[0,0] -> [0,0] 
+[0,1] -> [1,0]
+[0,2] -> [2,0] 
+
+*/

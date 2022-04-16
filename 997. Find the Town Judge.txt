@@ -12,3 +12,43 @@ public:
         return -1 ;
     }
 };
+
+/*GRAPH*/
+class Solution {
+public:
+    unordered_map<int,bool> visited ;
+    int findJudge(int n, vector<vector<int>>& trust) {        
+        vector<vector<int>> graph(n+1) ;
+        vector<int> trusts(n+1,0) ; //count trust for every person 
+        int ans  = -1 ;
+        /*construct graph*/
+        for(auto row : trust) {
+            graph[row[0]].push_back(row[1]) ;
+            trusts[row[1]] ++ ;
+        }
+        /*dfs the graph*/
+        for(int node = 1 ; node<=n ;node++) {
+            if(!visited.count(node)){
+                ans = max(ans,dfs(node,graph,trusts,n)) ;
+                if(ans > -1 ) break ; 
+            }
+        }
+       return ans ;  
+    }
+    int dfs(int node,vector<vector<int>> &graph, vector<int> &trusts ,int n) {
+        visited[node] =1 ;
+        /*operate on node, check if node trusts no one*/
+        if(!graph[node].size())
+            /*check if all trsuts node*/
+            if(trusts[node] == n-1 ) 
+                return node ;
+        int ans = -1 ;
+        /*neighbors*/
+        for(auto neighbor : graph[node])
+            if(!visited.count(neighbor)){
+                ans = max(ans,dfs(neighbor,graph,trusts,n));
+                if(ans > -1 ) break ;
+            }
+        return ans ;
+    }
+};

@@ -1,0 +1,48 @@
+class Solution {
+public:
+    unordered_set<char> notToFill ; 
+    void solve(vector<vector<char>>& board) {
+        set<pair<int,int>> visited ; // marks visited indecies 
+        int currentArea = 0 ;
+        for(int i = 0 ; i < board.size() ; i++){
+            for(int j = 0 ; j < board[0].size() ; j++) {
+                if(board[i][j] == 'O' ){
+                    dfs(i,j,currentArea,board);
+                    currentArea ++ ;
+                }
+            }
+        }
+        for(int i = 0 ; i < board.size() ; i++){
+            for(int j = 0 ; j < board[0].size() ; j++) {
+                if(notToFill.count(board[i][j])) {
+                    board[i][j] = 'O';
+                }else board[i][j] = 'X';
+            }
+        }
+    }
+    
+    // if it returns false, means one index hit a border, set all to x when returning 
+    void dfs(int row , int col , int num,vector<vector<char>>& board){
+        board[row][col] = num + '0' ;
+        int dx[4] = {1,-1,0,0};
+        int dy[4] = {0,0,1,-1};
+        for(int i = 0 ; i< 4 ;i ++) {
+            if(check(row+dx[i],col+dy[i],board) and board[row+dx[i]][col+dy[i]] =='O') {
+                dfs(row+dx[i],col+dy[i],num,board);
+            }
+        }
+        // if on wall, mark to fill
+        if( row == 0 or row == board.size() -1 ) notToFill.insert(num+'0');
+        else if( col == 0 or col == board[0].size() -1 ) notToFill.insert(num+'0');
+    }
+    
+    bool check(int row, int col ,vector<vector<char>>& board) {
+        if(row > board.size()-1 or row < 0) return false ;
+        if(col > board[0].size()-1 or col < 0) return false ;
+        return true ;
+    }
+};
+
+
+
+// mark each area of 'o's with a number, if while traversing area found an 'o' on the border, set its number value in a set  (dont fill), traverse grid again, every value not in set set to 'x'

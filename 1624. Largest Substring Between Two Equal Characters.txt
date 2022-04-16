@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int maxLengthBetweenEqualCharacters(string s) {
+        unordered_map<char,vector<int>> letterIndex; // char -> {min occurance,max occurance}
+        int ans = -1;
+        for(char letter : s) letterIndex[letter] = {INT_MAX,INT_MIN}; 
+        for(int i=0 ; i<s.size(); i++){
+            /*update min and max */
+            if(i < letterIndex[s[i]][0]) letterIndex[s[i]][0] = i;
+            if(i > letterIndex[s[i]][1]) letterIndex[s[i]][1] = i;
+        }
+        /*itearte over min max occurance pairs*/
+        for(auto p : letterIndex)
+            ans = max(ans,(p.second[1] - p.second[0])-1);
+        return ans;
+    }
+};
+

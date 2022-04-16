@@ -1,0 +1,13 @@
+class Solution {
+public:
+    vector<int> replaceElements(vector<int>& arr) {
+        int currMax = -1 ;
+        int n = arr.size()-1;
+        for(int i = n ; i>=0 ; --i ) {
+            int prev = arr[i];
+            arr[i] = currMax ; 
+            if(prev > currMax) currMax = prev;
+        }
+        return arr;
+    }
+};

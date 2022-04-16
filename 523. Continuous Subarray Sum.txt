@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool checkSubarraySum(vector<int>& nums, int k) {
+        if(nums.size() < 2 ) return false ;
+        unordered_map<int,int> seen;
+        vector<int> prefix(nums.size(),0);
+        prefix[0]=nums[0];
+        for(int i = 1 ; i<nums.size() ; i++) {
+            prefix[i] = prefix[i-1] + nums[i];
+        }
+        for(int i = 0 ; i<prefix.size() ; i++) {
+            prefix[i] %= k;
+            if(!prefix[i] && i) return true ; //0 prefix and more than 1 element  
+            if(seen.count(prefix[i])) {
+                if(i - seen[prefix[i]] > 1) return true ;
+            }
+            else seen[prefix[i]] = i; // has to be an else, only the first occurance
+        }
+        return false ;
+    }
+};

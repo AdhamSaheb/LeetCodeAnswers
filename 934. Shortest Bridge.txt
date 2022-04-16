@@ -1,0 +1,127 @@
+class Solution {
+	queue<pair<int, pair<int, int>>> q;
+	int m, n;
+	int dx[4] = {1, -1, 0, 0};
+	int dy[4] = {0, 0, 1, -1};
+	void dfs(int i, int j, vector<vector<int>>& grid) {
+		if (i < 0 || i >= m || j >= n || j < 0 || grid[i][j] != 1)
+			return;
+		q.push({0, {i, j}});
+		grid[i][j] = 2;
+		for (int k = 0; k < 4; k++) {
+			dfs(i + dx[k], j + dy[k], grid);
+		}
+	}
+	bool isValid(int x, int y) {
+		return x >= 0 && y >= 0 && x < m && y < n;
+	}
+public:
+	int shortestBridge(vector<vector<int>>& grid) {
+		m = grid.size();
+		n = grid[0].size();
+        bool t = false;
+        
+        //Find first island 
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (grid[i][j] == 1) {
+					dfs(i, j, grid);
+                    t=true;
+					break;
+				}
+			}
+            if(t)
+                break;
+		}
+
+
+		while (!q.empty()) {
+			pair<int, pair<int, int>> p = q.front();
+			q.pop();
+			int x = p.second.first, y = p.second.second;
+			for (int i = 0; i < 4; i++) {
+				if (isValid(x + dx[i], y + dy[i])) {
+					if (grid[x + dx[i]][y + dy[i]] == 0) {
+						grid[x + dx[i]][y + dy[i]] = 2;
+						q.push({p.first + 1, {x + dx[i], y + dy[i]}});
+					}
+                    // found a neighbor island 
+					else if (grid[x + dx[i]][y + dy[i]] == 1)
+						return p.first;
+				}
+			}
+		}
+		return -1;
+	}
+};
+
+
+
+
+
+
+// using vi = vector<int> ;
+// using vvi = vector<vector<int>>;
+// using Island = set<pair<int,int>>; 
+
+
+// class Solution {
+// public:
+//     int shortestBridge(vector<vector<int>>& grid) {
+//         Island a , b ; 
+//         int ans = INT_MAX ;
+//         for(int i = 0 ; i < grid.size() ; i++) {
+//             for(int j = 0 ; j<grid[0].size() ; j++) {
+//                 if(grid[i][j] == 1) {
+//                     grid[i][j] = -1 ;
+//                     if(!a.size()) {
+//                         dfs(i,j,a,grid);
+//                     }else {
+//                         dfs(i,j,b,grid);
+//                     }
+//                 }
+//             }
+//         }
+//         // compare distance of the indecies of 2 islands 
+//         for(auto index1 : a ) {
+//             for(auto index2 : b) {
+//                 ans = min(ans,distance(index1,index2));
+//             }
+//         }
+//         return ans ;
+//     }
+    
+    
+//     void dfs(int row, int col , Island &island, vvi &grid  ){
+//         island.insert({row,col});
+//         int dx[4]  = {1,-1,0,0};
+//         int dy[4]  = {0,0,1,-1};
+//         for(int i = 0 ; i < 4 ; i++) {
+//             int toX = row + dx[i];
+//             int toY = col + dy[i];
+//             if(check(toX,toY,grid) and grid[toX][toY] == 1 ) {
+//                 grid[toX][toY] = -1 ;
+//                 dfs(toX,toY,island,grid);
+//             }
+//         }
+//     }
+    
+//     bool check(int row ,int col , vvi grid) {
+//         return (row >= 0 and row < grid.size() and col >= 0 and col < grid[0].size()); 
+//     }
+    
+//     int distance(pair<int,int> a, pair<int,int> b){
+//         return abs(a.first-b.first) + abs(a.second - b.second) -1 ;
+//     }
+// };
+
+/*
+[1,1,1,1,1],
+[1,0,0,0,1],
+[1,0,1,0,1],
+[1,0,0,0,1],
+[1,1,1,1,1]
+
+*/
+
+

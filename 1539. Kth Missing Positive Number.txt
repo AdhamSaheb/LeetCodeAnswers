@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) {
+        int index = 0 , num = 1, count = 0 ;
+        while(index < arr.size()){
+            if(arr[index] != num){
+                if(++count == k) return num ;
+                num++;
+            }else{
+                num ++ ;
+                index ++ ;
+            }
+        }
+        //seen all number and count != k
+        return num += (k-count - 1) ;
+    }
+};

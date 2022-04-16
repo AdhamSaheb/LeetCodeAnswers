@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<string> findWords(vector<string>& words) {
+        vector<string> ans ;
+        unordered_map<char,int> mp;
+        string firstRow = "qwertyuiop";
+        string secondRow = "asdfghjkl";
+        string thirdRow = "zxcvbnm";
+        for(char c : firstRow)
+            mp[c] =1 ;
+        for(char c : secondRow)
+            mp[c] =2 ;
+        for(char c : thirdRow)
+            mp[c] =3 ;
+        for(string word : words){
+            int current = mp[tolower(word[0])];
+            bool flg = true ;
+            for(char c : word){
+                if(mp[tolower(c)] != current) flg = false ;
+            }
+            if(flg) ans.push_back(word);
+        }
+        return ans ;
+    }
+};

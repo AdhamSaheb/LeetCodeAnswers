@@ -1,0 +1,23 @@
+using Map = unordered_map<char,int> ;
+
+class Solution {
+public:
+    int maxNumberOfBalloons(string text) {
+        Map mp ;
+        int ans = 0, index = 0;
+        string baloon = "balloon";
+        for(char c : text) mp[c] ++ ;
+        while(index != -1){
+            if(!mp.count(baloon[index])){
+                index = -1 ;
+            }
+            else {
+                mp[baloon[index]] -- ;
+                if(!mp[baloon[index]]) mp.erase(baloon[index]);
+                index = (index +1) % baloon.size();
+                ans += (index == 0) ;
+            }
+        }
+        return ans ; 
+    }
+};

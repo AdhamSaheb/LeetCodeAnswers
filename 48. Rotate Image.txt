@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void rotate(vector<vector<int>>& matrix) {
+        int i, j = 1;
+        int n = matrix.size();
+        
+        //Transposing matrix
+        for(i=0; i<n-1; i++){
+            
+            while(j < n){
+                swap(matrix[i][j], matrix[j][i]);
+                j++;
+            }
+            
+            j = i+2; //Setting start column for next iteration
+        }
+        
+        //Reversing elements in each row of the matrix
+        for(i=0; i<n; i++){
+            reverse(matrix[i].begin(), matrix[i].end());    
+        }
+        
+    }
+};
+
+
+    
+    
